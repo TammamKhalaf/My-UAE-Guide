@@ -1,15 +1,18 @@
 package com.tammamkhalaf.myuaeguide.Common;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.tammamkhalaf.myuaeguide.R;
+import com.tammamkhalaf.myuaeguide.User.UserDashboard;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -36,6 +39,11 @@ public class SplashActivity extends AppCompatActivity {
         backgroundIV.setAnimation(sideAnim);
         powered_by_line.setAnimation(bottomAnim);
 
-    }
+        new Handler().postDelayed(() -> {
+            Intent intent = new Intent(SplashActivity.this, UserDashboard.class);
+            startActivity(intent);
+            finish();
+        }, SPLASH_TIMER);
 
+    }
 }
