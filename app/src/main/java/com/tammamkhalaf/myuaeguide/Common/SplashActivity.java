@@ -29,8 +29,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.splash_screen);
 
 
-        backgroundIV.findViewById(R.id.background_image);
-        powered_by_line.findViewById(R.id.powered_by_line);
+        backgroundIV=findViewById(R.id.background_image);
+        powered_by_line=findViewById(R.id.powered_by_line);
 
 
         sideAnim = AnimationUtils.loadAnimation(SplashActivity.this,R.anim.side_anim);
@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
         powered_by_line.setAnimation(bottomAnim);
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, UserDashboard.class);
+            Intent intent = new Intent(getApplicationContext(), UserDashboard.class);
             startActivity(intent);
             finish();
         }, SPLASH_TIMER);
