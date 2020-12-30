@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
         powered_by_line.setAnimation(bottomAnim);
 
         new Handler().postDelayed(() -> {
-            Intent intent = new Intent(getApplicationContext(), UserDashboard.class);
+            Intent intent = new Intent(getApplicationContext(), OnBoarding.class);
             startActivity(intent);
             finish();
         }, SPLASH_TIMER);
