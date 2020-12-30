@@ -3,15 +3,20 @@ package com.tammamkhalaf.myuaeguide.Common;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tammamkhalaf.myuaeguide.HelperClasses.SliderAdapter;
 import com.tammamkhalaf.myuaeguide.R;
+import com.tammamkhalaf.myuaeguide.User.UserDashboard;
 
 public class OnBoarding extends AppCompatActivity {
 
@@ -20,6 +25,13 @@ public class OnBoarding extends AppCompatActivity {
     SliderAdapter sliderAdapter;
 
     TextView[] dots;
+
+    Button letsGetsStarted;
+
+    Animation animation;
+
+    int currentPosition;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +42,7 @@ public class OnBoarding extends AppCompatActivity {
 
         viewPager = findViewById(R.id.slider);
         dots_layout = findViewById(R.id.dots);
+        letsGetsStarted = findViewById(R.id.get_started_btn);
 
 
         sliderAdapter = new SliderAdapter(this);
@@ -38,12 +51,6 @@ public class OnBoarding extends AppCompatActivity {
 
         addDots(0);
         viewPager.addOnPageChangeListener(changeListener);
-    }
-
-    public void next(View view) {
-    }
-
-    public void skip(View view) {
     }
 
     private void addDots(int position){
@@ -70,6 +77,19 @@ public class OnBoarding extends AppCompatActivity {
         @Override
         public void onPageSelected(int position) {
             addDots(position);
+            currentPosition = position;
+
+            if(position == 0){
+                letsGetsStarted.setVisibility(View.INVISIBLE);
+            }else if(position == 1){
+                letsGetsStarted.setVisibility(View.INVISIBLE);
+            }else if(position == 2){
+                letsGetsStarted.setVisibility(View.INVISIBLE);
+            }else {
+                animation = AnimationUtils.loadAnimation(OnBoarding.this,R.anim.bottom_anim);
+                letsGetsStarted.setAnimation(animation);
+                letsGetsStarted.setVisibility(View.VISIBLE);
+            }
 
         }
 
@@ -78,5 +98,16 @@ public class OnBoarding extends AppCompatActivity {
 
         }
     };
+
+    public void skip(View view){
+        startActivity(new Intent(this, UserDashboard.class));
+        finish();
+    }
+
+    public void next(View view){
+        viewPager.setCurrentItem(currentPosition+1);
+    }
+
+
 
 }
