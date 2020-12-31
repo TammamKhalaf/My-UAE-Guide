@@ -242,8 +242,9 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/featured_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="280dp"
+                    android:layout_height="300dp"
                     android:layout_toRightOf="@id/featured_background"
                     android:background="@color/home_background" />
             </RelativeLayout>
@@ -279,7 +280,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="100dp" />
+                    android:layout_height="150dp"
+                    android:id="@+id/most_viewed_recycler"/>
 
             </LinearLayout>
 
@@ -314,7 +316,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="100dp" />
+                    android:layout_height="200dp"
+                    android:id="@+id/categories_recycler"/>
 
             </LinearLayout>
 
