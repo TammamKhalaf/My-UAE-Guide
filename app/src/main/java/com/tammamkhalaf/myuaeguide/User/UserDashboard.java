@@ -7,11 +7,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -48,6 +50,8 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dashboard);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Hooks
         featuredRecycler = findViewById(R.id.featured_recycler);
@@ -91,7 +95,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
         //Add any color or remove it to use the default one!
         //To make it transparent use Color.Transparent in side setScrimColor();
-        drawerLayout.setScrimColor(getResources().getColor(R.color.colorPrimary));//Color.TRANSPARENT
+        drawerLayout.setScrimColor(getResources().getColor(R.color.banner_background_light));//Color.TRANSPARENT
         drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
@@ -122,7 +126,15 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_all_categories:
+                startActivity(new Intent(getApplicationContext(),AllCategories.class));
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + item.getItemId());
+        }
+
         return true;
     }
 

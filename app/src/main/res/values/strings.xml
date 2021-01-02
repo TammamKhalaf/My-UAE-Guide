@@ -53,6 +53,9 @@
     <string name="share">Share</string>
     <string name="rate_us">Rate Us</string>
     <string name="banks">Banks</string>
+    <string name="car_rent">Car Rent</string>
+    <string name="expand_all">EXPAND ALL</string>
+    <string name="hospitals">Hospitals</string>
 
 
 </resources>
