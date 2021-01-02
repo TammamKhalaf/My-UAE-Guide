@@ -56,6 +56,20 @@
     <string name="car_rent">Car Rent</string>
     <string name="expand_all">EXPAND ALL</string>
     <string name="hospitals">Hospitals</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forget_password">Forget Password!</string>
+    <string name="enter_full_name">Enter Full Name</string>
+    <string name="enter_username">ENTER USERNAME</string>
+    <string name="enter_email">ENTER EMAIL</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+
+
+    <string name="retailer_heading">Grow\nYour Business</string>
+    <string name="retailer_tag_line">We will help you to grow your business using online service!</string>
+    <string name="how_we_work">How We Work!</string>
+    <string name="sign_up">Sign Up</string>
 
 
 </resources>

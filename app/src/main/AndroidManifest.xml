@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyUaeGuide">
-        <activity android:name=".Common.LoginSignup.RetailerStartUpScreen"></activity>
+        <activity android:name=".Common.LoginSignup.Login"></activity>
+        <activity android:name=".Common.LoginSignup.SignUp3rdClass" />
+        <activity android:name=".Common.LoginSignup.SignUp2ndClass" />
+        <activity android:name=".Common.LoginSignup.SignUp" />
+        <activity android:name=".Common.LoginSignup.RetailerStartUpScreen" />
         <activity android:name=".User.AllCategories" />
         <activity android:name=".Common.OnBoarding" />
         <activity android:name=".User.UserDashboard" />

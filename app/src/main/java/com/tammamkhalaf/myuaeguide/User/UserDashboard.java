@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.RetailerStartUpScreen;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.CategoriesAdapter;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.CategoriesHelperClass;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.FeaturedAdapter;
@@ -49,9 +50,9 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_user_dashboard);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Hooks
         featuredRecycler = findViewById(R.id.featured_recycler);
@@ -200,4 +201,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     }
 
 
+    public void callRetailerScreen(View view) {
+        startActivity(new Intent(getApplicationContext(), RetailerStartUpScreen.class));
+    }
 }

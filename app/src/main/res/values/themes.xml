@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyUaeGuide" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MyUaeGuide" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#FFE400</item>
         <item name="colorPrimaryDark">#ffa600</item>
