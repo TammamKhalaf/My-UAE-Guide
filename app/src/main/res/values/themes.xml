@@ -9,5 +9,14 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorNavigationItem">@color/menu_item_color_state</item>
+        <item name="colorNavigationItemSelected">@color/colorWhite</item>
+        <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
+    </style>
+
+    <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
+        <item name="itemIconTint">?attr/colorNavigationItem</item>
+        <item name="itemTextColor">?attr/colorNavigationItem</item>
+        <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
     </style>
 </resources>

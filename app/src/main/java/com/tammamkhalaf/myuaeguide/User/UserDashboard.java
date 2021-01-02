@@ -1,12 +1,21 @@
 package com.tammamkhalaf.myuaeguide.User;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.google.android.material.navigation.NavigationView;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.CategoriesAdapter;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.CategoriesHelperClass;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.FeaturedAdapter;
@@ -15,14 +24,25 @@ import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewedAdpater;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewedHelperClass;
 import com.tammamkhalaf.myuaeguide.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
-public class UserDashboard extends AppCompatActivity {
+public class UserDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     RecyclerView featuredRecycler, mostViewedRecycler, categoriesRecycler;
     RecyclerView.Adapter adapter;
     private GradientDrawable gradient1, gradient2, gradient3, gradient4;
+    ImageView menuIcon;
 
+    LinearLayout content;
+
+    static final float END_SCALE = 0.7f;
+
+
+
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +54,76 @@ public class UserDashboard extends AppCompatActivity {
         mostViewedRecycler = findViewById(R.id.most_viewed_recycler);
         categoriesRecycler = findViewById(R.id.categories_recycler);
 
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigation_view);
+
+        menuIcon = findViewById(R.id.menu_icon);
+
+        content = findViewById(R.id.content);
+
+
         //Functions will be executed automatically when this activity will be created
         featuredRecycler();
         mostViewedRecycler();
         categoriesRecycler();
+        navigationDrawer();
+    }
+
+    private void navigationDrawer() {
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
+
+        menuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(drawerLayout.isDrawerVisible(GravityCompat.START)){
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                }else {
+                    drawerLayout.openDrawer(GravityCompat.START);
+                }
+            }
+        });
+        animateNavigationDrawer();
+    }
+
+    private void animateNavigationDrawer() {
+
+        //Add any color or remove it to use the default one!
+        //To make it transparent use Color.Transparent in side setScrimColor();
+        drawerLayout.setScrimColor(getResources().getColor(R.color.colorPrimary));//Color.TRANSPARENT
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                // Scale the View based on current slide offset
+                final float diffScaledOffset = slideOffset * (1 - END_SCALE);
+                final float offsetScale = 1 - diffScaledOffset;
+                content.setScaleX(offsetScale);
+                content.setScaleY(offsetScale);
+
+                // Translate the View, accounting for the scaled width
+                final float xOffset = drawerView.getWidth() * slideOffset;
+                final float xOffsetDiff = content.getWidth() * diffScaledOffset / 2;
+                final float xTranslation = xOffset - xOffsetDiff;
+                content.setTranslationX(xTranslation);
+            }
+        });
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawerLayout.isDrawerVisible(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else
+        super.onBackPressed();
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+        return true;
     }
 
     private void featuredRecycler() {
@@ -100,7 +186,6 @@ public class UserDashboard extends AppCompatActivity {
         mostViewedRecycler.setAdapter(adapter);
 
     }
-
 
 
 }

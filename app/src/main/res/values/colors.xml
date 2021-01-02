@@ -17,4 +17,6 @@
     <color name="card2">#7adccf</color>
     <color name="card3">#77c59f</color>
     <color name="card4">#b8d7f5</color>
+
+    <color name="colorWhite">#FFFFFF</color>
 </resources>

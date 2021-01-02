@@ -40,6 +40,19 @@
     <string name="search_text">Search...</string>
     <string name="education">Education</string>
     <string name="restaurant">Restaurant</string>
+    <!--      Menu Names      -->
+    <string name="home">HOME</string>
+    <string name="search">SEARCH</string>
+    <string name="all_categories">ALL CATEGORIES</string>
+    <string name="add_missing_place">ADD MISSING PLACE</string>
+
+    <string name="login">Login</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+
+    <string name="share">Share</string>
+    <string name="rate_us">Rate Us</string>
+    <string name="banks">Banks</string>
 
 
 </resources>
