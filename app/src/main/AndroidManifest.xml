@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tammamkhalaf.myuaeguide">
 
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyUaeGuide">
-        <activity android:name=".Common.LoginSignup.VerifyOTP"></activity>
+        <activity android:name=".Common.LoginSignup.SetNewPassword"></activity>
+        <activity android:name=".Common.LoginSignup.ForgetPasswordSuccessMessage" />
+        <activity android:name=".Common.LoginSignup.MakeSelection" />
+        <activity android:name=".Common.LoginSignup.ForgetPassword" />
+        <activity android:name=".Common.LoginSignup.VerifyOTP" />
         <activity android:name=".Common.LoginSignup.Login" />
         <activity android:name=".Common.LoginSignup.SignUp3rdClass" />
         <activity android:name=".Common.LoginSignup.SignUp2ndClass" />

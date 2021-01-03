@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "527901433042",
+    "project_id": "my-uae-guide",
+    "storage_bucket": "my-uae-guide.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527901433042:android:2e024350271dc36598e10b",
+        "android_client_info": {
+          "package_name": "com.tammamkhalaf.myuaeguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527901433042-nv956iiv1etb8nikucv7gq3gq281473p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABLDSu68vWGBs629vi4mkmoA6TZsM3rXU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527901433042-nv956iiv1etb8nikucv7gq3gq281473p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

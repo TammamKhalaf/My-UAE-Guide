@@ -75,6 +75,15 @@
     <string name="otp_code_text">Co\nde</string>
     <string name="todo">todo</string>
     <string name="verify_code">Verify Code</string>
+    <string name="forget_password_detail">Provide Your Account\'s Phone Number For\n Which You Want To\n Reset Your Password</string>
+    <string name="make_selection">Make Selection</string>
+    <string name="make_selection_detail">Select Which Contact Detail Should We Use To Reset Your Password!</string>
+    <string name="via_sms">Via SMS</string>
+    <string name="via_mail">Via Email</string>
+    <string name="password_updated">Password Updated</string>
+    <string name="password_updated_success_message">Your Password Has Been Updated!</string>
+    <string name="new_credentials">New Credentials</string>
+    <string name="new_credentials_detail">Your Identity Has Been Verified!\nSet Your New Password</string>
 
 
 </resources>
