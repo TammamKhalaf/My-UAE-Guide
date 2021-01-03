@@ -51,11 +51,4 @@ public class RetailerStartUpScreen extends AppCompatActivity {
         }
 
     }
-
-
-    public void callForgetPassword(View view) {
-    }
-
-    public void letTheUserLoggedIn(View view) {
-    }
 }

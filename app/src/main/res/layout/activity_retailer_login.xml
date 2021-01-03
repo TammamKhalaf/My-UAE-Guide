@@ -88,7 +88,7 @@
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
-                app:startIconDrawable="@drawable/field_password_icon"
+                app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -116,6 +116,7 @@
                     android:layout_centerVertical="true"
                     android:buttonTint="@color/black"
                     android:text="@string/remember_me"
+                    android:onClick="callSignUpScreen"
                     android:textColor="@color/black" />
 
                 <Button

@@ -77,7 +77,7 @@
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
-                app:startIconDrawable="@drawable/field_full_name_icon"
+                app:startIconDrawable="@drawable/edit"
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -153,7 +153,7 @@
                 app:hintTextColor="@color/black"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="@color/black"
-                app:startIconDrawable="@drawable/field_password_icon"
+                app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
                 app:startIconTint="@color/black">
 
                 <com.google.android.material.textfield.TextInputEditText

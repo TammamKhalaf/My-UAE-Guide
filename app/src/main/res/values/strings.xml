@@ -70,6 +70,11 @@
     <string name="retailer_tag_line">We will help you to grow your business using online service!</string>
     <string name="how_we_work">How We Work!</string>
     <string name="sign_up">Sign Up</string>
+    <string name="otp_description_text">Code</string>
+    <string name="otp_verification_text">Verification</string>
+    <string name="otp_code_text">Co\nde</string>
+    <string name="todo">todo</string>
+    <string name="verify_code">Verify Code</string>
 
 
 </resources>
