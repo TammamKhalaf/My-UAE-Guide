@@ -75,9 +75,9 @@
             app:cursorColor="@color/black"
             app:hideLineWhenFilled="true"
             app:itemCount="6"
-            app:itemHeight="50dp"
+            app:itemHeight="40dp"
             app:itemRadius="5dp"
-            app:itemWidth="50dp"
+            app:itemWidth="40dp"
             app:lineColor="@color/colorAccent"
             app:lineWidth="1dp"
             tools:ignore="SpeakableTextPresentCheck" />

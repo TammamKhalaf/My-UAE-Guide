@@ -1,9 +1,5 @@
 package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,20 +7,24 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.chaos.view.PinView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.TaskExecutors;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
+import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.tammamkhalaf.myuaeguide.Databases.UserHelperClass;
 import com.tammamkhalaf.myuaeguide.R;
 
-import org.jetbrains.annotations.NotNull;
-
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class VerifyOTP extends AppCompatActivity {
@@ -32,6 +32,9 @@ public class VerifyOTP extends AppCompatActivity {
     private static final String TAG = "VerifyOTP";
     PinView pinFromUser;
     String codeBySystem;
+    private FirebaseAuth mAuth;
+
+    String fullName, username,email,password,gender,date,phoneNo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,89 +43,126 @@ public class VerifyOTP extends AppCompatActivity {
         setContentView(R.layout.activity_verify_otp);
 
         pinFromUser = findViewById(R.id.pin_view);
+        mAuth = FirebaseAuth.getInstance();
 
         Intent intentPrevious = getIntent();
-        String fullName = intentPrevious.getStringExtra("fullName");
-        String username = intentPrevious.getStringExtra("username");
-        String email = intentPrevious.getStringExtra("email");
-        String password = intentPrevious.getStringExtra("password");
-        String gender = intentPrevious.getStringExtra("gender");
-        String date = intentPrevious.getStringExtra("age");
-        String phoneNo = intentPrevious.getStringExtra("phoneNo");
+        fullName = intentPrevious.getStringExtra("fullName");
+        username = intentPrevious.getStringExtra("username");
+        email = intentPrevious.getStringExtra("email");
+        password = intentPrevious.getStringExtra("password");
+        gender = intentPrevious.getStringExtra("gender");
+        date = intentPrevious.getStringExtra("age");
+        phoneNo = intentPrevious.getStringExtra("phoneNo");
 
-        Log.i(TAG, "onCreate: phone Number"+phoneNo);
+        Log.i(TAG, "onCreate: phone Number" + phoneNo);
         sendVerificationCodeToUser(phoneNo);
     }
 
     private void verifyCode(String code) {
         PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeBySystem, code);
+        Toast.makeText(this, "verifyCode", Toast.LENGTH_SHORT).show();
         signInWithPhoneAuthCredential(credential);
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-        firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            //Verification completed successfully here Either
-                            // store the data or do whatever desire
-                            Toast.makeText(VerifyOTP.this, "Verification Success", Toast.LENGTH_SHORT).show();
-                        } else {
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                Toast.makeText(VerifyOTP.this, "Verification Not Completed! Try again.", Toast.LENGTH_SHORT).show();
-                            }
-                            Toast.makeText(VerifyOTP.this, "Verification Not Completed! Try again.out", Toast.LENGTH_LONG).show();
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        storeNewUsersData();
+                    } else {
+                        // Sign in failed, display a message and update the UI
+                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            // The verification code entered was invalid
+                            Toast.makeText(VerifyOTP.this, "The verification code entered was invalid", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
-    private void sendVerificationCodeToUser(String phoneNo) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNo,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                this,// Activity (for callback binding) //todo find way for this rock TaskExecutors.MAIN_THREAD
-                mCallbacks);        // OnVerificationStateChangedCallbacks
+    private void storeNewUsersData() {
+        FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = rootNode.getReference("Users");
+
+        UserHelperClass userHelperClass =
+                new UserHelperClass(fullName, username, email, password,gender, date,phoneNo);
+
+        myRef.child(phoneNo).setValue(userHelperClass);
 
     }
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks =
+    private void sendVerificationCodeToUser(String phoneNo) {
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(mAuth)
+                        .setPhoneNumber(phoneNo)       // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(this)                 // Activity (for callback binding)
+                        .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
+    }
+
+    private final PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks =
             new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                @Override
-                public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                    super.onCodeSent(s, forceResendingToken);
-                    codeBySystem = s;
-                }
 
                 @Override
-                public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                    String code = phoneAuthCredential.getSmsCode();
+                public void onVerificationCompleted(PhoneAuthCredential credential) {
+                    // This callback will be invoked in two situations:
+                    // 1 - Instant verification. In some cases the phone number can be instantly
+                    //     verified without needing to send or enter a verification code.
+                    // 2 - Auto-retrieval. On some devices Google Play services can automatically
+                    //     detect the incoming verification SMS and perform verification without
+                    //     user action.
+                    String code = Objects.requireNonNull(credential.getSmsCode());
                     if (code != null) {
-                        pinFromUser.setText(code);//TODO REMAINING SET THE CODE DIRECTLY ONCE REACHED TO THE PHONE
+                        pinFromUser.setText(code);
                         verifyCode(code);
                     }
+                    Log.d(TAG, "onVerificationCompleted: ");
                 }
 
                 @Override
-                public void onVerificationFailed(@NonNull @NotNull FirebaseException e) {
-                    Toast.makeText(VerifyOTP.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                public void onVerificationFailed(FirebaseException e) {
+                    // This callback is invoked in an invalid request for verification is made,
+                    // for instance if the the phone number format is not valid.
+                    Log.w(TAG, "onVerificationFailed" + e.getLocalizedMessage());
+
+                    if (e instanceof FirebaseAuthInvalidCredentialsException) {
+                        // Invalid request
+                        // ...
+                    } else if (e instanceof FirebaseTooManyRequestsException) {
+                        // The SMS quota for the project has been exceeded
+                        // ...
+                    }
+
+                    // Show a message and update the UI
+                    // ...
                 }
 
-            };
+                @Override
+                public void onCodeSent(@NonNull String verificationId,
+                                       @NonNull PhoneAuthProvider.ForceResendingToken token) {
+                    // The SMS verification code has been sent to the provided phone number, we
+                    // now need to ask the user to enter the code and then construct a credential
+                    // by combining the code with a verification ID.
+                    super.onCodeSent(verificationId, token);
+                    codeBySystem = verificationId;
 
+                    // Save verification ID and resending token so we can use them later
+                    //mVerificationId = verificationId;
+                    //mResendToken = token;
+
+                    // ...
+                }
+            };
 
 
     public void goToHomeFromOTP(View view) {
     }
 
     public void callNextScreenFromOTP(View view) {
-        String code = pinFromUser.getText().toString();
-        if(!code.isEmpty()){
+        String code = Objects.requireNonNull(pinFromUser.getText()).toString();
+        if (!code.isEmpty()) {
             verifyCode(code);
         }
     }

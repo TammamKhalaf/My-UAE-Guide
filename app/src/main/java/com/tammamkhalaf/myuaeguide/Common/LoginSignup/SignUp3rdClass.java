@@ -43,8 +43,6 @@ public class SignUp3rdClass extends AppCompatActivity {
             return;
         }
 
-        try {
-
             Intent intentPrevious = getIntent();
             String fullName = intentPrevious.getStringExtra("fullName");
             String username = intentPrevious.getStringExtra("username");
@@ -53,8 +51,19 @@ public class SignUp3rdClass extends AppCompatActivity {
 
             String gender = intentPrevious.getStringExtra("gender");
             String date = intentPrevious.getStringExtra("age");
-            String getUserEnteredPhoneNumber = phoneNumber.getEditText().getText().toString().trim();
-            String phoneNo = "+"+countryCodePicker.getSelectedCountryCode()+getUserEnteredPhoneNumber;//getFullNumber
+            //String getUserEnteredPhoneNumber = phoneNumber.getEditText().getText().toString().trim();
+            //String phoneNo = "+"+countryCodePicker.getSelectedCountryCode()+getUserEnteredPhoneNumber;//getFullNumber
+
+        //Get complete phone number
+        String _getUserEnteredPhoneNumber = phoneNumber.getEditText().getText().toString().trim();
+        //Remove first zero if entered!
+        if (_getUserEnteredPhoneNumber.charAt(0) == '0') {
+            _getUserEnteredPhoneNumber = _getUserEnteredPhoneNumber.substring(1);
+        }
+        //Complete phone number
+        final String _phoneNo = "+" + countryCodePicker.getFullNumber() + _getUserEnteredPhoneNumber;
+
+
 
             Intent intent = new Intent(getApplicationContext(), VerifyOTP.class);
 
@@ -64,7 +73,7 @@ public class SignUp3rdClass extends AppCompatActivity {
             intent.putExtra("password",password);
             intent.putExtra("gender",gender);
             intent.putExtra("age",date);
-            intent.putExtra("phoneNo",phoneNo);
+            intent.putExtra("phoneNo",_phoneNo);
 
             //todo Add Transition
             Pair[] pairs = new Pair[1];
@@ -75,10 +84,6 @@ public class SignUp3rdClass extends AppCompatActivity {
             } else {
                 startActivity(intent);
             }
-        }catch (Exception e){
-            Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "callVerifyOTPScreen: "+e.getLocalizedMessage());
-        }
 
     }
 
