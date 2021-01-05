@@ -3,9 +3,17 @@ package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
@@ -48,11 +56,15 @@ public class Login extends AppCompatActivity {
     }
 
     public void letTheUserLoggedIn(View view) {
+        if(!isConnected(this)){
+            showCustomDialog();
+        }
+
+            progressbar.setVisibility(View.VISIBLE);
         if (!validateFields()) {
             return;
         }
 
-        progressbar.setVisibility(View.VISIBLE);
 
         String _phoneNumber = phoneNumber.getEditText().getText().toString().trim();
         String _password = password.getEditText().getText().toString().trim();
@@ -105,6 +117,34 @@ public class Login extends AppCompatActivity {
 
     }
 
+    private boolean isConnected(Login login) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) login.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo wifiConnection = connectivityManager.getNetworkInfo(connectivityManager.TYPE_WIFI);
+        NetworkInfo mobileConnection = connectivityManager.getNetworkInfo(connectivityManager.TYPE_MOBILE);
+
+        if(wifiConnection != null && wifiConnection.isConnected() || (mobileConnection!=null && mobileConnection.isConnected())){
+            return true;
+        }else {
+            return false;
+        }
+
+    }
+
+    private void showCustomDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+        builder.setMessage("Please Connect To The Internet to connect further!")
+        .setCancelable(false)
+        .setPositiveButton("Connect", (dialogInterface, i) -> {
+            startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+        }).setNegativeButton("Cancel", (dialogInterface, i) -> {
+            startActivity(new Intent(getApplicationContext(),RetailerStartUpScreen.class));
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
 
     private boolean validateFields() {
         String _phoneNumber = phoneNumber.getEditText().getText().toString().trim();
@@ -138,4 +178,5 @@ public class Login extends AppCompatActivity {
         }
 
     }
+
 }
