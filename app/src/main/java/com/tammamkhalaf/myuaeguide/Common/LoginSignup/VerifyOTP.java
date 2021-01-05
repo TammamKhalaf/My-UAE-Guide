@@ -34,7 +34,7 @@ public class VerifyOTP extends AppCompatActivity {
     String codeBySystem;
     private FirebaseAuth mAuth;
 
-    String fullName, username,email,password,gender,date,phoneNo;
+    String fullName, username,email,password,gender,date,phoneNo,whatTodo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,7 @@ public class VerifyOTP extends AppCompatActivity {
         gender = intentPrevious.getStringExtra("gender");
         date = intentPrevious.getStringExtra("age");
         phoneNo = intentPrevious.getStringExtra("phoneNo");
+        whatTodo = intentPrevious.getStringExtra("whatToDo");
 
         Log.i(TAG, "onCreate: phone Number" + phoneNo);
         sendVerificationCodeToUser(phoneNo);
@@ -68,7 +69,9 @@ public class VerifyOTP extends AppCompatActivity {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        storeNewUsersData();
+                        if(whatTodo!=null && whatTodo.equals("updateData")){
+                            updateOldUsersData();
+                        }else storeNewUsersData();
                     } else {
                         // Sign in failed, display a message and update the UI
                         Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -78,6 +81,13 @@ public class VerifyOTP extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void updateOldUsersData() {
+        Intent intent = new Intent(getApplicationContext(),SetNewPassword.class);
+        intent.putExtra("phoneNo",phoneNo);
+        startActivity(intent);
+        finish();
     }
 
     private void storeNewUsersData() {
@@ -95,7 +105,7 @@ public class VerifyOTP extends AppCompatActivity {
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber(phoneNo)       // Phone number to verify
-                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setTimeout(10L, TimeUnit.SECONDS) // Timeout and unit
                         .setActivity(this)                 // Activity (for callback binding)
                         .setCallbacks(mCallbacks)          // OnVerificationStateChangedCallbacks
                         .build();

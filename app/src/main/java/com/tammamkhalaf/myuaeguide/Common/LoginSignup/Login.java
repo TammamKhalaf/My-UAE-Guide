@@ -53,6 +53,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void callForgetPassword(View view) {
+        startActivity(new Intent(getApplicationContext(),ForgetPassword.class));
     }
 
     public void letTheUserLoggedIn(View view) {
@@ -60,7 +61,8 @@ public class Login extends AppCompatActivity {
             showCustomDialog();
         }
 
-            progressbar.setVisibility(View.VISIBLE);
+        progressbar.setVisibility(View.VISIBLE);
+
         if (!validateFields()) {
             return;
         }
