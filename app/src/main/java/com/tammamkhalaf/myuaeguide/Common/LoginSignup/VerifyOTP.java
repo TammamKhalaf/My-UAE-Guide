@@ -123,7 +123,7 @@ public class VerifyOTP extends AppCompatActivity {
                     // 2 - Auto-retrieval. On some devices Google Play services can automatically
                     //     detect the incoming verification SMS and perform verification without
                     //     user action.
-                    String code = Objects.requireNonNull(credential.getSmsCode());
+                    String code = credential.getSmsCode();
                     if (code != null) {
                         pinFromUser.setText(code);
                         verifyCode(code);
@@ -171,7 +171,7 @@ public class VerifyOTP extends AppCompatActivity {
     }
 
     public void callNextScreenFromOTP(View view) {
-        String code = Objects.requireNonNull(pinFromUser.getText()).toString();
+        String code = pinFromUser.getText().toString();
         if (!code.isEmpty()) {
             verifyCode(code);
         }

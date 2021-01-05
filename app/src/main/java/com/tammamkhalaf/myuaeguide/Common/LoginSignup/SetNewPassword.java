@@ -27,7 +27,6 @@ public class SetNewPassword extends AppCompatActivity {
     Animation animation;
     TextInputLayout confirmPassword,newPassword;
 
-    String newPasswordFinal,confirmedPassword;
     RelativeLayout progress_bar;
 
     @Override
@@ -39,9 +38,6 @@ public class SetNewPassword extends AppCompatActivity {
 
         confirmPassword = findViewById(R.id.confirm_password);
         newPassword = findViewById(R.id.new_password);
-
-        newPasswordFinal = newPassword.getEditText().getText().toString().trim();
-        confirmedPassword = confirmPassword.getEditText().getText().toString().trim();
 
         progress_bar = findViewById(R.id.progress_bar);
 
@@ -70,7 +66,7 @@ public class SetNewPassword extends AppCompatActivity {
         }
 
         progress_bar.setVisibility(View.VISIBLE);
-
+        String confirmedPassword = confirmPassword.getEditText().getText().toString().trim();
         String phoneNo = getIntent().getStringExtra("phoneNo");
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -109,15 +105,16 @@ public class SetNewPassword extends AppCompatActivity {
     }
 
     private boolean validateFields() {
-        if (newPasswordFinal.isEmpty()) {
+        if (newPassword.getEditText().getText().toString().trim().isEmpty()) {
             newPassword.setError("Field can not be empty");
             newPassword.requestFocus();
             return false;
-        } else if(confirmedPassword.isEmpty()) {
+        } else if(confirmPassword.getEditText().getText().toString().trim().isEmpty()) {
             confirmPassword.setError("Field can not be empty");
             confirmPassword.requestFocus();
             return false;//todo check zero for phone number add at the beginnings
-        }else if(!newPasswordFinal.equals(confirmedPassword)){
+        }else if(!newPassword.getEditText().getText().toString().trim()
+                .equals(confirmPassword.getEditText().getText().toString().trim())){
             newPassword.requestFocus();
             newPassword.setError("Both should be same");
             confirmPassword.requestFocus();
