@@ -3,18 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tammamkhalaf.myuaeguide">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyUaeGuide"
+        android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity android:name=".LocationOwner.RetailerDashboard"></activity>
         <activity android:name=".Common.LoginSignup.SetNewPassword" />
         <activity android:name=".Common.LoginSignup.ForgetPasswordSuccessMessage" />
         <activity android:name=".Common.LoginSignup.MakeSelection" />

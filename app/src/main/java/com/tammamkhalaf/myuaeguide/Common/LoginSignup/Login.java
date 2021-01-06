@@ -17,9 +17,11 @@ import android.provider.Settings;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -28,9 +30,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
+import com.tammamkhalaf.myuaeguide.Databases.SessionManager;
+import com.tammamkhalaf.myuaeguide.LocationOwner.RetailerDashboard;
 import com.tammamkhalaf.myuaeguide.R;
+import com.tammamkhalaf.myuaeguide.User.UserDashboard;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
 
 public class Login extends AppCompatActivity {
 
@@ -38,6 +45,9 @@ public class Login extends AppCompatActivity {
     CountryCodePicker countryCodePicker;
     TextInputLayout phoneNumber, password;
     RelativeLayout progressbar;
+    CheckBox RememberMe;
+
+    TextInputEditText phoneNumberEditText, passwordEditText;//todo create hooks
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +59,18 @@ public class Login extends AppCompatActivity {
         phoneNumber = findViewById(R.id.login_phone_number);
         password = findViewById(R.id.login_password);
         progressbar = findViewById(R.id.login_progress_bar);
+
+        RememberMe = findViewById(R.id.remember_me);
+        phoneNumberEditText = findViewById(R.id.login_phone_number_editText);
+        passwordEditText = findViewById(R.id.login_password_editText);
+
+
+        SessionManager sessionManager = new SessionManager(Login.this,SessionManager.SESSION_REMEMBER_ME);
+        if(sessionManager.checkRememberMe()){
+            HashMap<String,String> rememberMeDetails = sessionManager.getRememberMeDetailFromSession();
+            phoneNumberEditText.setText(rememberMeDetails.get(SessionManager.KEY_SESSION_PHONE_NUMBER));
+            passwordEditText.setText(rememberMeDetails.get(SessionManager.KEY_SESSION_PASSWORD));
+        }
 
     }
 
@@ -80,8 +102,12 @@ public class Login extends AppCompatActivity {
         //Complete phone number
         final String _phoneNo = "+" + countryCodePicker.getFullNumber() + _getUserEnteredPhoneNumber;
 
-        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(_phoneNo);
+        if(RememberMe.isChecked()){
+            SessionManager sessionManager = new SessionManager(Login.this,SessionManager.SESSION_REMEMBER_ME);
+            sessionManager.createRememberMeSession(_password,_getUserEnteredPhoneNumber);
+        }
 
+        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(_phoneNo);
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -95,11 +121,16 @@ public class Login extends AppCompatActivity {
                         phoneNumber.setErrorEnabled(false);
 
                         String systemFullName = snapshot.child(_phoneNo).child("fullName").getValue(String.class);
+                        String systemUsername = snapshot.child(_phoneNo).child("username").getValue(String.class);
                         String systemEmail = snapshot.child(_phoneNo).child("email").getValue(String.class);
-                        String SystemDOB = snapshot.child(_phoneNo).child("date").getValue(String.class);
+                        String systemDOB = snapshot.child(_phoneNo).child("date").getValue(String.class);
                         String systemPhoneNo = snapshot.child(_phoneNo).child("phoneNo").getValue(String.class);
+                        String systemGender = snapshot.child(_phoneNo).child("gender").getValue(String.class);
 
+                        SessionManager sessionManager = new SessionManager(Login.this,SessionManager.SESSION_USER_SESSION);
+                        sessionManager.createLoginSession(systemFullName,systemUsername,systemEmail,systemPassword,systemGender,systemDOB,systemPhoneNo);
 
+                        startActivity(new Intent(getApplicationContext(), RetailerDashboard.class));
 
                     } else {
                         Toast.makeText(Login.this, "Password Doesn't Match", Toast.LENGTH_SHORT).show();
