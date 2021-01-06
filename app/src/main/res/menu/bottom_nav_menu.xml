@@ -4,20 +4,20 @@
 
     <item
         android:id="@+id/bottom_nav_dashboard"
-        android:title="Dashboard"
+        android:title="@string/dashboard"
         android:icon="@drawable/bottom_nav_dashboard_icon"
         app:background="@color/colorPrimary"
         />
     <item
         android:id="@+id/bottom_nav_manage"
-        android:title="Manage"
+        android:title="@string/manage"
         android:icon="@drawable/bottom_nav_manage_icon"
         app:background="@color/colorPrimary"
         />
 
     <item
         android:id="@+id/bottom_nav_profile"
-        android:title="Profile"
+        android:title="@string/profile"
         android:icon="@drawable/bottom_nav_profile_icon"
         app:background="@color/colorPrimary"
         />

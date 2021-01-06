@@ -99,6 +99,23 @@
     <string name="ConnectInternet">Please Connect To The Internet to connect further!</string>
     <string name="connect">Connect</string>
     <string name="cancel">Cancel</string>
+    <string name="choose_gender">Choose Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="select_your_age">Select Your Age</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="manage">Manage</string>
+    <string name="profile">Profile</string>
+    <string name="profile">Profile</string>
+    <string name="categories">Categories</string>
+    <string name="share">Share</string>
+    <string name="profile_fragment">Profile Fragment</string>
+    <string name="manage_fragment">Manage Fragment</string>
+    <string name="dashboard_fragment">Dashboard Fragment</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="update">Update</string>
 
 
 </resources>

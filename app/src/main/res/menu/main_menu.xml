@@ -20,7 +20,7 @@
     </group>
 
 
-    <item android:title="Profile">
+    <item android:title="@string/profile">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -39,7 +39,7 @@
         </menu>
     </item>
 
-    <item android:title="Categories">
+    <item android:title="@string/categories">
         <menu>
             <group android:checkableBehavior="single">
                 <item
@@ -62,7 +62,7 @@
         </menu>
     </item>
 
-    <item android:title="Share">
+    <item android:title="@string/share">
         <menu>
             <group android:checkableBehavior="none">
                 <item

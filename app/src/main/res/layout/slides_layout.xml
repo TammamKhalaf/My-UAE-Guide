@@ -23,7 +23,6 @@
         android:layout_marginEnd="178dp"
         android:fontFamily="@font/adamina"
         android:gravity="center"
-        android:text="TextView"
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.471"

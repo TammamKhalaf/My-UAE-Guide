@@ -148,7 +148,7 @@
                 android:layout_marginTop="20dp"
                 android:background="#00000000"
                 android:onClick="callSignUpScreen"
-                android:text="Create Account" />
+                android:text="@string/create_account" />
 
             <RelativeLayout
                 android:id="@+id/login_progress_bar"
