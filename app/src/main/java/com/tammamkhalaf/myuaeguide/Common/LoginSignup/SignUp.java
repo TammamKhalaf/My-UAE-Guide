@@ -19,6 +19,8 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.tammamkhalaf.myuaeguide.R.string.Empty_Field;
+
 public class SignUp extends AppCompatActivity {
 
     //Variables
@@ -85,7 +87,7 @@ public class SignUp extends AppCompatActivity {
     private boolean validateFullName() {
         String val = Objects.requireNonNull(fullName.getEditText()).getText().toString().trim();
         if (val.isEmpty()) {
-            fullName.setError("Field can not be empty");
+            fullName.setError(getString(Empty_Field));
             return false;
         } else {
             fullName.setError(null);
@@ -99,13 +101,13 @@ public class SignUp extends AppCompatActivity {
         String checkspaces = "\\A\\w{1,20}z";
 
         if (val.isEmpty()) {
-            username.setError("Field can not be empty");
+            username.setError(getString(Empty_Field));
             return false;
         } else if (val.length() > 20) {
-            username.setError("Username is too large!");
+            username.setError(getString(R.string.UserNameLarge));
             return false;
         } else if (val.contains(" ")) {//!val.matches(checkspaces)
-            username.setError("No White spaces are allowed!");
+            username.setError(getString(R.string.NoWhiteSpaces));
             return false;
         } else {
             username.setError(null);
@@ -119,10 +121,10 @@ public class SignUp extends AppCompatActivity {
         String checkEmail = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+";
 
         if (val.isEmpty()) {
-            email.setError("Field can not be empty");
+            email.setError(getString(Empty_Field));
             return false;
         } else if (!val.matches(checkEmail)) {
-            email.setError("Invalid Email!");
+            email.setError(getString(R.string.InvalidEmail));
             return false;
         } else {
             email.setError(null);
@@ -155,7 +157,7 @@ public class SignUp extends AppCompatActivity {
 //            return true;
 //        }
         if(Objects.requireNonNull(password.getEditText()).getText().toString().trim().length()<8 && !isValidPassword(password.getEditText().getText().toString().trim())){
-            password.setError("Enter At least 8 chars Upper case, Lower case, digits, special chars");
+            password.setError(getString(R.string.PasswordStrenght));
             return false;
         }else{
             System.out.println("Valid");

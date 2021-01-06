@@ -105,7 +105,7 @@ public class ForgetPassword extends AppCompatActivity {
 
                     } else {
                         progressBar.setVisibility(View.GONE);
-                        phoneNumberTextField.setError("No Such user Exist!");
+                        phoneNumberTextField.setError(getString(R.string.NoSuchUser));
                         phoneNumberTextField.requestFocus();
                     }
                 }
@@ -133,7 +133,7 @@ public class ForgetPassword extends AppCompatActivity {
     private boolean validateField() {
         String _phoneNumber = Objects.requireNonNull(phoneNumberTextField.getEditText()).getText().toString().trim();
         if (_phoneNumber.isEmpty()) {
-            phoneNumberTextField.setError("Field can not be empty");
+            phoneNumberTextField.setError(getString(R.string.Empty_Field));
             phoneNumberTextField.requestFocus();
             return false;
         } else {

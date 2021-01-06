@@ -130,11 +130,11 @@ public class Login extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), RetailerDashboard.class));
 
                     } else {
-                        Toast.makeText(Login.this, "Password Doesn't Match", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, getString(R.string.PasswordDoesntMatch), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     progressbar.setVisibility(View.GONE);
-                    Toast.makeText(Login.this, "No Such User exist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, getString(R.string.NoSuchUser), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -160,11 +160,11 @@ public class Login extends AppCompatActivity {
     private void showCustomDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
-        builder.setMessage("Please Connect To The Internet to connect further!")
+        builder.setMessage(R.string.ConnectInternet)
         .setCancelable(false)
-        .setPositiveButton("Connect", (dialogInterface, i) -> {
+        .setPositiveButton(R.string.connect, (dialogInterface, i) -> {
             startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-        }).setNegativeButton("Cancel", (dialogInterface, i) -> {
+        }).setNegativeButton(R.string.cancel, (dialogInterface, i) -> {
             startActivity(new Intent(getApplicationContext(),RetailerStartUpScreen.class));
         });
 
@@ -176,11 +176,11 @@ public class Login extends AppCompatActivity {
         String _phoneNumber = Objects.requireNonNull(phoneNumber.getEditText()).getText().toString().trim();
         String _password = Objects.requireNonNull(password.getEditText()).getText().toString().trim();
         if (_phoneNumber.isEmpty()) {
-            phoneNumber.setError("Field can not be empty");
+            phoneNumber.setError(getString(R.string.Empty_Field));
             phoneNumber.requestFocus();
             return false;
         } else if (_password.isEmpty()) {
-            password.setError("Field can not be empty");
+            password.setError(getString(R.string.Empty_Field));
             password.requestFocus();
             return false;
         } else {

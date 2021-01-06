@@ -104,7 +104,7 @@ public class SignUp2ndClass extends AppCompatActivity {
 
     private boolean validateGender() {
         if (radioGroup.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this, "Please Select Gender", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getString(R.string.SelectGender), Toast.LENGTH_SHORT).show();
             return false;
         } else {
             gender = radioGroup.getCheckedRadioButtonId();
@@ -115,12 +115,10 @@ public class SignUp2ndClass extends AppCompatActivity {
     private boolean validateAge() {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         int userAge = datePicker.getYear();
-        int isAgeValid = 2021 - userAge;
-
-        android.util.Log.i(TAG, "validateAge: currentYear Is = "+currentYear);
+        int isAgeValid = currentYear - userAge;
 
         if (isAgeValid < 14) {
-            Toast.makeText(this, "You are not eligible to apply", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.NotAllowed), Toast.LENGTH_SHORT).show();
             return false;
         } else
             currentAge = isAgeValid;

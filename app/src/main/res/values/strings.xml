@@ -86,6 +86,19 @@
     <string name="new_credentials_detail">Your Identity Has Been Verified!\nSet Your New Password</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="Empty_Field">Field can not be empty</string>
+    <string name="UserNameLarge">Username is too large!</string>
+    <string name="NoWhiteSpaces">No White spaces are allowed!</string>
+    <string name="InvalidEmail">Invalid Email!</string>
+    <string name="PasswordStrenght">Enter At least 8 chars Upper case, Lower case, digits, special chars</string>
+    <string name="SelectGender">Please Select Gender</string>
+    <string name="NotAllowed">You are not eligible to apply</string>
+    <string name="EnterValidPhoneNo">Enter valid phone number</string>
+    <string name="NoSuchUser">No Such user Exist!</string>
+    <string name="PasswordDoesntMatch">Password Doesn\'t Match</string>
+    <string name="ConnectInternet">Please Connect To The Internet to connect further!</string>
+    <string name="connect">Connect</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

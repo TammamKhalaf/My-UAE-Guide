@@ -90,10 +90,10 @@ public class SignUp3rdClass extends AppCompatActivity {
         String val = Objects.requireNonNull(phoneNumber.getEditText()).getText().toString().trim();
         String checkspaces = "Aw{1,20}z";
         if (val.isEmpty()) {
-            phoneNumber.setError("Enter valid phone number");
+            phoneNumber.setError(getString(R.string.EnterValidPhoneNo));
             return false;
         } else if (val.contains(" ")) {
-            phoneNumber.setError("No White spaces are allowed!");
+            phoneNumber.setError(getString(R.string.NoWhiteSpaces));
             return false;
         } else {
             phoneNumber.setError(null);
