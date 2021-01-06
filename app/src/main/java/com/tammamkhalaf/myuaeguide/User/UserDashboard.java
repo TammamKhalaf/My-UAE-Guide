@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.android.material.navigation.NavigationView;
+import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.NearbyPlacesHelperClass;
 import com.tammamkhalaf.myuaeguide.Common.LoginSignup.RetailerStartUpScreen;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.CategoriesAdapter;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.CategoriesHelperClass;
@@ -28,7 +30,11 @@ import com.tammamkhalaf.myuaeguide.R;
 
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
+
 public class UserDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    private static final String TAG = "UserDashboard";
 
     RecyclerView featuredRecycler, mostViewedRecycler, categoriesRecycler;
     RecyclerView.Adapter adapter;
@@ -134,7 +140,6 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     }
 
     private void featuredRecycler() {
-
 
         featuredRecycler.setHasFixedSize(true);
         featuredRecycler.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
