@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.google.android.material.navigation.NavigationView;
-import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.NearbyPlacesHelperClass;
 import com.tammamkhalaf.myuaeguide.Common.LoginSignup.RetailerStartUpScreen;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.CategoriesAdapter;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.CategoriesHelperClass;
@@ -28,9 +27,19 @@ import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewedAdpater;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewedHelperClass;
 import com.tammamkhalaf.myuaeguide.R;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import okhttp3.ResponseBody;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class UserDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -74,6 +83,57 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         mostViewedRecycler();
         categoriesRecycler();
         navigationDrawer();
+
+        /***
+         *
+         * my code below
+         * */
+
+        findPlacesByText("Children's Creativity Museum", "en",
+                new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        // Something went wrong
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (response.isSuccessful()) {
+                            String responseStr = response.body().string();
+                            // Do what you want to do with the response.
+                            Log.d(TAG, "findPlacesByText response: " + responseStr);
+                            showResults(responseStr);
+                        } else {
+                            // Request not successful
+                        }
+                    }
+                });
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        findPlacesNearby(37.783366,-122.402325, "cafe", 150, "en",
+                new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        // Something went wrong
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        if (response.isSuccessful()) {
+                            String responseStr = response.body().string();
+                            // Do what you want to do with the response.
+                            Log.d(TAG, "findPlacesNearby response: " + responseStr);
+                            showResults(responseStr);
+                        } else {
+                            // Request not successful
+                        }
+                    }
+                });
     }
 
     private void navigationDrawer() {
@@ -203,4 +263,66 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     public void callRetailerScreen(View view) {
         startActivity(new Intent(getApplicationContext(), RetailerStartUpScreen.class));
     }
+
+    /***
+     * test rapid api
+     *
+     * my code below
+     * */
+
+
+    private final static String RAPIDAPI_KEY = "cb558f9b05mshc727d913f6cde72p158d4fjsn1c4bf14f36d0";
+    private final static String RAPIDAPI_TRUEWAY_PLACES_HOST = "trueway-places.p.rapidapi.com";
+
+    private final OkHttpClient client = new OkHttpClient();
+
+    public void getRapidApiAsync(String url, String rapidApiKey, String rapidApiHost, Callback callback) {
+        Request request = new Request.Builder()
+                .url(url)
+                .get()
+                .addHeader("x-rapidapi-key", rapidApiKey)
+                .addHeader("x-rapidapi-host", rapidApiHost)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+    }
+
+    public void findPlacesByText(String text, String language, Callback callback) {
+        getRapidApiAsync(String.format(Locale.US, "https://%s/FindPlaceByText?text=%s&language=%s", RAPIDAPI_TRUEWAY_PLACES_HOST, text, language),
+                RAPIDAPI_KEY,
+                RAPIDAPI_TRUEWAY_PLACES_HOST,
+                callback);
+    }
+
+    public void findPlacesNearby(double lat, double lng, String type, int radius, String language, Callback callback) {
+        getRapidApiAsync(String.format(Locale.US, "https://%s/FindPlacesNearby?location=%.6f,%.6f&type=%s&radius=%d&language=%s", RAPIDAPI_TRUEWAY_PLACES_HOST, lat, lng, type, radius, language),
+                RAPIDAPI_KEY,
+                RAPIDAPI_TRUEWAY_PLACES_HOST,
+                callback);
+    }
+
+    private void showResults(String responseStr) {
+        try {
+            JSONObject jsonObj = new JSONObject(responseStr);
+            // Getting results JSON Array node
+            JSONArray results = jsonObj.getJSONArray("results");
+            Log.d(TAG, "found places: " + results.length());
+            // looping through All Results
+            for (int i = 0; i < results.length(); i++) {
+                JSONObject result = results.getJSONObject(i);
+                String id = result.getString("id");
+                String name = result.getString("name");
+                String address = result.getString("address");
+                JSONObject location = result.getJSONObject("location");
+                double lat = location.getDouble("lat");
+                double lng = location.getDouble("lng");
+                Integer distance = result.has("distance") ? result.getInt("distance") : 0; // present for FindPlacesNearby only
+                Log.d(TAG, String.format(Locale.US,"result[%s]: id=%s; name=%s; address=%s; lat=%.6f; lng=%.6f; distance=%d", i, id, name, address, lat, lng, distance));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
