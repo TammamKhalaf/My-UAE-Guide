@@ -5,13 +5,11 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
-import com.tammamkhalaf.myuaeguide.Databases.SessionManager;
 import com.tammamkhalaf.myuaeguide.R;
 
-import java.util.HashMap;
+import java.util.Objects;
 
 public class RetailerDashboard extends AppCompatActivity {
 
@@ -44,7 +42,7 @@ public class RetailerDashboard extends AppCompatActivity {
                     fragment = new RetailerProfileFragment();
                     break;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, Objects.requireNonNull(fragment)).commit();
         });
 
     }

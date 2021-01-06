@@ -66,9 +66,7 @@ public class SessionManager {
     }
 
     public boolean checkLogin() {
-        if (userSessions.getBoolean(IS_LOGIN, true)) {
-            return true;
-        } else return false;
+        return userSessions.getBoolean(IS_LOGIN, true);
     }
 
     public void logoutUserFromSession() {
@@ -84,9 +82,7 @@ public class SessionManager {
     }
 
     public boolean checkRememberMe() {
-        if (userSessions.getBoolean(IS_REMEMBER_ME, true)) {
-            return true;
-        } else return false;
+        return userSessions.getBoolean(IS_REMEMBER_ME, true);
     }
 
 }

@@ -40,7 +40,7 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:background="@color/banner_background"
                 android:padding="5dp"
@@ -330,7 +330,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:text="@string/view_all"
                             android:layout_alignParentEnd="true" />

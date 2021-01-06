@@ -23,8 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="McDonald"
-            android:layout_toRightOf="@id/mv_image"
-            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@id/mv_image"
+            android:layout_marginStart="10dp"
             android:textSize="20dp"
             android:fontFamily="@font/baloo"/>
 
@@ -35,10 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/mv_title"
             android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginBottom="-10dp"
             android:layout_toEndOf="@+id/mv_image"
-            android:layout_toRightOf="@+id/mv_image"
             android:rating="4" />
 
         <TextView
@@ -46,8 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lorem ipsum dolor sit amet,"
-            android:layout_toRightOf="@id/mv_image"
-            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@id/mv_image"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:padding="10dp"
             android:layout_below="@id/mv_rating"

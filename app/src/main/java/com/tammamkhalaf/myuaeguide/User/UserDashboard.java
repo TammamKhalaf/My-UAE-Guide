@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -27,15 +26,12 @@ import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewedAdpater;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewedHelperClass;
 import com.tammamkhalaf.myuaeguide.R;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 
 public class UserDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     RecyclerView featuredRecycler, mostViewedRecycler, categoriesRecycler;
     RecyclerView.Adapter adapter;
-    private GradientDrawable gradient1, gradient2, gradient3, gradient4;
     ImageView menuIcon;
 
     LinearLayout content;
@@ -128,12 +124,10 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.nav_all_categories:
-                startActivity(new Intent(getApplicationContext(),AllCategories.class));
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + item.getItemId());
+        if (item.getItemId() == R.id.nav_all_categories) {
+            startActivity(new Intent(getApplicationContext(), AllCategories.class));
+        } else {
+            throw new IllegalStateException("Unexpected value: " + item.getItemId());
         }
 
         return true;
@@ -163,10 +157,10 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     private void categoriesRecycler() {
 
         //All Gradients
-        gradient2 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffd4cbe5, 0xffd4cbe5});
-        gradient1 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xff7adccf, 0xff7adccf});
-        gradient3 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xfff7c59f, 0xFFf7c59f});
-        gradient4 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffb8d7f5, 0xffb8d7f5});
+        GradientDrawable gradient2 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffd4cbe5, 0xffd4cbe5});
+        GradientDrawable gradient1 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xff7adccf, 0xff7adccf});
+        GradientDrawable gradient3 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xfff7c59f, 0xFFf7c59f});
+        GradientDrawable gradient4 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffb8d7f5, 0xffb8d7f5});
 
 
         ArrayList<CategoriesHelperClass> categoriesHelperClasses = new ArrayList<>();

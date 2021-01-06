@@ -15,7 +15,6 @@ import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -140,10 +139,9 @@ public class VerifyOTP extends AppCompatActivity {
                     if (e instanceof FirebaseAuthInvalidCredentialsException) {
                         // Invalid request
                         // ...
-                    } else if (e instanceof FirebaseTooManyRequestsException) {
-                        // The SMS quota for the project has been exceeded
-                        // ...
-                    }
+                    }  // The SMS quota for the project has been exceeded
+                    // ...
+
 
                     // Show a message and update the UI
                     // ...
@@ -171,7 +169,7 @@ public class VerifyOTP extends AppCompatActivity {
     }
 
     public void callNextScreenFromOTP(View view) {
-        String code = pinFromUser.getText().toString();
+        String code = Objects.requireNonNull(pinFromUser.getText()).toString();
         if (!code.isEmpty()) {
             verifyCode(code);
         }

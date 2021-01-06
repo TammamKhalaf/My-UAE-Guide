@@ -53,7 +53,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
                 android:src="@drawable/mobile_custome_icon" />
 
             <TextView
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
-                android:layout_toRightOf="@id/mobile_icon"
+                android:layout_toEndOf="@id/mobile_icon"
                 android:fontFamily="@font/muli_extralight"
                 android:text="@string/via_sms"
                 android:textSize="20sp" />
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/mobile_title"
-                android:layout_toRightOf="@id/mobile_icon"
+                android:layout_toEndOf="@id/mobile_icon"
                 android:fontFamily="@font/muli_extralight"
                 android:text="+9713332562233"
                 android:textColor="@color/black"
@@ -98,7 +98,7 @@
                     android:layout_width="60dp"
                     android:layout_height="55dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginEnd="20dp"
                     android:src="@drawable/mail_custome_icon" />
 
                 <TextView
@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="48dp"
-                    android:layout_toRightOf="@id/mail_icon"
+                    android:layout_toEndOf="@id/mail_icon"
                     android:fontFamily="@font/muli_extralight"
                     android:text="@string/via_mail"
                     android:textSize="20sp" />
@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/mail_title"
-                    android:layout_toRightOf="@id/mail_icon"
+                    android:layout_toEndOf="@id/mail_icon"
                     android:fontFamily="@font/muli_extralight"
                     android:text="support@gmail.com"
                     android:textColor="@color/black"

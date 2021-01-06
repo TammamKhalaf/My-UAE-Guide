@@ -5,17 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.hbb20.CountryCodePicker;
 import com.tammamkhalaf.myuaeguide.R;
+
+import java.util.Objects;
 
 public class SignUp3rdClass extends AppCompatActivity {
 
@@ -55,7 +54,7 @@ public class SignUp3rdClass extends AppCompatActivity {
             //String phoneNo = "+"+countryCodePicker.getSelectedCountryCode()+getUserEnteredPhoneNumber;//getFullNumber
 
         //Get complete phone number
-        String _getUserEnteredPhoneNumber = phoneNumber.getEditText().getText().toString().trim();
+        String _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumber.getEditText()).getText().toString().trim();
         //Remove first zero if entered!
         if (_getUserEnteredPhoneNumber.charAt(0) == '0') {
             _getUserEnteredPhoneNumber = _getUserEnteredPhoneNumber.substring(1);
@@ -88,7 +87,7 @@ public class SignUp3rdClass extends AppCompatActivity {
     }
 
     private boolean validatePhoneNumber() {
-        String val = phoneNumber.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(phoneNumber.getEditText()).getText().toString().trim();
         String checkspaces = "Aw{1,20}z";
         if (val.isEmpty()) {
             phoneNumber.setError("Enter valid phone number");

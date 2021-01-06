@@ -16,7 +16,7 @@
     <!--Descriptions-->
     <string name="first_slide_desc">You can search any place nearby or with-in the specified city. We will display specific or all related shops to match your search. </string>
     <string name="second_slide_desc">We provide almost all the numbers of all departments and shops registered with us. You can perform bookings as well.</string>
-    <string name="third_slide_desc">If you have a shop or somethings and want to be a part of our growing industry then add your place by follwing simple steps.</string>
+    <string name="third_slide_desc">If you have a shop or some things and want to be a part of our growing industry then add your place by following simple steps.</string>
     <string name="fourth_slide_desc">We will handle everything for you. As you have the app in your pocket then you don\'t have to worry about anything.  </string>
 
 
@@ -73,7 +73,7 @@
     <string name="otp_description_text">Code</string>
     <string name="otp_verification_text">Verification</string>
     <string name="otp_code_text">Co\nde</string>
-    <string name="todo">todo</string>
+    <string name="todo" translatable="false">todo</string>
     <string name="verify_code">Verify Code</string>
     <string name="forget_password_detail">Provide Your Account\'s Phone Number For\n Which You Want To\n Reset Your Password</string>
     <string name="make_selection">Make Selection</string>
@@ -85,7 +85,7 @@
     <string name="new_credentials">New Credentials</string>
     <string name="new_credentials_detail">Your Identity Has Been Verified!\nSet Your New Password</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
 
 </resources>

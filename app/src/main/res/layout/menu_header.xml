@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:background="@color/lightWhite"
-    android:paddingLeft="15dp">
+    android:paddingStart="15dp">
 
     <TextView
         android:id="@+id/menu_slogan"
@@ -33,7 +33,7 @@
         android:layout_width="135dp"
         android:layout_height="175dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="2dp"
         android:src="@drawable/half_bicycle" />
 

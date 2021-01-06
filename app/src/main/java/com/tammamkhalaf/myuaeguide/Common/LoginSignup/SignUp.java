@@ -3,7 +3,6 @@ package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tammamkhalaf.myuaeguide.R;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,10 +56,10 @@ public class SignUp extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(), SignUp2ndClass.class);
 
-        intent.putExtra("fullName", fullName.getEditText().getText().toString().trim());
-        intent.putExtra("username", username.getEditText().getText().toString().trim());
-        intent.putExtra("email", email.getEditText().getText().toString().trim());
-        intent.putExtra("password", password.getEditText().getText().toString().trim());
+        intent.putExtra("fullName", Objects.requireNonNull(fullName.getEditText()).getText().toString().trim());
+        intent.putExtra("username", Objects.requireNonNull(username.getEditText()).getText().toString().trim());
+        intent.putExtra("email", Objects.requireNonNull(email.getEditText()).getText().toString().trim());
+        intent.putExtra("password", Objects.requireNonNull(password.getEditText()).getText().toString().trim());
 
         //Add Shared Animation
         Pair[] pairs = new Pair[5];
@@ -83,7 +83,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     private boolean validateFullName() {
-        String val = fullName.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(fullName.getEditText()).getText().toString().trim();
         if (val.isEmpty()) {
             fullName.setError("Field can not be empty");
             return false;
@@ -95,7 +95,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     private boolean validateUsername() {
-        String val = username.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(username.getEditText()).getText().toString().trim();
         String checkspaces = "\\A\\w{1,20}z";
 
         if (val.isEmpty()) {
@@ -115,7 +115,7 @@ public class SignUp extends AppCompatActivity {
     }
 
     private boolean validateEmail() {
-        String val = email.getEditText().getText().toString().trim();
+        String val = Objects.requireNonNull(email.getEditText()).getText().toString().trim();
         String checkEmail = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+";
 
         if (val.isEmpty()) {
@@ -154,7 +154,7 @@ public class SignUp extends AppCompatActivity {
 //            password.setErrorEnabled(false);
 //            return true;
 //        }
-        if(password.getEditText().getText().toString().trim().length()<8 && !isValidPassword(password.getEditText().getText().toString().trim())){
+        if(Objects.requireNonNull(password.getEditText()).getText().toString().trim().length()<8 && !isValidPassword(password.getEditText().getText().toString().trim())){
             password.setError("Enter At least 8 chars Upper case, Lower case, digits, special chars");
             return false;
         }else{

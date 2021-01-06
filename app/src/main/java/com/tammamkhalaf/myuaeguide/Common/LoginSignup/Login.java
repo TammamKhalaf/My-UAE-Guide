@@ -3,14 +3,11 @@ package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -23,7 +20,6 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,11 +29,11 @@ import com.hbb20.CountryCodePicker;
 import com.tammamkhalaf.myuaeguide.Databases.SessionManager;
 import com.tammamkhalaf.myuaeguide.LocationOwner.RetailerDashboard;
 import com.tammamkhalaf.myuaeguide.R;
-import com.tammamkhalaf.myuaeguide.User.UserDashboard;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Login extends AppCompatActivity {
 
@@ -64,13 +60,15 @@ public class Login extends AppCompatActivity {
         phoneNumberEditText = findViewById(R.id.login_phone_number_editText);
         passwordEditText = findViewById(R.id.login_password_editText);
 
-
         SessionManager sessionManager = new SessionManager(Login.this,SessionManager.SESSION_REMEMBER_ME);
         if(sessionManager.checkRememberMe()){
             HashMap<String,String> rememberMeDetails = sessionManager.getRememberMeDetailFromSession();
             phoneNumberEditText.setText(rememberMeDetails.get(SessionManager.KEY_SESSION_PHONE_NUMBER));
             passwordEditText.setText(rememberMeDetails.get(SessionManager.KEY_SESSION_PASSWORD));
         }
+    }
+
+    public void RememberMeButton(View view){
 
     }
 
@@ -89,9 +87,8 @@ public class Login extends AppCompatActivity {
             return;
         }
 
-
-        String _phoneNumber = phoneNumber.getEditText().getText().toString().trim();
-        String _password = password.getEditText().getText().toString().trim();
+        String _phoneNumber = Objects.requireNonNull(phoneNumber.getEditText()).getText().toString().trim();
+        String _password = Objects.requireNonNull(password.getEditText()).getText().toString().trim();
 
         //Get complete phone number
         String _getUserEnteredPhoneNumber = _phoneNumber;
@@ -116,7 +113,7 @@ public class Login extends AppCompatActivity {
                     phoneNumber.setErrorEnabled(false);
 
                     String systemPassword = snapshot.child(_phoneNo).child("password").getValue(String.class);
-                    if (systemPassword.equals(_password)) {
+                    if (Objects.requireNonNull(systemPassword).equals(_password)) {
                         password.setError(null);
                         phoneNumber.setErrorEnabled(false);
 
@@ -156,11 +153,7 @@ public class Login extends AppCompatActivity {
         NetworkInfo wifiConnection = connectivityManager.getNetworkInfo(connectivityManager.TYPE_WIFI);
         NetworkInfo mobileConnection = connectivityManager.getNetworkInfo(connectivityManager.TYPE_MOBILE);
 
-        if(wifiConnection != null && wifiConnection.isConnected() || (mobileConnection!=null && mobileConnection.isConnected())){
-            return true;
-        }else {
-            return false;
-        }
+        return wifiConnection != null && wifiConnection.isConnected() || (mobileConnection != null && mobileConnection.isConnected());
 
     }
 
@@ -180,8 +173,8 @@ public class Login extends AppCompatActivity {
     }
 
     private boolean validateFields() {
-        String _phoneNumber = phoneNumber.getEditText().getText().toString().trim();
-        String _password = password.getEditText().getText().toString().trim();
+        String _phoneNumber = Objects.requireNonNull(phoneNumber.getEditText()).getText().toString().trim();
+        String _password = Objects.requireNonNull(password.getEditText()).getText().toString().trim();
         if (_phoneNumber.isEmpty()) {
             phoneNumber.setError("Field can not be empty");
             phoneNumber.requestFocus();

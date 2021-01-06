@@ -15,7 +15,8 @@
         android:theme="@style/Theme.MyUaeGuide"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".LocationOwner.RetailerDashboard"></activity>
+        <activity android:name=".Categories.Hotels.Hotels" />
+        <activity android:name=".LocationOwner.RetailerDashboard" />
         <activity android:name=".Common.LoginSignup.SetNewPassword" />
         <activity android:name=".Common.LoginSignup.ForgetPasswordSuccessMessage" />
         <activity android:name=".Common.LoginSignup.MakeSelection" />

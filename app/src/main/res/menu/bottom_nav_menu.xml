@@ -6,20 +6,20 @@
         android:id="@+id/bottom_nav_dashboard"
         android:title="Dashboard"
         android:icon="@drawable/bottom_nav_dashboard_icon"
-        app:cnb_background="@color/colorPrimary"
+        app:background="@color/colorPrimary"
         />
     <item
         android:id="@+id/bottom_nav_manage"
         android:title="Manage"
         android:icon="@drawable/bottom_nav_manage_icon"
-        app:cnb_background="@color/colorPrimary"
+        app:background="@color/colorPrimary"
         />
 
     <item
         android:id="@+id/bottom_nav_profile"
         android:title="Profile"
         android:icon="@drawable/bottom_nav_profile_icon"
-        app:cnb_background="@color/colorPrimary"
+        app:background="@color/colorPrimary"
         />
 
 </menu>

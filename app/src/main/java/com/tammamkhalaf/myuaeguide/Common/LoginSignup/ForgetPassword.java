@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -29,14 +28,13 @@ import com.tammamkhalaf.myuaeguide.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class ForgetPassword extends AppCompatActivity {
 
     Animation animation;
-    private ImageView screenIcon;
-    private TextView title, description;
     private TextInputLayout phoneNumberTextField;
     private CountryCodePicker countryCodePicker;
-    private Button nextBtn;
     RelativeLayout progressBar;
 
 
@@ -46,12 +44,12 @@ public class ForgetPassword extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_forget_password);
 
-        screenIcon = findViewById(R.id.forget_password_icon);
-        title = findViewById(R.id.forget_password_title);
-        description = findViewById(R.id.forget_password_description);
+        ImageView screenIcon = findViewById(R.id.forget_password_icon);
+        TextView title = findViewById(R.id.forget_password_title);
+        TextView description = findViewById(R.id.forget_password_description);
         phoneNumberTextField = findViewById(R.id.forget_password_phone_number);
         countryCodePicker = findViewById(R.id.country_code_picker);
-        nextBtn = findViewById(R.id.forget_password_next_btn);
+        Button nextBtn = findViewById(R.id.forget_password_next_btn);
         progressBar = findViewById(R.id.progress_bar);
 
 
@@ -80,7 +78,7 @@ public class ForgetPassword extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             //Get complete phone number
 
-            String _getUserEnteredPhoneNumber = phoneNumberTextField.getEditText().getText().toString().trim();
+            String _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumberTextField.getEditText()).getText().toString().trim();
             //Remove first zero if entered!
             if (_getUserEnteredPhoneNumber.charAt(0) == '0') {
                 _getUserEnteredPhoneNumber = _getUserEnteredPhoneNumber.substring(1);
@@ -128,16 +126,12 @@ public class ForgetPassword extends AppCompatActivity {
         NetworkInfo wifiConnection = connectivityManager.getNetworkInfo(connectivityManager.TYPE_WIFI);
         NetworkInfo mobileConnection = connectivityManager.getNetworkInfo(connectivityManager.TYPE_MOBILE);
 
-        if (wifiConnection != null && wifiConnection.isConnected() || (mobileConnection != null && mobileConnection.isConnected())) {
-            return true;
-        } else {
-            return false;
-        }
+        return wifiConnection != null && wifiConnection.isConnected() || (mobileConnection != null && mobileConnection.isConnected());
 
     }
 
     private boolean validateField() {
-        String _phoneNumber = phoneNumberTextField.getEditText().getText().toString().trim();
+        String _phoneNumber = Objects.requireNonNull(phoneNumberTextField.getEditText()).getText().toString().trim();
         if (_phoneNumber.isEmpty()) {
             phoneNumberTextField.setError("Field can not be empty");
             phoneNumberTextField.requestFocus();

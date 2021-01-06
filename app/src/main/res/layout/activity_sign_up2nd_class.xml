@@ -45,7 +45,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/baloo"
                 android:text="2/3"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:textColor="@color/black"
                 android:textAlignment="center"
                 android:textSize="30sp"
@@ -88,14 +88,14 @@
                         android:id="@+id/female"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:text="Female" />
 
                     <RadioButton
                         android:id="@+id/others"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:text="Other" />
                     </RadioGroup>
 

@@ -66,7 +66,7 @@ public class SetNewPassword extends AppCompatActivity {
         }
 
         progress_bar.setVisibility(View.VISIBLE);
-        String confirmedPassword = confirmPassword.getEditText().getText().toString().trim();
+        String confirmedPassword = Objects.requireNonNull(confirmPassword.getEditText()).getText().toString().trim();
         String phoneNo = getIntent().getStringExtra("phoneNo");
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -96,20 +96,16 @@ public class SetNewPassword extends AppCompatActivity {
         NetworkInfo wifiConnection = connectivityManager.getNetworkInfo(connectivityManager.TYPE_WIFI);
         NetworkInfo mobileConnection = connectivityManager.getNetworkInfo(connectivityManager.TYPE_MOBILE);
 
-        if (wifiConnection != null && wifiConnection.isConnected() || (mobileConnection != null && mobileConnection.isConnected())) {
-            return true;
-        } else {
-            return false;
-        }
+        return wifiConnection != null && wifiConnection.isConnected() || (mobileConnection != null && mobileConnection.isConnected());
 
     }
 
     private boolean validateFields() {
-        if (newPassword.getEditText().getText().toString().trim().isEmpty()) {
+        if (Objects.requireNonNull(newPassword.getEditText()).getText().toString().trim().isEmpty()) {
             newPassword.setError("Field can not be empty");
             newPassword.requestFocus();
             return false;
-        } else if(confirmPassword.getEditText().getText().toString().trim().isEmpty()) {
+        } else if(Objects.requireNonNull(confirmPassword.getEditText()).getText().toString().trim().isEmpty()) {
             confirmPassword.setError("Field can not be empty");
             confirmPassword.requestFocus();
             return false;//todo check zero for phone number add at the beginnings

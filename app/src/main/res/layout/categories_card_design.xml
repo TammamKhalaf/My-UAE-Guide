@@ -30,7 +30,7 @@
             android:layout_height="110dp"
             android:src="@drawable/res_cat"
             android:scaleType="centerCrop"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             />
 

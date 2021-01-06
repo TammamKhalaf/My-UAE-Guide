@@ -17,8 +17,6 @@ import com.tammamkhalaf.myuaeguide.User.UserDashboard;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static int SPLASH_TIMER = 5000;
-
     SharedPreferences onBoardingScreen;
 
     ImageView backgroundIV;
@@ -42,6 +40,7 @@ public class SplashActivity extends AppCompatActivity {
         backgroundIV.setAnimation(sideAnim);
         powered_by_line.setAnimation(bottomAnim);
 
+        int SPLASH_TIMER = 5000;
         new Handler().postDelayed(() -> {
 
             onBoardingScreen = getSharedPreferences("onBoardingScreen",MODE_PRIVATE);
