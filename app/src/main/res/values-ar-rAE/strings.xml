@@ -66,4 +66,17 @@
     <string name="password_updated_success_message">تم تحديث كلمة المرور الخاصة بك</string>
     <string name="new_credentials">كلمة المرور الجديدة</string>
     <string name="new_credentials_detail">تم التحقق من هويتك! \\n قم بتعيين كلمة المرور الجديدة</string>
+    <string name="Empty_Field">لا يمكن أن يكون الحقل فارغًا</string>
+    <string name="UserNameLarge">اسم المستخدم كبير جدا!</string>
+    <string name="NoWhiteSpaces">لا يسمح بمسافات بيضاء!</string>
+    <string name="InvalidEmail">إيميل غير صالح!</string>
+    <string name="PasswordStrenght">أدخل ما لا يقل عن 8 أحرف كبيرة وصغيرة وأرقام وأحرف خاصة</string>
+    <string name="SelectGender">يرجى تحديد النوع</string>
+    <string name="NotAllowed">أنت غير مؤهل للتقديم</string>
+    <string name="EnterValidPhoneNo">أدخل رقم هاتف صالحًا</string>
+    <string name="NoSuchUser">المستخدم غير مسجل لدينا</string>
+    <string name="PasswordDoesntMatch">كلمة المرور غير متطابقة</string>
+    <string name="ConnectInternet">الرجاء الاتصال بالإنترنت لمزيد من الاتصال!</string>
+    <string name="connect">الاتصال</string>
+    <string name="cancel">الالغاء</string>
 </resources>
