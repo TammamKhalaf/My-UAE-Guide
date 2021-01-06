@@ -47,10 +47,8 @@
     <string name="add_missing_place">ADD MISSING PLACE</string>
 
     <string name="login">Login</string>
-    <string name="profile">Profile</string>
     <string name="logout">Logout</string>
 
-    <string name="share">Share</string>
     <string name="rate_us">Rate Us</string>
     <string name="banks">Banks</string>
     <string name="car_rent">Car Rent</string>
@@ -106,7 +104,6 @@
     <string name="select_your_age">Select Your Age</string>
     <string name="dashboard">Dashboard</string>
     <string name="manage">Manage</string>
-    <string name="profile">Profile</string>
     <string name="profile">Profile</string>
     <string name="categories">Categories</string>
     <string name="share">Share</string>

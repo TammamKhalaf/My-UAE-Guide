@@ -79,4 +79,18 @@
     <string name="ConnectInternet">الرجاء الاتصال بالإنترنت لمزيد من الاتصال!</string>
     <string name="connect">الاتصال</string>
     <string name="cancel">الالغاء</string>
+    <string name="choose_gender">ذكر/انثى؟</string>
+    <string name="male">ذكر</string>
+    <string name="female">انثى</string>
+    <string name="other">شركة</string>
+    <string name="select_your_age">اختار عمرك</string>
+    <string name="manage">الإدارة</string>
+    <string name="categories">الفئات</string>
+    <string name="profile_fragment">البروفايل الشخصي</string>
+    <string name="manage_fragment">الادارة</string>
+    <string name="new_password">كلمة المرور الجديدة</string>
+    <string name="confirm_password">تأكيد كلمة المرور</string>
+    <string name="update">تحديث</string>
+    <string name="dashboard">لوحة التحكم الرئيسية</string>
+    <string name="dashboard_fragment">لوحة التحكم الرئيسية</string>
 </resources>
