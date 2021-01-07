@@ -3,6 +3,7 @@ package com.tammamkhalaf.myuaeguide.User;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,6 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.Gist;
+import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.Result;
+import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.ServiceBuilder;
+import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.TrueWayPlacesService;
 import com.tammamkhalaf.myuaeguide.Common.LoginSignup.RetailerStartUpScreen;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.Categories.CategoriesAdapter;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.Categories.CategoriesHelperClass;
@@ -28,6 +33,12 @@ import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed.MostView
 import com.tammamkhalaf.myuaeguide.R;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class UserDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -75,7 +86,28 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
          * my code below
          * */
 
+        callTrueWayService();
+
     }
+
+    //region calling true way service
+    private void callTrueWayService() {
+//        TrueWayPlacesService service = ServiceBuilder.buildService(TrueWayPlacesService.class);
+//        Call<List<Result>> call = service.findPlacesByText("sheikh zayed mosque","en");
+//
+//        call.enqueue(new Callback<List<Result>>() {
+//            @Override
+//            public void onResponse(Call<List<Result>> call, Response<List<Result>> response) {
+//                Log.d(TAG, "onResponse: "+response.body());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Result>> call, Throwable t) {
+//                Log.e(TAG, "onFailure: "+t.getLocalizedMessage());
+//            }
+//        });
+    }
+    //endregion
 
     //region navigation drawer
 
@@ -150,20 +182,49 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
         ArrayList<FeaturedHelperClass> featuredLocations = new ArrayList<>();
 
-        featuredLocations.add(new FeaturedHelperClass(R.drawable.macdonald,"Mc'Donald's",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."));
-        featuredLocations.add(new FeaturedHelperClass(R.drawable.burj_al_arab,"Dubai",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."));
-        featuredLocations.add(new FeaturedHelperClass(R.drawable.sheikh_zayed_grand_mosque,"Abu-Dhabi",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."));
+//        featuredLocations.add(new FeaturedHelperClass(R.drawable.macdonald,"Mc'Donald's",
+//                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."));
+//        featuredLocations.add(new FeaturedHelperClass(R.drawable.burj_al_arab,"Dubai",
+//                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."));
+//        featuredLocations.add(new FeaturedHelperClass(R.drawable.sheikh_zayed_grand_mosque,"Abu-Dhabi",
+//                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."));
 
         //todo tomorrow try api and complete retrofit
 
-        featuredLocations.add(new FeaturedHelperClass(R.drawable.sheikh_zayed_grand_mosque, responseStrName,responseStrName));
+        TrueWayPlacesService service = ServiceBuilder.buildService(TrueWayPlacesService.class);
+        Call<Gist> call = service.findPlacesByText("sheikh zayed mosque","en");
 
-        adapter = new FeaturedAdapter(featuredLocations);
+        call.enqueue(new Callback<Gist>() {
+                         @Override
+                         public void onResponse(Call<Gist> call, Response<Gist> response) {
+                             Log.i(TAG, "onResponse: "+response.body().getResults());
 
-        featuredRecycler.setAdapter(adapter);
+                             ArrayList<Result> results = (ArrayList<com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.Result>) response.body().getResults();
+
+                              Result sheikh_zayed_grand_mosque = results.get(0);
+
+                             featuredLocations.add(new FeaturedHelperClass(R.drawable.macdonald,"Mc'Donald's",
+                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."));
+                             featuredLocations.add(new FeaturedHelperClass(R.drawable.burj_al_arab,"Dubai",
+                                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."));
+                             featuredLocations.add(new FeaturedHelperClass(R.drawable.sheikh_zayed_grand_mosque,sheikh_zayed_grand_mosque.getName(),
+                                     sheikh_zayed_grand_mosque.getLocation().toString()));
+
+                             adapter = new FeaturedAdapter(featuredLocations);
+
+                             featuredRecycler.setAdapter(adapter);
+
+                         }
+
+                         @Override
+                         public void onFailure(Call<Gist> call, Throwable t) {
+                             Log.i(TAG, "onFailure: "+t.getLocalizedMessage());
+                         }
+                     });
+
+//        adapter = new FeaturedAdapter(featuredLocations);
+//
+//        featuredRecycler.setAdapter(adapter);
 
     }
     //endregion

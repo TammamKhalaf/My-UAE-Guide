@@ -93,4 +93,7 @@
     <string name="update">تحديث</string>
     <string name="dashboard">لوحة التحكم الرئيسية</string>
     <string name="dashboard_fragment">لوحة التحكم الرئيسية</string>
+    <string name="hospital">مستشفى</string>
+    <string name="shopping">تسوق</string>
+    <string name="transport">مواصلات</string>
 </resources>
