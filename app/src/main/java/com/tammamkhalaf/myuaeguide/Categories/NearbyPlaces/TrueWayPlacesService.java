@@ -25,7 +25,7 @@ public interface TrueWayPlacesService {
             "x-rapidapi-key:"+RAPIDAPI_KEY,
             "x-rapidapi-host:"+RAPIDAPI_TRUEWAY_PLACES_HOST
     })
-    @GET("findPlacesNearby")
-    Call<List<Result>> findPlacesNearby(@Query("lat") double lat,@Query("lng")double lng,@Query("type")String type,@Query("radius")int radius,@Query("language") String language);
+    @GET("FindPlacesNearby")
+    Call<Gist> findPlacesNearby(@Query("location") String locationCoordinates,@Query("type")String type,@Query("radius")int radius,@Query("language") String language);
 
 }
