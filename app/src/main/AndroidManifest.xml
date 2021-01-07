@@ -15,6 +15,10 @@
         android:theme="@style/Theme.MyUaeGuide"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity
+            android:name=".HelperClasses.HomeAdapter.Featured.ShowFeaturedPlace"
+            android:label="@string/title_activity_show_featured_place"
+            android:theme="@style/Theme.MyUaeGuide.NoActionBar"></activity>
         <activity android:name=".Categories.Hotels.Hotels" />
         <activity android:name=".LocationOwner.RetailerDashboard" />
         <activity android:name=".Common.LoginSignup.ForgetPassword.SetNewPassword" />

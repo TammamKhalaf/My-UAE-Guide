@@ -1,5 +1,7 @@
 package com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.Featured;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tammamkhalaf.myuaeguide.R;
+import com.tammamkhalaf.myuaeguide.User.UserDashboard;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.FeaturedViewHolder> {
 
     ArrayList<FeaturedHelperClass> featuredLocations;
+    Context context;
 
-    public FeaturedAdapter(ArrayList<FeaturedHelperClass> featuredLocations) {
+    public FeaturedAdapter(ArrayList<FeaturedHelperClass> featuredLocations, Context context) {
         this.featuredLocations = featuredLocations;
+        this.context = context;
     }
 
     @NonNull
@@ -39,6 +46,12 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
         holder.image.setImageResource(featuredHelperClass.getImage());
         holder.title.setText(featuredHelperClass.getTitle());
         holder.description.setText(featuredHelperClass.getDescription());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context,ShowFeaturedPlace.class);
+            //todo add information about place inside extras and send it to new activity
+            context.startActivity(intent);
+        });
     }
 
     @Override

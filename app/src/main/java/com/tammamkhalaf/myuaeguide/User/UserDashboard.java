@@ -82,12 +82,6 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         mostViewedRecycler();
         categoriesRecycler();
         navigationDrawer();
-
-        /***
-         *
-         * my code below
-         * */
-
     }
 
     //region navigation drawer
@@ -184,53 +178,22 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         //call = service.findPlacesByText(place, "en");
         //todo location coordinates =
         String locationCoordinates = "24.199168,55.719391";
-        call = service.findPlacesNearby(locationCoordinates, "", 10000, "en");
-
-        //region test findPlaceByText
-//            call.enqueue(new Callback<Gist>() {
-//                @Override
-//                public void onResponse(Call<Gist> call, Response<Gist> response) {
-//                    Log.i(TAG, "onResponse: " + response.body().getResults());
-//
-//                    ArrayList<Result> results = (ArrayList<com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.Result>)
-//                            response.body().getResults();
-//
-//                    Result sheikh_zayed_grand_mosque = results.get(0);
-//
-//                    featuredLocations.add(new FeaturedHelperClass(images[finalCount], sheikh_zayed_grand_mosque.getName(),
-//                            sheikh_zayed_grand_mosque.getLocation().toString()));
-//                }
-//
-//                @Override
-//                public void onFailure(Call<Gist> call, Throwable t) {
-//                    Log.i(TAG, "onFailure: " + t.getLocalizedMessage());
-//                }
-//            });
-
-        //endregion
+        call = service.findPlacesNearby(locationCoordinates, "cafe", 10000, "en");
 
         call.enqueue(new Callback<Gist>() {
             @Override
             public void onResponse(Call<Gist> call, Response<Gist> response) {
-                Log.i(TAG, "onResponse: " + response.body());
                 results = (ArrayList<Result>) response.body().getResults();
-                Log.d(TAG, "onResponse: Results after casting it " + results.toString());
-                Toast.makeText(UserDashboard.this, "Success", Toast.LENGTH_SHORT).show();
-
                 for (Result place : results) {
-                    Log.d(TAG, "onResponse: place to string-->" + place.toString());
-                    featuredLocations.add(new FeaturedHelperClass(R.drawable.sheikh_zayed_grand_mosque,
+                    featuredLocations.add(new FeaturedHelperClass(R.drawable.coffee_shop,
                             place.getName(),
-                            place.getWebsite()));
+                            place.getPhoneNumber()));
                 }
-
-                adapter = new FeaturedAdapter(featuredLocations);
+                adapter = new FeaturedAdapter(featuredLocations,UserDashboard.this);
                 featuredRecycler.setAdapter(adapter);
             }
-
             @Override
             public void onFailure(Call<Gist> call, Throwable t) {
-                Toast.makeText(UserDashboard.this, "Fail", Toast.LENGTH_SHORT).show();
             }
         });
 

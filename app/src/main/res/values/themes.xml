@@ -19,4 +19,13 @@
         <item name="itemTextColor">?attr/colorNavigationItem</item>
         <item name="itemBackground">?attr/drawableNavigationItemBackground</item>
     </style>
+
+    <style name="Theme.MyUaeGuide.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MyUaeGuide.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MyUaeGuide.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
