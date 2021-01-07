@@ -50,6 +50,8 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context,ShowFeaturedPlace.class);
             //todo add information about place inside extras and send it to new activity
+            intent.putExtra("featuredItemTitle",featuredHelperClass.getTitle());
+            intent.putExtra("featuredItemDescription",featuredHelperClass.getDescription());
             context.startActivity(intent);
         });
     }
