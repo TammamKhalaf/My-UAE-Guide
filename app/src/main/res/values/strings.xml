@@ -113,6 +113,11 @@
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="update">Update</string>
+    <string name="education">Education</string>
+    <string name="hospital">HOSPITAL</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="shopping">Shopping</string>
+    <string name="transport">Transport</string>
 
 
 </resources>

@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
+package com.tammamkhalaf.myuaeguide.Common.LoginSignup.ForgetPassword;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.VerifyOTP;
 import com.tammamkhalaf.myuaeguide.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -95,7 +96,7 @@ public class ForgetPassword extends AppCompatActivity {
                         phoneNumberTextField.setError(null);
                         phoneNumberTextField.setErrorEnabled(false);
 
-                        Intent intent = new Intent(getApplicationContext(),VerifyOTP.class);
+                        Intent intent = new Intent(getApplicationContext(), VerifyOTP.class);
                         intent.putExtra("phoneNo",_phoneNo);
                         intent.putExtra("whatToDo","updateData");
                         startActivity(intent);

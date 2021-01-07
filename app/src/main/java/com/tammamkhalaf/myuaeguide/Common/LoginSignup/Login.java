@@ -26,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.ForgetPassword.ForgetPassword;
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp.SignUp;
 import com.tammamkhalaf.myuaeguide.Databases.SessionManager;
 import com.tammamkhalaf.myuaeguide.LocationOwner.RetailerDashboard;
 import com.tammamkhalaf.myuaeguide.R;
@@ -73,7 +75,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void callForgetPassword(View view) {
-        startActivity(new Intent(getApplicationContext(),ForgetPassword.class));
+        startActivity(new Intent(getApplicationContext(), ForgetPassword.class));
     }
 
     public void letTheUserLoggedIn(View view) {

@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter;
+package com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.Featured;
 
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
+package com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import android.widget.ScrollView;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.hbb20.CountryCodePicker;
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.VerifyOTP;
 import com.tammamkhalaf.myuaeguide.R;
 
 import java.util.Objects;

@@ -9,6 +9,7 @@ import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp.SignUp;
 import com.tammamkhalaf.myuaeguide.R;
 
 public class RetailerStartUpScreen extends AppCompatActivity {

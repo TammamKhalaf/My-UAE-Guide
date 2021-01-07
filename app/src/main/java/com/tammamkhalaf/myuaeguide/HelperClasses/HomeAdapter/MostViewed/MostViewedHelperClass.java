@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter;
+package com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed;
 
 public class MostViewedHelperClass {
 

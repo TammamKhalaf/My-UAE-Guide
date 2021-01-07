@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
+package com.tammamkhalaf.myuaeguide.Common.LoginSignup.ForgetPassword;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.RetailerStartUpScreen;
 import com.tammamkhalaf.myuaeguide.R;
 
 import java.util.Objects;
@@ -72,7 +73,7 @@ public class SetNewPassword extends AppCompatActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(phoneNo).child("password").setValue(confirmedPassword);
 
-        startActivity(new Intent(SetNewPassword.this,ForgetPasswordSuccessMessage.class));
+        startActivity(new Intent(SetNewPassword.this, ForgetPasswordSuccessMessage.class));
         finish();
     }
     private void showCustomDialog() {
@@ -83,7 +84,7 @@ public class SetNewPassword extends AppCompatActivity {
                 .setPositiveButton("Connect", (dialogInterface, i) -> {
                     startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
                 }).setNegativeButton("Cancel", (dialogInterface, i) -> {
-            startActivity(new Intent(getApplicationContext(),RetailerStartUpScreen.class));
+            startActivity(new Intent(getApplicationContext(), RetailerStartUpScreen.class));
         });
 
         AlertDialog alertDialog = builder.create();

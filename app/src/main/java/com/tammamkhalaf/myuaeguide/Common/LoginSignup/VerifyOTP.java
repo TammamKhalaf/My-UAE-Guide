@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.chaos.view.PinView;
 import com.google.firebase.FirebaseException;
-import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -20,6 +19,7 @@ import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.ForgetPassword.SetNewPassword;
 import com.tammamkhalaf.myuaeguide.Databases.UserHelperClass;
 import com.tammamkhalaf.myuaeguide.R;
 
@@ -83,7 +83,7 @@ public class VerifyOTP extends AppCompatActivity {
     }
 
     private void updateOldUsersData() {
-        Intent intent = new Intent(getApplicationContext(),SetNewPassword.class);
+        Intent intent = new Intent(getApplicationContext(), SetNewPassword.class);
         intent.putExtra("phoneNo",phoneNo);
         startActivity(intent);
         finish();

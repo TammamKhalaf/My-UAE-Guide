@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
+package com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
+package com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.Login;
 import com.tammamkhalaf.myuaeguide.R;
 
 import java.util.Objects;

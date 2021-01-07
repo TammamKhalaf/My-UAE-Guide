@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
+package com.tammamkhalaf.myuaeguide.Common.LoginSignup.ForgetPassword;
 
 import androidx.appcompat.app.AppCompatActivity;
 
