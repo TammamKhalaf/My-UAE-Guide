@@ -161,12 +161,14 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
          */
         TrueWayPlacesFilterMap["type"] = "cafe"
         call = service!!.findPlacesNearby(TrueWayPlacesFilterMap, 10000, "en")
-        call!!.enqueue(object : Callback<Results> {
-            override fun onResponse(call: Call<Results>, response: Response<Results>) {
+        call!!.enqueue(object : Callback<Results?> {
+            override fun onResponse(call: Call<Results?>, response: Response<Results?>) {
                 if (response.isSuccessful) {
-                    places = response.body().getResults() as ArrayList<Place?>
+                    places = response.body()?.results as ArrayList<Place?>
                     for (place in places!!) {
-                        featuredLocations.add(FeaturedHelperClass(images[0], place.getName(), place.getPhoneNumber()))
+                        if (place != null) {
+                            featuredLocations.add(FeaturedHelperClass(images[0], place.name, place.phoneNumber))
+                        }
                     }
                     adapter = FeaturedAdapter(featuredLocations, this@UserDashboard)
                     featuredRecycler!!.adapter = adapter
@@ -177,7 +179,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 }
             }
 
-            override fun onFailure(call: Call<Results>, t: Throwable) {
+            override fun onFailure(call: Call<Results?>, t: Throwable) {
                 if (t is IOException) {
                     Toast.makeText(this@UserDashboard, string.AConnectionErrorOccurred, Toast.LENGTH_SHORT).show()
                 } else {
@@ -218,8 +220,8 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         //todo use hotel search take id of an item then image ->> property detail
         val imagesFromApi = ArrayList<List<HotelImage>>()
         val call = service!!.searchHotel("dubai", "en_US")
-        call!!.enqueue(object : Callback<Properties> {
-            override fun onResponse(call: Call<Properties>, response: Response<Properties>) {
+        call!!.enqueue(object : Callback<Properties?> {
+            override fun onResponse(call: Call<Properties?>, response: Response<Properties?>) {
                 if (response.isSuccessful) {
                     suggestions = response.body()!!.suggestions as ArrayList<Suggestion?>
                     Log.d(TAG, "onResponse: " + response.body()!!.trackingID)
@@ -241,7 +243,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 }
             }
 
-            override fun onFailure(call: Call<Properties>, t: Throwable) {
+            override fun onFailure(call: Call<Properties?>, t: Throwable) {
                 if (t is IOException) {
                     Toast.makeText(this@UserDashboard, string.AConnectionErrorOccurred, Toast.LENGTH_SHORT).show()
                     Log.d(TAG, "onFailure: " + t.getLocalizedMessage())

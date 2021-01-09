@@ -20,14 +20,14 @@ class FeaturedAdapter(var featuredLocations: ArrayList<FeaturedHelperClass>, var
 
     override fun onBindViewHolder(holder: FeaturedViewHolder, position: Int) {
         val featuredHelperClass = featuredLocations[position]
-        holder.image.setImageResource(featuredHelperClass.getImage())
-        holder.title.text = featuredHelperClass.getTitle()
-        holder.description.text = featuredHelperClass.getDescription()
+        holder.image.setImageResource(featuredHelperClass.image)
+        holder.title.text = featuredHelperClass.title
+        holder.description.text = featuredHelperClass.description
         holder.itemView.setOnClickListener { v: View? ->
             val intent = Intent(context, ShowFeaturedPlace::class.java)
             //todo add information about place inside extras and send it to new activity
-            intent.putExtra("featuredItemTitle", featuredHelperClass.getTitle())
-            intent.putExtra("featuredItemDescription", featuredHelperClass.getDescription())
+            intent.putExtra("featuredItemTitle", featuredHelperClass.title)
+            intent.putExtra("featuredItemDescription", featuredHelperClass.description)
             context.startActivity(intent)
         }
     }

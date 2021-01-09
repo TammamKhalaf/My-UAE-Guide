@@ -20,7 +20,7 @@ class MostViewedAdapter(var mostViewedLocations: ArrayList<MostViewedHelperClass
         val helperClass = mostViewedLocations[position]
         holder.ivImageOfHotel.setImageResource(helperClass.imageView)
         holder.tvNameOfHotel.text = helperClass.textView
-        holder.tvDescriptionOfHotel.text = helperClass.getDescription()
+        holder.tvDescriptionOfHotel.text = helperClass.description
     }
 
     override fun getItemCount(): Int {
