@@ -6,8 +6,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceBuilder {
-    public static final String BASE_URL = "https://trueway-places.p.rapidapi.com/";
-
+    public static final String BASE_URL = "https://hotels4.p.rapidapi.com";
 
     //create logger
     private static HttpLoggingInterceptor logger = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);

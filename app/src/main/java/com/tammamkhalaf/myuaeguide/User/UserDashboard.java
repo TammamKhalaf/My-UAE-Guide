@@ -33,12 +33,14 @@ import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed.MostView
 import com.tammamkhalaf.myuaeguide.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Query;
 
 
 public class UserDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -166,19 +168,37 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
         // todo 429 Too Many Requests
         //  todo use Rxjava to separate time of consuming api
-        /**
-         *
-         This gets thrown (by OkHttp, not Retrofit) when there are more than 20 redirects when calling an endpoint.
-         Usually this indicates a redirect cycle between two endpoints.
-         Both Chrome and Firefox will also stop loading the request after this many redirects and fail the request.
-         You need to consult with your server team or endpoint documentation to ensure you are passing the correct data directly to the endpoint you want to call.
-         No action for Retrofit to take here.
-         * **/
 
-        //call = service.findPlacesByText(place, "en");
-        //todo location coordinates =
+        HashMap<String,String> TrueWayPlacesFilterMap = new HashMap<>();
+
         String locationCoordinates = "24.199168,55.719391";
-        call = service.findPlacesNearby(locationCoordinates, "cafe", 10000, "en");
+
+        TrueWayPlacesFilterMap.put("location",locationCoordinates);
+        /**
+         * type >>>>
+         airport,amusement_park,aquarium,art_gallery,atm,
+         bakery,bank,bar,beauty_salon,bicycle_store,book_store,bowling,bus_station
+         cafe,campground,car_dealer,car_rental,car_repair,car_wash,casino,cemetery,church,cinema,city_hall,clothing_store,convenience_store,courthouse
+         dentist,department_store,doctor
+         electrician,electronics_store,embassy
+         fire_station,flowers_store,funeral_service,furniture_store,gas_station
+         government_office,grocery_store,gym,
+         hairdressing_salon,hardware_store,homegoodsstore,hospital
+         insurance_agency
+         jewelry_store
+         laundry,lawyer,library,liquor_store,locksmith,lodging
+         mosque,museum
+         night_club
+         park,parking,pet_store,pharmacy,plumber,police_station,post_office,primary_school,
+         rail_station,realestateagency,restaurant,rv_park
+         school,secondary_school,shoe_store,shopping_center,spa,stadium,storage,store,subway_station,supermarket,synagogue
+         taxi_stand,temple,tourist_attraction,train_station,transit_station,travel_agency,university
+         veterinarian
+         zoo
+         * */
+        TrueWayPlacesFilterMap.put("type","cafe");
+
+        call = service.findPlacesNearby(TrueWayPlacesFilterMap, 10000, "en");
 
         call.enqueue(new Callback<Gist>() {
             @Override
