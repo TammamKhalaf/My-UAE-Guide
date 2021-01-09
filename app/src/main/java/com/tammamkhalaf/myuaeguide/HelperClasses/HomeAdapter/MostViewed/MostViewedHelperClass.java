@@ -4,6 +4,7 @@ public class MostViewedHelperClass {
 
     int imageViewMostViewed;
     String name;
+    String description;
 
     public int getImageView() {
         return imageViewMostViewed;
@@ -13,8 +14,13 @@ public class MostViewedHelperClass {
         return name;
     }
 
-    public MostViewedHelperClass(int image, String name) {
-        this.imageViewMostViewed = image;
+    public MostViewedHelperClass(int imageViewMostViewed, String name, String description) {
+        this.imageViewMostViewed = imageViewMostViewed;
         this.name = name;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

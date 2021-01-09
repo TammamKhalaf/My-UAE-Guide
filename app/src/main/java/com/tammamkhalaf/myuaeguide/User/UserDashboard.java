@@ -32,7 +32,7 @@ import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.Categories.Categori
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.Categories.CategoriesHelperClass;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.Featured.FeaturedAdapter;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.Featured.FeaturedHelperClass;
-import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed.MostViewedAdpater;
+import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed.MostViewedAdapter;
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed.MostViewedHelperClass;
 import com.tammamkhalaf.myuaeguide.R;
 
@@ -272,10 +272,12 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                     Log.d(TAG, "onResponse: suggestions" + suggestions);
                     for (Suggestion suggestion : suggestions) {
                         for (int i = 0; i < suggestion.entities.size(); i++) {
-                            mostViewedLocations.add(new MostViewedHelperClass(R.drawable.hotel_item, suggestion.entities.get(i).name));
+                            mostViewedLocations.add(new MostViewedHelperClass(R.drawable.beds,
+                                    suggestion.entities.get(i).name,
+                                    suggestion.group));
                         }
                     }
-                    adapter = new MostViewedAdpater(mostViewedLocations);
+                    adapter = new MostViewedAdapter(mostViewedLocations);
                     mostViewedRecycler.setAdapter(adapter);
                 } else if (response.code() == 401) {
                     Toast.makeText(UserDashboard.this, R.string.SessionExpired, Toast.LENGTH_SHORT).show();

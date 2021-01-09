@@ -13,11 +13,11 @@ import com.tammamkhalaf.myuaeguide.R;
 
 import java.util.ArrayList;
 
-public class MostViewedAdpater extends RecyclerView.Adapter<MostViewedAdpater.MostViewedViewHolder> {
+public class MostViewedAdapter extends RecyclerView.Adapter<MostViewedAdapter.MostViewedViewHolder> {
 
     ArrayList<MostViewedHelperClass> mostViewedLocations;
 
-    public MostViewedAdpater(ArrayList<MostViewedHelperClass> mostViewedLocations) {
+    public MostViewedAdapter(ArrayList<MostViewedHelperClass> mostViewedLocations) {
         this.mostViewedLocations = mostViewedLocations;
     }
 
@@ -35,7 +35,7 @@ public class MostViewedAdpater extends RecyclerView.Adapter<MostViewedAdpater.Mo
 
         holder.ivImageOfHotel.setImageResource(helperClass.getImageView());
         holder.tvNameOfHotel.setText(helperClass.getTextView());
-
+        holder.tvDescriptionOfHotel.setText(helperClass.getDescription());
     }
 
     @Override
@@ -46,13 +46,14 @@ public class MostViewedAdpater extends RecyclerView.Adapter<MostViewedAdpater.Mo
     public static class MostViewedViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivImageOfHotel;
-        TextView tvNameOfHotel;
+        TextView tvNameOfHotel,tvDescriptionOfHotel;
 
         public MostViewedViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ivImageOfHotel = itemView.findViewById(R.id.mv_image);
             tvNameOfHotel = itemView.findViewById(R.id.mv_title);
+            tvDescriptionOfHotel = itemView.findViewById(R.id.mv_desc);
         }
     }
 }
