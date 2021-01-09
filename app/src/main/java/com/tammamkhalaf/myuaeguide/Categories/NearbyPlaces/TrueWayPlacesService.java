@@ -23,9 +23,9 @@ public interface TrueWayPlacesService {
     String RAPIDAPI_TRUEWAY_PLACES_HOST = "trueway-places.p.rapidapi.com";
 
     @Headers({
-            "x-rapidapi-key:"+RAPIDAPI_KEY,
-            "x-rapidapi-host:"+RAPIDAPI_TRUEWAY_PLACES_HOST,
             "Content-Type:application/x-www-form-urlencoded",
+            "x-rapidapi-key:"+RAPIDAPI_KEY,
+            "x-rapidapi-host:"+RAPIDAPI_TRUEWAY_PLACES_HOST
     })
     @GET("FindPlaceByText")
     Call<Results> findPlacesByText(@Query("text")String text, @Query("language")String language);

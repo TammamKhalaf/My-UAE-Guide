@@ -3,18 +3,18 @@ package com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed;
 public class MostViewedHelperClass {
 
     int imageViewMostViewed;
-    String s;
+    String name;
 
     public int getImageView() {
         return imageViewMostViewed;
     }
 
     public String getTextView() {
-        return s;
+        return name;
     }
 
-    public MostViewedHelperClass(int image, String s) {
+    public MostViewedHelperClass(int image, String name) {
         this.imageViewMostViewed = image;
-        this.s = s;
+        this.name = name;
     }
 }

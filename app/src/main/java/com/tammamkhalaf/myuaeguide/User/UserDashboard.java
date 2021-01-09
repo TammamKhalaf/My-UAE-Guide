@@ -3,6 +3,7 @@ package com.tammamkhalaf.myuaeguide.User;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,6 +19,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.tammamkhalaf.myuaeguide.Categories.Hotels.HotelService;
+import com.tammamkhalaf.myuaeguide.Categories.Hotels.HotelServiceBuilder;
+import com.tammamkhalaf.myuaeguide.Categories.Hotels.searchHotelRegionOne.Properties;
+import com.tammamkhalaf.myuaeguide.Categories.Hotels.searchHotelRegionOne.Suggestion;
 import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.Results;
 import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.Place;
 import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.ServiceBuilder;
@@ -53,6 +58,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     NavigationView navigationView;
     Call<Results> call;
     ArrayList<Place> places;
+    ArrayList<Suggestion> suggestions;
 
     //todo add section for the mahrajanat in uae mahrajan zayed etc ....
 
@@ -187,7 +193,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
          * */
         TrueWayPlacesFilterMap.put("type", "cafe");
 
-        call = service.findPlacesNearby(TrueWayPlacesFilterMap, 10000, "ar");
+        call = service.findPlacesNearby(TrueWayPlacesFilterMap, 10000, "en");
 
         call.enqueue(new Callback<Results>() {
             @Override
@@ -205,11 +211,12 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
                     Toast.makeText(UserDashboard.this, R.string.FailedToRetrieveItems, Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onFailure(Call<Results> call, Throwable t) {
-                if(t instanceof IOException){
+                if (t instanceof IOException) {
                     Toast.makeText(UserDashboard.this, R.string.AConnectionErrorOccurred, Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     Toast.makeText(UserDashboard.this, R.string.FailedToRetrieveItems, Toast.LENGTH_SHORT).show();
                 }
             }
@@ -250,17 +257,47 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         mostViewedRecycler.setHasFixedSize(true);
         mostViewedRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        ArrayList<MostViewedHelperClass> mostViewedLocations = new ArrayList<>();
-        mostViewedLocations.add(new MostViewedHelperClass(R.drawable.sheikh_zayed_grand_mosque, "Abu-Dhabi"));
-        mostViewedLocations.add(new MostViewedHelperClass(R.drawable.burj_al_arab, "Dubai"));
-        mostViewedLocations.add(new MostViewedHelperClass(R.drawable.macdonald, "Sharjah"));
-        mostViewedLocations.add(new MostViewedHelperClass(R.drawable.macdonald, "Ajman"));
-        mostViewedLocations.add(new MostViewedHelperClass(R.drawable.macdonald, "Ras-Alkhiemah"));
-        mostViewedLocations.add(new MostViewedHelperClass(R.drawable.macdonald, "Um-Alquiwen"));
-        mostViewedLocations.add(new MostViewedHelperClass(R.drawable.macdonald, "Al-fujairah"));
+        HotelService service = HotelServiceBuilder.buildService(HotelService.class);
 
-        adapter = new MostViewedAdpater(mostViewedLocations);
-        mostViewedRecycler.setAdapter(adapter);
+        Call<Properties> call = service.searchHotel("dubai", "en_US");
+
+        ArrayList<MostViewedHelperClass> mostViewedLocations = new ArrayList<>();
+
+
+        call.enqueue(new Callback<Properties>() {
+            @Override
+            public void onResponse(Call<Properties> call, Response<Properties> response) {
+                if (response.isSuccessful()) {
+                    suggestions = (ArrayList<Suggestion>) response.body().suggestions;
+                    Log.d(TAG, "onResponse: suggestions" + suggestions);
+                    for (Suggestion suggestion : suggestions) {
+                        for (int i = 0; i < suggestion.entities.size(); i++) {
+                            mostViewedLocations.add(new MostViewedHelperClass(R.drawable.hotel_item, suggestion.entities.get(i).name));
+                        }
+                    }
+                    adapter = new MostViewedAdpater(mostViewedLocations);
+                    mostViewedRecycler.setAdapter(adapter);
+                } else if (response.code() == 401) {
+                    Toast.makeText(UserDashboard.this, R.string.SessionExpired, Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d(TAG, "onResponse: Not-Successful Response Code = " + response.code() +
+                            "-->>> Response Error Body:" + response.errorBody().toString());
+                    Toast.makeText(UserDashboard.this, R.string.FailedToRetrieveItems, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Properties> call, Throwable t) {
+                if (t instanceof IOException) {
+                    Toast.makeText(UserDashboard.this, R.string.AConnectionErrorOccurred, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+                } else {
+                    Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+                    Toast.makeText(UserDashboard.this, R.string.FailedToRetrieveItems, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
     }
     //endregion
