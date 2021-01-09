@@ -1,10 +1,12 @@
 package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-import com.fasterxml.jackson.annotation.JsonProperty; 
+
+import com.google.gson.annotations.SerializedName;
+
 public class AdditionalUrlParams{
-    @JsonProperty("resolved-location") 
+    @SerializedName("resolved-location")
     public String resolvedLocation;
-    @JsonProperty("q-destination") 
+    @SerializedName("q-destination")
     public String qDestination;
-    @JsonProperty("destination-id") 
+    @SerializedName("destination-id")
     public String destinationId;
 }

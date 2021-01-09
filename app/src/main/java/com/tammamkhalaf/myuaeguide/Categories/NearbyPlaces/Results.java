@@ -4,18 +4,18 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Gist {
+public class Results {
 
     @SerializedName("results")
     @Expose
-    private List<Result> results = null;
+    private List<Place> places = null;
 
-    public List<Result> getResults() {
-        return results;
+    public List<Place> getResults() {
+        return places;
     }
 
-    public void setResults(List<Result> results) {
-        this.results = results;
+    public void setResults(List<Place> places) {
+        this.places = places;
     }
 
 }

@@ -4,7 +4,7 @@ public class Filters{
     public Name name;
     public StarRating starRating;
     public GuestRating guestRating;
-    public Landmarks landmarks;
+    public Landmark landmark;
     public Neighbourhood neighbourhood;
     public AccommodationType accommodationType;
     public Facilities facilities;

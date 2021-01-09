@@ -207,6 +207,9 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="SessionExpired">Your Session has Expired!</string>
+    <string name="FailedToRetrieveItems">Failed To Retrieve Items!</string>
+    <string name="AConnectionErrorOccurred">A Connection Error Occurred</string>
 
 
 </resources>

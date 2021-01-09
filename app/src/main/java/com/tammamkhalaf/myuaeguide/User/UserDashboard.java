@@ -3,7 +3,6 @@ package com.tammamkhalaf.myuaeguide.User;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,8 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
-import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.Gist;
-import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.Result;
+import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.Results;
+import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.Place;
 import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.ServiceBuilder;
 import com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces.TrueWayPlacesService;
 import com.tammamkhalaf.myuaeguide.Common.LoginSignup.RetailerStartUpScreen;
@@ -32,15 +31,13 @@ import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed.MostView
 import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed.MostViewedHelperClass;
 import com.tammamkhalaf.myuaeguide.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Query;
 
 
 public class UserDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,8 +51,8 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
     static final float END_SCALE = 0.7f;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
-    Call<Gist> call;
-    ArrayList<Result> results;
+    Call<Results> call;
+    ArrayList<Place> places;
 
     //todo add section for the mahrajanat in uae mahrajan zayed etc ....
 
@@ -159,8 +156,6 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
         ArrayList<FeaturedHelperClass> featuredLocations = new ArrayList<>();
 
-        //todo tomorrow try api and complete retrofit
-
         TrueWayPlacesService service = ServiceBuilder.buildService(TrueWayPlacesService.class);
 
         int[] images = {R.drawable.sheikh_zayed_grand_mosque, R.drawable.burj_al_arab};
@@ -169,51 +164,54 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         // todo 429 Too Many Requests
         //  todo use Rxjava to separate time of consuming api
 
-        HashMap<String,String> TrueWayPlacesFilterMap = new HashMap<>();
+        HashMap<String, String> TrueWayPlacesFilterMap = new HashMap<>();
 
         String locationCoordinates = "24.199168,55.719391";
 
-        TrueWayPlacesFilterMap.put("location",locationCoordinates);
+        TrueWayPlacesFilterMap.put("location", locationCoordinates);
         /**
          * type >>>>
          airport,amusement_park,aquarium,art_gallery,atm,
          bakery,bank,bar,beauty_salon,bicycle_store,book_store,bowling,bus_station
          cafe,campground,car_dealer,car_rental,car_repair,car_wash,casino,cemetery,church,cinema,city_hall,clothing_store,convenience_store,courthouse
-         dentist,department_store,doctor
-         electrician,electronics_store,embassy
+         dentist,department_store,doctor,electrician,electronics_store,embassy
          fire_station,flowers_store,funeral_service,furniture_store,gas_station
          government_office,grocery_store,gym,
-         hairdressing_salon,hardware_store,homegoodsstore,hospital
-         insurance_agency
-         jewelry_store
-         laundry,lawyer,library,liquor_store,locksmith,lodging
-         mosque,museum
-         night_club
+         hairdressing_salon,hardware_store,homegoodsstore,hospital,insurance_agency,jewelry_store
+         laundry,lawyer,library,liquor_store,locksmith,lodging,mosque,museum,night_club
          park,parking,pet_store,pharmacy,plumber,police_station,post_office,primary_school,
          rail_station,realestateagency,restaurant,rv_park
          school,secondary_school,shoe_store,shopping_center,spa,stadium,storage,store,subway_station,supermarket,synagogue
          taxi_stand,temple,tourist_attraction,train_station,transit_station,travel_agency,university
-         veterinarian
-         zoo
+         veterinarian,zoo
          * */
-        TrueWayPlacesFilterMap.put("type","cafe");
+        TrueWayPlacesFilterMap.put("type", "cafe");
 
-        call = service.findPlacesNearby(TrueWayPlacesFilterMap, 10000, "en");
+        call = service.findPlacesNearby(TrueWayPlacesFilterMap, 10000, "ar");
 
-        call.enqueue(new Callback<Gist>() {
+        call.enqueue(new Callback<Results>() {
             @Override
-            public void onResponse(Call<Gist> call, Response<Gist> response) {
-                results = (ArrayList<Result>) response.body().getResults();
-                for (Result place : results) {
-                    featuredLocations.add(new FeaturedHelperClass(R.drawable.coffee_shop,
-                            place.getName(),
-                            place.getPhoneNumber()));
+            public void onResponse(Call<Results> call, Response<Results> response) {
+                if (response.isSuccessful()) {
+                    places = (ArrayList<Place>) response.body().getResults();
+                    for (Place place : places) {
+                        featuredLocations.add(new FeaturedHelperClass(R.drawable.coffee_shop, place.getName(), place.getPhoneNumber()));
+                    }
+                    adapter = new FeaturedAdapter(featuredLocations, UserDashboard.this);
+                    featuredRecycler.setAdapter(adapter);
+                } else if (response.code() == 401) {
+                    Toast.makeText(UserDashboard.this, R.string.SessionExpired, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(UserDashboard.this, R.string.FailedToRetrieveItems, Toast.LENGTH_SHORT).show();
                 }
-                adapter = new FeaturedAdapter(featuredLocations,UserDashboard.this);
-                featuredRecycler.setAdapter(adapter);
             }
             @Override
-            public void onFailure(Call<Gist> call, Throwable t) {
+            public void onFailure(Call<Results> call, Throwable t) {
+                if(t instanceof IOException){
+                    Toast.makeText(UserDashboard.this, R.string.AConnectionErrorOccurred, Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(UserDashboard.this, R.string.FailedToRetrieveItems, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
