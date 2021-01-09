@@ -1,7 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-import java.util.List; 
-public class HealthAndSafetyMeasures{
-    public String title;
-    public String description;
-    public List<String> measures;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class HealthAndSafetyMeasures {
+    var title: String? = null
+    var description: String? = null
+    var measures: List<String>? = null
 }

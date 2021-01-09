@@ -1,16 +1,17 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Filters{
-    public boolean applied;
-    public Name name;
-    public StarRating starRating;
-    public GuestRating guestRating;
-    public Landmark landmark;
-    public Neighbourhood neighbourhood;
-    public AccommodationType accommodationType;
-    public Facilities facilities;
-    public Accessibility accessibility;
-    public ThemesAndTypes themesAndTypes;
-    public Price price;
-    public PaymentPreference paymentPreference;
-    public WelcomeRewards welcomeRewards;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Filters {
+    var applied = false
+    var name: Name? = null
+    var starRating: StarRating? = null
+    var guestRating: GuestRating? = null
+    var landmark: Landmark? = null
+    var neighbourhood: Neighbourhood? = null
+    var accommodationType: AccommodationType? = null
+    var facilities: Facilities? = null
+    var accessibility: Accessibility? = null
+    var themesAndTypes: ThemesAndTypes? = null
+    var price: Price? = null
+    var paymentPreference: PaymentPreference? = null
+    var welcomeRewards: WelcomeRewards? = null
 }

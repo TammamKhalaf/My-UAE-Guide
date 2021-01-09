@@ -1,6 +1,5 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
 
-import java.util.List;
-public class Overview{
-    public List<OverviewSection> overviewSections;
+class Overview {
+    var overviewSections: List<OverviewSection>? = null
 }

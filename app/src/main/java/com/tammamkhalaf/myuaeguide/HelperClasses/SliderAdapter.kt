@@ -1,80 +1,59 @@
-package com.tammamkhalaf.myuaeguide.HelperClasses;
+package com.tammamkhalaf.myuaeguide.HelperClasses
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.viewpager.widget.PagerAdapter
+import com.tammamkhalaf.myuaeguide.R
+import com.tammamkhalaf.myuaeguide.R.string
 
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.viewpager.widget.PagerAdapter;
-
-import com.tammamkhalaf.myuaeguide.R;
-
-import org.jetbrains.annotations.NotNull;
-
-public class SliderAdapter extends PagerAdapter {
-    Context context;
-    LayoutInflater layoutInflater;
-
-    public SliderAdapter(Context context) {
-        this.context = context;
-    }
-
-    int[] images = {
+class SliderAdapter(var context: Context) : PagerAdapter() {
+    var layoutInflater: LayoutInflater? = null
+    var images = intArrayOf(
             R.drawable.search_place,
             R.drawable.make_a_call,
             R.drawable.add_missing_place,
             R.drawable.sit_back_and_relax
-    };
+    )
+    var headings = intArrayOf(
+            string.first_slide_title,
+            string.second_slide_title,
+            string.third_slide_title,
+            string.first_slide_title
+    )
+    var descriptions = intArrayOf(
+            string.first_slide_desc,
+            string.second_slide_desc,
+            string.third_slide_desc,
+            string.first_slide_desc
+    )
 
-    int[] headings = {
-            R.string.first_slide_title,
-            R.string.second_slide_title,
-            R.string.third_slide_title,
-            R.string.first_slide_title
-    };
-
-    int[] descriptions = {
-            R.string.first_slide_desc,
-            R.string.second_slide_desc,
-            R.string.third_slide_desc,
-            R.string.first_slide_desc
-    };
-
-    @Override
-    public int getCount() {
-        return headings.length;
+    override fun getCount(): Int {
+        return headings.size
     }
 
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == (ConstraintLayout)object;
+    override fun isViewFromObject(view: View, `object`: Any): Boolean {
+        return view === `object` as ConstraintLayout
     }
 
-    @NotNull
-    @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.slides_layout,container,false);
-
-        ImageView imageView = view.findViewById(R.id.slider_image);
-        TextView heading = view.findViewById(R.id.slider_heading);
-        TextView desc = view.findViewById(R.id.slider_desc);
-
-        imageView.setImageResource(images[position]);
-        heading.setText(headings[position]);
-        desc.setText(descriptions[position]);
-
-        container.addView(view);
-
-        return view;
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val view = layoutInflater!!.inflate(R.layout.slides_layout, container, false)
+        val imageView = view.findViewById<ImageView>(R.id.slider_image)
+        val heading = view.findViewById<TextView>(R.id.slider_heading)
+        val desc = view.findViewById<TextView>(R.id.slider_desc)
+        imageView.setImageResource(images[position])
+        heading.setText(headings[position])
+        desc.setText(descriptions[position])
+        container.addView(view)
+        return view
     }
 
-    @Override
-    public void destroyItem(@NonNull @NotNull ViewGroup container, int position, @NonNull @NotNull Object object) {
-        container.removeView((ConstraintLayout)object);
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        container.removeView(`object` as ConstraintLayout)
     }
 }

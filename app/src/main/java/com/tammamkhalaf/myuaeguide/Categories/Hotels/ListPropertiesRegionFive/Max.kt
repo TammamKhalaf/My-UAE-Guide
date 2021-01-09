@@ -1,4 +1,5 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Max{
-    public double defaultValue;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Max {
+    var defaultValue = 0.0
 }

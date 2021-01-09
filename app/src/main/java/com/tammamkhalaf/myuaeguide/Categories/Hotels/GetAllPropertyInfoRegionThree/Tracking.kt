@@ -1,5 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-public class Tracking{
-    public Omniture omniture;
-    public String pageViewBeaconUrl;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class Tracking {
+    var omniture: Omniture? = null
+    var pageViewBeaconUrl: String? = null
 }

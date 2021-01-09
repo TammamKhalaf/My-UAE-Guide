@@ -1,84 +1,122 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
 
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.SerializedName
 
-public class Omniture{
+class Omniture {
     @SerializedName("s.prop33")
-    public String sProp33;
+    var sProp33: String? = null
+
     @SerializedName("s.prop32")
-    public String sProp32;
+    var sProp32: String? = null
+
     @SerializedName("s.prop74")
-    public String sProp74;
+    var sProp74: String? = null
+
     @SerializedName("s.products")
-    public String sProducts;
+    var sProducts: String? = null
+
     @SerializedName("s.eVar16")
-    public String sEVar16;
+    var sEVar16: String? = null
+
     @SerializedName("s.eVar40")
-    public String sEVar40;
+    var sEVar40: String? = null
+
     @SerializedName("s.eVar41")
-    public String sEVar41;
+    var sEVar41: String? = null
+
     @SerializedName("s.eVar63")
-    public String sEVar63;
+    var sEVar63: String? = null
+
     @SerializedName("s.eVar42")
-    public String sEVar42;
+    var sEVar42: String? = null
+
     @SerializedName("s.eVar4")
-    public String sEVar4;
+    var sEVar4: String? = null
+
     @SerializedName("s.eVar43")
-    public String sEVar43;
+    var sEVar43: String? = null
+
     @SerializedName("s.eVar2")
-    public String sEVar2;
+    var sEVar2: String? = null
+
     @SerializedName("s.eVar24")
-    public String sEVar24;
+    var sEVar24: String? = null
+
     @SerializedName("s.eVar7")
-    public String sEVar7;
+    var sEVar7: String? = null
+
     @SerializedName("s.server")
-    public String sServer;
+    var sServer: String? = null
+
     @SerializedName("s.eVar6")
-    public String sEVar6;
+    var sEVar6: String? = null
+
     @SerializedName("s.prop29")
-    public String sProp29;
+    var sProp29: String? = null
+
     @SerializedName("s.prop27")
-    public String sProp27;
+    var sProp27: String? = null
+
     @SerializedName("s.eVar9")
-    public String sEVar9;
+    var sEVar9: String? = null
+
     @SerializedName("s.eVar69")
-    public String sEVar69;
+    var sEVar69: String? = null
+
     @SerializedName("s.currencyCode")
-    public String sCurrencyCode;
+    var sCurrencyCode: String? = null
+
     @SerializedName("s.eVar29")
-    public String sEVar29;
+    var sEVar29: String? = null
+
     @SerializedName("s.prop9")
-    public String sProp9;
+    var sProp9: String? = null
+
     @SerializedName("s.eVar95")
-    public String sEVar95;
+    var sEVar95: String? = null
+
     @SerializedName("s.prop7")
-    public String sProp7;
+    var sProp7: String? = null
+
     @SerializedName("s.eVar31")
-    public String sEVar31;
+    var sEVar31: String? = null
+
     @SerializedName("s.eVar32")
-    public String sEVar32;
+    var sEVar32: String? = null
+
     @SerializedName("s.eVar33")
-    public String sEVar33;
+    var sEVar33: String? = null
+
     @SerializedName("s.eVar34")
-    public String sEVar34;
+    var sEVar34: String? = null
+
     @SerializedName("s.eVar13")
-    public String sEVar13;
+    var sEVar13: String? = null
+
     @SerializedName("s.events")
-    public String sEvents;
+    var sEvents: String? = null
+
     @SerializedName("s.prop18")
-    public String sProp18;
+    var sProp18: String? = null
+
     @SerializedName("s.prop5")
-    public String sProp5;
+    var sProp5: String? = null
+
     @SerializedName("s.prop15")
-    public String sProp15;
+    var sProp15: String? = null
+
     @SerializedName("s.prop3")
-    public String sProp3;
+    var sProp3: String? = null
+
     @SerializedName("s.prop14")
-    public String sProp14;
+    var sProp14: String? = null
+
     @SerializedName("s.prop36")
-    public String sProp36;
+    var sProp36: String? = null
+
     @SerializedName("s.eVar93")
-    public String sEVar93;
+    var sEVar93: String? = null
+
     @SerializedName("s.prop2")
-    public String sProp2;
+    var sProp2: String? = null
 }

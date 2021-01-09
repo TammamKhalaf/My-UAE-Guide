@@ -1,5 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Coordinate{
-    public double lat;
-    public double lon;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Coordinate {
+    var lat = 0.0
+    var lon = 0.0
 }

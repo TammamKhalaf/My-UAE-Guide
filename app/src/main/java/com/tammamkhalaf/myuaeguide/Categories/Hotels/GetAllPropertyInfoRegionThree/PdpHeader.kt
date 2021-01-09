@@ -1,10 +1,10 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
 
-public class PdpHeader{
-    public String hotelId;
-    public String destinationId;
-    public String pointOfSaleId;
-    public String currencyCode;
-    public String occupancyKey;
-    public HotelLocation hotelLocation;
+class PdpHeader {
+    var hotelId: String? = null
+    var destinationId: String? = null
+    var pointOfSaleId: String? = null
+    var currencyCode: String? = null
+    var occupancyKey: String? = null
+    var hotelLocation: HotelLocation? = null
 }

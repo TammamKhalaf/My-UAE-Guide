@@ -1,3 +1,3 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Deals{
-}
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Deals 

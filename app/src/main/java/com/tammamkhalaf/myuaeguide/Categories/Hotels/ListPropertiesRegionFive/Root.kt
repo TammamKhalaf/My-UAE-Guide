@@ -1,5 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Root{
-    public String result;
-    public Data data;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Root {
+    var result: String? = null
+    var data: Data? = null
 }

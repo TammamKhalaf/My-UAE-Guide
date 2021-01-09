@@ -1,6 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
 
-public class Data{
-    public Body body;
-    public Common common;
+class Data {
+    var body: Body? = null
+    var common: Common? = null
 }

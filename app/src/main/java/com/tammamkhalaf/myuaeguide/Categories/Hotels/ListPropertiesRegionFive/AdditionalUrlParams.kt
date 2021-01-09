@@ -1,12 +1,14 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
 
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.SerializedName
 
-public class AdditionalUrlParams{
+class AdditionalUrlParams {
     @SerializedName("resolved-location")
-    public String resolvedLocation;
+    var resolvedLocation: String? = null
+
     @SerializedName("q-destination")
-    public String qDestination;
+    var qDestination: String? = null
+
     @SerializedName("destination-id")
-    public String destinationId;
+    var destinationId: String? = null
 }

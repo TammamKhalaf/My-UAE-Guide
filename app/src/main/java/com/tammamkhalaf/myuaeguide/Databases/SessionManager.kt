@@ -1,88 +1,83 @@
-package com.tammamkhalaf.myuaeguide.Databases;
+package com.tammamkhalaf.myuaeguide.Databases
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Context
+import android.content.SharedPreferences
+import java.util.*
 
-import java.util.HashMap;
-
-public class SessionManager {
-    SharedPreferences userSessions;
-    SharedPreferences.Editor editor;
-    Context context;
-
-    public static final String SESSION_USER_SESSION = "userLoginSession";
-    public static final String SESSION_REMEMBER_ME = "rememberMe";
-
-    private static final String IS_LOGIN = "IsLoggedIn";
-
-    private static final String IS_REMEMBER_ME = "IsRememberMe";
-    public static final String KEY_SESSION_PASSWORD = "password";
-    public static final String KEY_SESSION_PHONE_NUMBER = "phoneNo";
-
-
-    public static final String KEY_FULLNAME = "fullName";
-    public static final String KEY_USERNAME = "username";
-    public static final String KEY_EMAIL = "email";
-    public static final String KEY_PASSWORD = "password";
-    public static final String KEY_PHONE_NUMBER = "phoneNo";
-    public static final String KEY_DATE = "date";
-    public static final String KEY_GENDER = "gender";
-
-    public SessionManager(Context _context,String sessionName) {
-        this.context = _context;
-        userSessions = context.getSharedPreferences(sessionName, Context.MODE_PRIVATE);
-        editor = userSessions.edit();
+class SessionManager(var context: Context, sessionName: String?) {
+    var userSessions: SharedPreferences
+    var editor: SharedPreferences.Editor
+    fun createLoginSession(fullName: String?, username: String?, email: String?, password: String?, gender: String?, date: String?, phoneNo: String?) {
+        editor.putBoolean(IS_LOGIN, true)
+        editor.putString(KEY_FULLNAME, fullName)
+        editor.putString(KEY_USERNAME, username)
+        editor.putString(KEY_EMAIL, email)
+        editor.putString(KEY_PASSWORD, password)
+        editor.putString(KEY_PHONE_NUMBER, phoneNo)
+        editor.putString(KEY_DATE, date)
+        editor.putString(KEY_GENDER, gender)
+        editor.commit()
     }
 
-    public void createLoginSession(String fullName, String username, String email, String password, String gender, String date, String phoneNo) {
-        editor.putBoolean(IS_LOGIN, true);
-        editor.putString(KEY_FULLNAME, fullName);
-        editor.putString(KEY_USERNAME, username);
-        editor.putString(KEY_EMAIL, email);
-        editor.putString(KEY_PASSWORD, password);
-        editor.putString(KEY_PHONE_NUMBER, phoneNo);
-        editor.putString(KEY_DATE, date);
-        editor.putString(KEY_GENDER, gender);
-        editor.commit();
+    fun createRememberMeSession(password: String?, phoneNo: String?) {
+        editor.putBoolean(IS_REMEMBER_ME, true)
+        editor.putString(KEY_SESSION_PASSWORD, password)
+        editor.putString(KEY_SESSION_PHONE_NUMBER, phoneNo)
+        editor.commit()
     }
 
-    public void createRememberMeSession(String password,String phoneNo) {
-        editor.putBoolean(IS_REMEMBER_ME, true);
-        editor.putString(KEY_SESSION_PASSWORD, password);
-        editor.putString(KEY_SESSION_PHONE_NUMBER, phoneNo);
-        editor.commit();
+    val usersDetailFromSession: HashMap<String, String?>
+        get() {
+            val userData = HashMap<String, String?>()
+            userData[KEY_FULLNAME] = userSessions.getString(KEY_FULLNAME, null)
+            userData[KEY_USERNAME] = userSessions.getString(KEY_USERNAME, null)
+            userData[KEY_EMAIL] = userSessions.getString(KEY_EMAIL, null)
+            userData[KEY_PASSWORD] = userSessions.getString(KEY_PASSWORD, null)
+            userData[KEY_PHONE_NUMBER] = userSessions.getString(KEY_PHONE_NUMBER, null)
+            userData[KEY_DATE] = userSessions.getString(KEY_DATE, null)
+            userData[KEY_GENDER] = userSessions.getString(KEY_GENDER, null)
+            return userData
+        }
+
+    fun checkLogin(): Boolean {
+        return userSessions.getBoolean(IS_LOGIN, true)
     }
 
-    public HashMap<String, String> getUsersDetailFromSession() {
-        HashMap<String, String> userData = new HashMap<>();
-        userData.put(KEY_FULLNAME, userSessions.getString(KEY_FULLNAME, null));
-        userData.put(KEY_USERNAME, userSessions.getString(KEY_USERNAME, null));
-        userData.put(KEY_EMAIL, userSessions.getString(KEY_EMAIL, null));
-        userData.put(KEY_PASSWORD, userSessions.getString(KEY_PASSWORD, null));
-        userData.put(KEY_PHONE_NUMBER, userSessions.getString(KEY_PHONE_NUMBER, null));
-        userData.put(KEY_DATE, userSessions.getString(KEY_DATE, null));
-        userData.put(KEY_GENDER, userSessions.getString(KEY_GENDER, null));
-        return userData;
+    fun logoutUserFromSession() {
+        editor.clear()
+        editor.clear()
     }
 
-    public boolean checkLogin() {
-        return userSessions.getBoolean(IS_LOGIN, true);
+    val rememberMeDetailFromSession: HashMap<String, String?>
+        get() {
+            val userData = HashMap<String, String?>()
+            userData[KEY_SESSION_PASSWORD] = userSessions.getString(KEY_SESSION_PASSWORD, null)
+            userData[KEY_SESSION_PHONE_NUMBER] = userSessions.getString(KEY_SESSION_PHONE_NUMBER, null)
+            return userData
+        }
+
+    fun checkRememberMe(): Boolean {
+        return userSessions.getBoolean(IS_REMEMBER_ME, true)
     }
 
-    public void logoutUserFromSession() {
-        editor.clear();
-        editor.clear();
+    companion object {
+        const val SESSION_USER_SESSION = "userLoginSession"
+        const val SESSION_REMEMBER_ME = "rememberMe"
+        private const val IS_LOGIN = "IsLoggedIn"
+        private const val IS_REMEMBER_ME = "IsRememberMe"
+        const val KEY_SESSION_PASSWORD = "password"
+        const val KEY_SESSION_PHONE_NUMBER = "phoneNo"
+        const val KEY_FULLNAME = "fullName"
+        const val KEY_USERNAME = "username"
+        const val KEY_EMAIL = "email"
+        const val KEY_PASSWORD = "password"
+        const val KEY_PHONE_NUMBER = "phoneNo"
+        const val KEY_DATE = "date"
+        const val KEY_GENDER = "gender"
     }
 
-    public HashMap<String, String> getRememberMeDetailFromSession() {
-        HashMap<String, String> userData = new HashMap<>();
-        userData.put(KEY_SESSION_PASSWORD, userSessions.getString(KEY_SESSION_PASSWORD, null));
-        userData.put(KEY_SESSION_PHONE_NUMBER, userSessions.getString(KEY_SESSION_PHONE_NUMBER, null));
-        return userData;
+    init {
+        userSessions = context.getSharedPreferences(sessionName, Context.MODE_PRIVATE)
+        editor = userSessions.edit()
     }
-
-    public boolean checkRememberMe() {
-        return userSessions.getBoolean(IS_REMEMBER_ME, true);
-    }
-
 }

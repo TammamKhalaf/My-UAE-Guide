@@ -1,6 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-public class Location{
-    public String name;
-    public String distance;
-    public String distanceInTime;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class Location {
+    var name: String? = null
+    var distance: String? = null
+    var distanceInTime: String? = null
 }

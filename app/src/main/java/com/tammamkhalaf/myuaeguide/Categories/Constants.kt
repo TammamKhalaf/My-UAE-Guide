@@ -1,5 +1,5 @@
-package com.tammamkhalaf.myuaeguide.Categories;
+package com.tammamkhalaf.myuaeguide.Categories
 
-public class Constants {
-    public static final String BASE_URL_TrueWayPlaces = "https://trueway-places.p.rapidapi.com/";
+object Constants {
+    const val BASE_URL_TrueWayPlaces = "https://trueway-places.p.rapidapi.com/"
 }

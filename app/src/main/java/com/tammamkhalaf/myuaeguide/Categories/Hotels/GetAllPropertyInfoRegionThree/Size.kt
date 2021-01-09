@@ -1,5 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-public class Size{
-    public int type;
-    public String suffix;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class Size {
+    var type = 0
+    var suffix: String? = null
 }

@@ -1,28 +1,20 @@
-package com.tammamkhalaf.myuaeguide.User;
+package com.tammamkhalaf.myuaeguide.User
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.tammamkhalaf.myuaeguide.R
+import com.tammamkhalaf.myuaeguide.User.AllCategories
 
-import android.os.Bundle;
-import android.view.WindowManager;
-import android.widget.ImageView;
-
-import com.tammamkhalaf.myuaeguide.R;
-
-public class AllCategories extends AppCompatActivity {
-
-    ImageView back_btn;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_all_categories);
-
-        back_btn = findViewById(R.id.back_pressed);
-
-        back_btn.setOnClickListener(view -> {
-            AllCategories.super.onBackPressed();
-        });
-
+class AllCategories : AppCompatActivity() {
+    var back_btn: ImageView? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        setContentView(R.layout.activity_all_categories)
+        back_btn = findViewById(R.id.back_pressed)
+        back_btn.setOnClickListener(View.OnClickListener { view: View? -> super@AllCategories.onBackPressed() })
     }
 }

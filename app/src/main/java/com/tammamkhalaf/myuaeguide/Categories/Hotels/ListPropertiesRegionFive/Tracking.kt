@@ -1,4 +1,5 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Tracking{
-    public Omniture omniture;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Tracking {
+    var omniture: Omniture? = null
 }

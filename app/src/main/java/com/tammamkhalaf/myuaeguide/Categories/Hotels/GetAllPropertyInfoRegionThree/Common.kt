@@ -1,6 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
 
-public class Common{
-    public PointOfSale pointOfSale;
-    public Tracking tracking;
+class Common {
+    var pointOfSale: PointOfSale? = null
+    var tracking: Tracking? = null
 }

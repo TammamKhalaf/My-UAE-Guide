@@ -1,11 +1,12 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-public class Address{
-    public String countryName;
-    public String cityName;
-    public String postalCode;
-    public String provinceName;
-    public String addressLine1;
-    public String countryCode;
-    public String pattern;
-    public String fullAddress;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class Address {
+    var countryName: String? = null
+    var cityName: String? = null
+    var postalCode: String? = null
+    var provinceName: String? = null
+    var addressLine1: String? = null
+    var countryCode: String? = null
+    var pattern: String? = null
+    var fullAddress: String? = null
 }

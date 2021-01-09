@@ -1,4 +1,5 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class GuestRating{
-    public Range range;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class GuestRating {
+    var range: Range? = null
 }

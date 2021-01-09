@@ -1,18 +1,17 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
 
-import java.util.List;
-public class Body{
-    public PdpHeader pdpHeader;
-    public Overview overview;
-    public HotelWelcomeRewards hotelWelcomeRewards;
-    public PropertyDescription propertyDescription;
-    public GuestReviews guestReviews;
-    public AtAGlance atAGlance;
-    public List<Amenity> amenities;
-    public HygieneAndCleanliness hygieneAndCleanliness;
-    public SmallPrint smallPrint;
-    public SpecialFeatures specialFeatures;
-    public Miscellaneous miscellaneous;
-    public PageInfo pageInfo;
-    public Unavailable unavailable;
+class Body {
+    var pdpHeader: PdpHeader? = null
+    var overview: Overview? = null
+    var hotelWelcomeRewards: HotelWelcomeRewards? = null
+    var propertyDescription: PropertyDescription? = null
+    var guestReviews: GuestReviews? = null
+    var atAGlance: AtAGlance? = null
+    var amenities: List<Amenity>? = null
+    var hygieneAndCleanliness: HygieneAndCleanliness? = null
+    var smallPrint: SmallPrint? = null
+    var specialFeatures: SpecialFeatures? = null
+    var miscellaneous: Miscellaneous? = null
+    var pageInfo: PageInfo? = null
+    var unavailable: Unavailable? = null
 }

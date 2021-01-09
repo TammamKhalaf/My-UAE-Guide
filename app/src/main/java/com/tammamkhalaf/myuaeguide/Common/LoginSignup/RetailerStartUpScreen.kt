@@ -1,55 +1,45 @@
-package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
+package com.tammamkhalaf.myuaeguide.Common.LoginSignup
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.ActivityOptions
+import android.content.Intent
+import android.os.Build
+import android.os.Bundle
+import android.util.Pair
+import android.view.View
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.RetailerStartUpScreen
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp.SignUp
+import com.tammamkhalaf.myuaeguide.R
 
-import android.app.ActivityOptions;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Pair;
-import android.view.View;
-import android.view.WindowManager;
-
-import com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp.SignUp;
-import com.tammamkhalaf.myuaeguide.R;
-
-public class RetailerStartUpScreen extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_retailer_start_up_screen);
+class RetailerStartUpScreen : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        setContentView(R.layout.activity_retailer_start_up_screen)
     }
 
-    public void callLoginScreen(View view) {
-
-        Intent intent = new Intent(getApplicationContext(), Login.class);
-
-        Pair[] pairs = new Pair[1];
-        pairs[0] = new Pair(findViewById(R.id.login_btn), "transition_login");
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RetailerStartUpScreen.this, pairs);
-            startActivity(intent, options.toBundle());
+    fun callLoginScreen(view: View?) {
+        val intent = Intent(applicationContext, Login::class.java)
+        val pairs: Array<Pair<*, *>> = arrayOfNulls(1)
+        pairs[0] = Pair<Any?, Any?>(findViewById(R.id.login_btn), "transition_login")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val options = ActivityOptions.makeSceneTransitionAnimation(this@RetailerStartUpScreen, *pairs)
+            startActivity(intent, options.toBundle())
         } else {
-            startActivity(intent);
+            startActivity(intent)
         }
-
     }
 
-    public void callSignUpScreen(View view) {
-
-        Intent intent = new Intent(getApplicationContext(), SignUp.class);
-
-        Pair[] pairs = new Pair[1];
-        pairs[0] = new Pair(findViewById(R.id.signup_btn), "transition_signup");
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(RetailerStartUpScreen.this, pairs);
-            startActivity(intent, options.toBundle());
+    fun callSignUpScreen(view: View?) {
+        val intent = Intent(applicationContext, SignUp::class.java)
+        val pairs: Array<Pair<*, *>> = arrayOfNulls(1)
+        pairs[0] = Pair<Any?, Any?>(findViewById(R.id.signup_btn), "transition_signup")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val options = ActivityOptions.makeSceneTransitionAnimation(this@RetailerStartUpScreen, *pairs)
+            startActivity(intent, options.toBundle())
         } else {
-            startActivity(intent);
+            startActivity(intent)
         }
-
     }
 }

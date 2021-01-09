@@ -1,8 +1,8 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-import java.util.List; 
-public class Landmark{
-    public String label;
-    public String distance;
-    public List<Object> selectedOrder;
-    public List<Item> items;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Landmark {
+    var label: String? = null
+    var distance: String? = null
+    var selectedOrder: List<Any>? = null
+    var items: List<Item>? = null
 }

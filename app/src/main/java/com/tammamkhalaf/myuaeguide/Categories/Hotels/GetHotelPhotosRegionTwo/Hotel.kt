@@ -1,15 +1,9 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetHotelPhotosRegionTwo;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetHotelPhotosRegionTwo
 
-import java.util.List;
-public class Hotel{
-
-    public int hotelId;
-
-    public List<HotelImage> hotelImages;
-
-    public List<RoomImage> roomImages;
-
-    public FeaturedImageTrackingDetails featuredImageTrackingDetails;
-
-    public PropertyImageTrackingDetails propertyImageTrackingDetails;
+class Hotel {
+    var hotelId = 0
+    var hotelImages: List<HotelImage>? = null
+    var roomImages: List<RoomImage>? = null
+    var featuredImageTrackingDetails: FeaturedImageTrackingDetails? = null
+    var propertyImageTrackingDetails: PropertyImageTrackingDetails? = null
 }

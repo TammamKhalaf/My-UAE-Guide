@@ -1,6 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-import java.util.List; 
-public class AccommodationType{
-    public boolean applied;
-    public List<Item> items;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class AccommodationType {
+    var applied = false
+    var items: List<Item>? = null
 }

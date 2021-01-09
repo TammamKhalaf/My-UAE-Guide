@@ -1,5 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Item2{
-    public int value;
-    public String label;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Item2 {
+    var value = 0
+    var label: String? = null
 }

@@ -1,62 +1,42 @@
-package com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.Categories;
+package com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.Categories
 
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.Categories.CategoriesAdapter.AdapterAllCategoriesViewHolder
+import com.tammamkhalaf.myuaeguide.R
+import java.util.*
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.tammamkhalaf.myuaeguide.R;
-
-import java.util.ArrayList;
-
-public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.AdapterAllCategoriesViewHolder> {
-
-    ArrayList<CategoriesHelperClass> mostViewedLocations;
-
-    public CategoriesAdapter(ArrayList<CategoriesHelperClass> mostViewedLocations) {
-        this.mostViewedLocations = mostViewedLocations;
+class CategoriesAdapter(var mostViewedLocations: ArrayList<CategoriesHelperClass>) : RecyclerView.Adapter<AdapterAllCategoriesViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterAllCategoriesViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.categories_card_design, parent, false)
+        return AdapterAllCategoriesViewHolder(view)
     }
 
-    @NonNull
-    @Override
-    public AdapterAllCategoriesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.categories_card_design, parent, false);
-        AdapterAllCategoriesViewHolder lvh = new AdapterAllCategoriesViewHolder(view);
-        return lvh;
+    override fun onBindViewHolder(holder: AdapterAllCategoriesViewHolder, position: Int) {
+        val helperClass = mostViewedLocations[position]
+        holder.imageView.setImageResource(helperClass.image)
+        holder.textView.text = helperClass.title
+        holder.relativeLayout.background = helperClass.gradient
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull AdapterAllCategoriesViewHolder holder, int position) {
-
-        CategoriesHelperClass helperClass = mostViewedLocations.get(position);
-        holder.imageView.setImageResource(helperClass.getImage());
-        holder.textView.setText(helperClass.getTitle());
-        holder.relativeLayout.setBackground(helperClass.getGradient());
+    override fun getItemCount(): Int {
+        return mostViewedLocations.size
     }
 
-    @Override
-    public int getItemCount() {
-        return mostViewedLocations.size();
-    }
+    class AdapterAllCategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var relativeLayout: RelativeLayout
+        var imageView: ImageView
+        var textView: TextView
 
-    public static class AdapterAllCategoriesViewHolder extends RecyclerView.ViewHolder {
-
-        RelativeLayout relativeLayout;
-        ImageView imageView;
-        TextView textView;
-
-        public AdapterAllCategoriesViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            relativeLayout = itemView.findViewById(R.id.background_gradient);
-            imageView = itemView.findViewById(R.id.categories_image);
-            textView = itemView.findViewById(R.id.categories_title);
+        init {
+            relativeLayout = itemView.findViewById(R.id.background_gradient)
+            imageView = itemView.findViewById(R.id.categories_image)
+            textView = itemView.findViewById(R.id.categories_title)
         }
     }
 }

@@ -1,6 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-import java.util.List; 
-public class ListItem{
-    public String heading;
-    public List<String> listItems;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class ListItem {
+    var heading: String? = null
+    var listItems: List<String>? = null
 }

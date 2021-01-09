@@ -1,8 +1,8 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
 
-public class PropertyInfo {
-    public String result;
-    public Data data;
-    public Transportation transportation;
-    public Neighborhood neighborhood;
+class PropertyInfo {
+    var result: String? = null
+    var data: Data? = null
+    var transportation: Transportation? = null
+    var neighborhood: Neighborhood? = null
 }

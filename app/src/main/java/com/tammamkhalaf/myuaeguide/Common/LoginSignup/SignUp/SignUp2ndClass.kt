@@ -1,129 +1,106 @@
-package com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp;
+package com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.ActivityOptions
+import android.content.Intent
+import android.os.Build
+import android.os.Bundle
+import android.util.Pair
+import android.view.View
+import android.view.WindowManager
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp.SignUp2ndClass
+import com.tammamkhalaf.myuaeguide.R
+import com.tammamkhalaf.myuaeguide.R.string
+import java.util.*
 
-import android.os.Bundle;
-
-import android.app.ActivityOptions;
-import android.content.Intent;
-import android.util.Pair;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.tammamkhalaf.myuaeguide.R;
-
-import java.util.Calendar;
-
-public class SignUp2ndClass extends AppCompatActivity {
-    private static final String TAG = "SignUp2ndClass";
-
+class SignUp2ndClass : AppCompatActivity() {
     //Variables
-    ImageView backBtn;
-    Button next, login;
-    TextView titleText, slideText;
-    RadioGroup radioGroup;
-    RadioButton selectedGender;
-    DatePicker datePicker;
-    int gender;
-    int currentAge;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_sign_up2nd_class);
+    var backBtn: ImageView? = null
+    var next: Button? = null
+    var login: Button? = null
+    var titleText: TextView? = null
+    var slideText: TextView? = null
+    var radioGroup: RadioGroup? = null
+    var selectedGender: RadioButton? = null
+    var datePicker: DatePicker? = null
+    var gender = 0
+    var currentAge = 0
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        setContentView(R.layout.activity_sign_up2nd_class)
 
         //Hooks
-        backBtn = findViewById(R.id.signup_back_button);
-        next = findViewById(R.id.signup_next_button);
-        login = findViewById(R.id.signup_login_button);
-        titleText = findViewById(R.id.signup_title_text);
-        slideText = findViewById(R.id.signup_slide_text);
-        radioGroup = findViewById(R.id.radio_group);
-        datePicker = findViewById(R.id.age_picker);
-
+        backBtn = findViewById(R.id.signup_back_button)
+        next = findViewById(R.id.signup_next_button)
+        login = findViewById(R.id.signup_login_button)
+        titleText = findViewById(R.id.signup_title_text)
+        slideText = findViewById(R.id.signup_slide_text)
+        radioGroup = findViewById(R.id.radio_group)
+        datePicker = findViewById(R.id.age_picker)
     }
 
-    public void call3rdSigupScreen(View view) {
-
-        if(!validateAge() | !validateGender()){
-            finish();
+    fun call3rdSigupScreen(view: View?) {
+        if (!validateAge() or !validateGender()) {
+            finish()
         }
+        val intentPrevious = intent
+        val fullname = intentPrevious.getStringExtra("fullName")
+        val username = intentPrevious.getStringExtra("username")
+        val email = intentPrevious.getStringExtra("email")
+        val password = intentPrevious.getStringExtra("password")
+        selectedGender = findViewById(radioGroup!!.checkedRadioButtonId)
+        val selectedGend = selectedGender.getText().toString()
+        val day = datePicker!!.dayOfMonth
+        val month = datePicker!!.month
+        val year = datePicker!!.year
+        val DOB = "$day/$month/$year"
+        val intent = Intent(applicationContext, SignUp3rdClass::class.java)
+        intent.putExtra("fullName", fullname)
+        intent.putExtra("username", username)
+        intent.putExtra("email", email)
+        intent.putExtra("password", password)
+        intent.putExtra("age", DOB)
+        intent.putExtra("gender", selectedGend)
 
-            Intent intentPrevious = getIntent();
-            String fullname = intentPrevious.getStringExtra("fullName");
-            String username = intentPrevious.getStringExtra("username");
-            String email = intentPrevious.getStringExtra("email");
-            String password = intentPrevious.getStringExtra("password");
-
-            selectedGender = findViewById(radioGroup.getCheckedRadioButtonId());
-
-            String selectedGend = selectedGender.getText().toString();
-
-            int day = datePicker.getDayOfMonth();
-            int month = datePicker.getMonth();
-            int year = datePicker.getYear();
-
-            String DOB = day+"/"+month+"/"+year;
-
-        Intent intent = new Intent(getApplicationContext(), SignUp3rdClass.class);
-
-
-
-            intent.putExtra("fullName", fullname);
-            intent.putExtra("username", username);
-            intent.putExtra("email", email);
-            intent.putExtra("password",password);
-            intent.putExtra("age",DOB);
-            intent.putExtra("gender",selectedGend);
-
-            //Add Transition and call next activity
-            Pair[] pairs = new Pair[5];
-            pairs[0] = new Pair(backBtn, "transition_back_arrow_btn");
-            pairs[1] = new Pair(next, "transition_next_btn");
-            pairs[2] = new Pair(login, "transition_login_btn");
-            pairs[3] = new Pair(titleText, "transition_title_text");
-            pairs[4] = new Pair(slideText, "transition_slide_text");
-
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUp2ndClass.this, pairs);
-                startActivity(intent, options.toBundle());
-            } else {
-                startActivity(intent);
-            }
-
-
-    }
-
-    private boolean validateGender() {
-        if (radioGroup.getCheckedRadioButtonId() == -1) {
-            Toast.makeText(this,getString(R.string.SelectGender), Toast.LENGTH_SHORT).show();
-            return false;
+        //Add Transition and call next activity
+        val pairs: Array<Pair<*, *>> = arrayOfNulls(5)
+        pairs[0] = Pair<Any?, Any?>(backBtn, "transition_back_arrow_btn")
+        pairs[1] = Pair<Any?, Any?>(next, "transition_next_btn")
+        pairs[2] = Pair<Any?, Any?>(login, "transition_login_btn")
+        pairs[3] = Pair<Any?, Any?>(titleText, "transition_title_text")
+        pairs[4] = Pair<Any?, Any?>(slideText, "transition_slide_text")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val options = ActivityOptions.makeSceneTransitionAnimation(this@SignUp2ndClass, *pairs)
+            startActivity(intent, options.toBundle())
         } else {
-            gender = radioGroup.getCheckedRadioButtonId();
-            return true;
+            startActivity(intent)
         }
     }
 
-    private boolean validateAge() {
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-        int userAge = datePicker.getYear();
-        int isAgeValid = currentYear - userAge;
-
-        if (isAgeValid < 14) {
-            Toast.makeText(this, getString(R.string.NotAllowed), Toast.LENGTH_SHORT).show();
-            return false;
-        } else
-            currentAge = isAgeValid;
-            return true;
+    private fun validateGender(): Boolean {
+        return if (radioGroup!!.checkedRadioButtonId == -1) {
+            Toast.makeText(this, getString(string.SelectGender), Toast.LENGTH_SHORT).show()
+            false
+        } else {
+            gender = radioGroup!!.checkedRadioButtonId
+            true
+        }
     }
 
+    private fun validateAge(): Boolean {
+        val currentYear = Calendar.getInstance()[Calendar.YEAR]
+        val userAge = datePicker!!.year
+        val isAgeValid = currentYear - userAge
+        currentAge = if (isAgeValid < 14) {
+            Toast.makeText(this, getString(string.NotAllowed), Toast.LENGTH_SHORT).show()
+            return false
+        } else isAgeValid
+        return true
+    }
 
+    companion object {
+        private const val TAG = "SignUp2ndClass"
+    }
 }

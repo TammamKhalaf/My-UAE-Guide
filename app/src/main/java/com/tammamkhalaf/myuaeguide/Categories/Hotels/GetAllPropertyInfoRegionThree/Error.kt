@@ -1,6 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-import java.util.List; 
-public class Error{
-    public String fieldName;
-    public List<String> errorMessages;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class Error {
+    var fieldName: String? = null
+    var errorMessages: List<String>? = null
 }

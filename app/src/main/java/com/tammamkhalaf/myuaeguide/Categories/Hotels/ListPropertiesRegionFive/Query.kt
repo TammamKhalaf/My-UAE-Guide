@@ -1,4 +1,5 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Query{
-    public Destination destination;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Query {
+    var destination: Destination? = null
 }

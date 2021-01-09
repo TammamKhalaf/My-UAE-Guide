@@ -1,6 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-import java.util.List; 
-public class TravellingOrInternet{
-    public Travelling travelling;
-    public List<String> internet;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class TravellingOrInternet {
+    var travelling: Travelling? = null
+    var internet: List<String>? = null
 }

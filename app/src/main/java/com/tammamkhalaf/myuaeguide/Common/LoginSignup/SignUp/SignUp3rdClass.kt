@@ -1,105 +1,94 @@
-package com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp;
+package com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.app.ActivityOptions
+import android.content.Intent
+import android.os.Build
+import android.os.Bundle
+import android.util.Pair
+import android.view.View
+import android.view.WindowManager
+import android.widget.ScrollView
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputLayout
+import com.hbb20.CountryCodePicker
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.SignUp.SignUp3rdClass
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.VerifyOTP
+import com.tammamkhalaf.myuaeguide.R
+import com.tammamkhalaf.myuaeguide.R.string
+import java.util.*
 
-import android.app.ActivityOptions;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Pair;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ScrollView;
-
-import com.google.android.material.textfield.TextInputLayout;
-import com.hbb20.CountryCodePicker;
-import com.tammamkhalaf.myuaeguide.Common.LoginSignup.VerifyOTP;
-import com.tammamkhalaf.myuaeguide.R;
-
-import java.util.Objects;
-
-public class SignUp3rdClass extends AppCompatActivity {
-
-    private static final String TAG = "SignUp3rdClass";
-
-    ScrollView scrollView;
-    CountryCodePicker countryCodePicker;
-    TextInputLayout phoneNumber;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_sign_up3rd_class);
-
-        scrollView = findViewById(R.id.signup_3rd_screen_scroll_view);
-        countryCodePicker = findViewById(R.id.country_code_picker);
-        phoneNumber = findViewById(R.id.signup_phone_number);
-
+class SignUp3rdClass : AppCompatActivity() {
+    var scrollView: ScrollView? = null
+    var countryCodePicker: CountryCodePicker? = null
+    var phoneNumber: TextInputLayout? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        setContentView(R.layout.activity_sign_up3rd_class)
+        scrollView = findViewById(R.id.signup_3rd_screen_scroll_view)
+        countryCodePicker = findViewById(R.id.country_code_picker)
+        phoneNumber = findViewById(R.id.signup_phone_number)
     }
 
-    public void callVerifyOTPScreen(View view) {
-
-        if(!validatePhoneNumber()){
-            return;
+    fun callVerifyOTPScreen(view: View?) {
+        if (!validatePhoneNumber()) {
+            return
         }
-
-            Intent intentPrevious = getIntent();
-            String fullName = intentPrevious.getStringExtra("fullName");
-            String username = intentPrevious.getStringExtra("username");
-            String email = intentPrevious.getStringExtra("email");
-            String password = intentPrevious.getStringExtra("password");
-
-            String gender = intentPrevious.getStringExtra("gender");
-            String date = intentPrevious.getStringExtra("age");
-            //String getUserEnteredPhoneNumber = phoneNumber.getEditText().getText().toString().trim();
-            //String phoneNo = "+"+countryCodePicker.getSelectedCountryCode()+getUserEnteredPhoneNumber;//getFullNumber
+        val intentPrevious = intent
+        val fullName = intentPrevious.getStringExtra("fullName")
+        val username = intentPrevious.getStringExtra("username")
+        val email = intentPrevious.getStringExtra("email")
+        val password = intentPrevious.getStringExtra("password")
+        val gender = intentPrevious.getStringExtra("gender")
+        val date = intentPrevious.getStringExtra("age")
+        //String getUserEnteredPhoneNumber = phoneNumber.getEditText().getText().toString().trim();
+        //String phoneNo = "+"+countryCodePicker.getSelectedCountryCode()+getUserEnteredPhoneNumber;//getFullNumber
 
         //Get complete phone number
-        String _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumber.getEditText()).getText().toString().trim();
+        var _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumber!!.editText).text.toString().trim { it <= ' ' }
         //Remove first zero if entered!
-        if (_getUserEnteredPhoneNumber.charAt(0) == '0') {
-            _getUserEnteredPhoneNumber = _getUserEnteredPhoneNumber.substring(1);
+        if (_getUserEnteredPhoneNumber[0] == '0') {
+            _getUserEnteredPhoneNumber = _getUserEnteredPhoneNumber.substring(1)
         }
         //Complete phone number
-        final String _phoneNo = "+" + countryCodePicker.getFullNumber() + _getUserEnteredPhoneNumber;
+        val _phoneNo = "+" + countryCodePicker!!.fullNumber + _getUserEnteredPhoneNumber
+        val intent = Intent(applicationContext, VerifyOTP::class.java)
+        intent.putExtra("fullName", fullName)
+        intent.putExtra("username", username)
+        intent.putExtra("email", email)
+        intent.putExtra("password", password)
+        intent.putExtra("gender", gender)
+        intent.putExtra("age", date)
+        intent.putExtra("phoneNo", _phoneNo)
 
-
-
-            Intent intent = new Intent(getApplicationContext(), VerifyOTP.class);
-
-            intent.putExtra("fullName",fullName);
-            intent.putExtra("username",username);
-            intent.putExtra("email",email);
-            intent.putExtra("password",password);
-            intent.putExtra("gender",gender);
-            intent.putExtra("age",date);
-            intent.putExtra("phoneNo",_phoneNo);
-
-            //todo Add Transition
-            Pair[] pairs = new Pair[1];
-            pairs[0] = new Pair<View, String>(scrollView, "transition_OTP_screen");
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUp3rdClass.this, pairs);
-                startActivity(intent, options.toBundle());
-            } else {
-                startActivity(intent);
-            }
-
+        //todo Add Transition
+        val pairs: Array<Pair<*, *>> = arrayOfNulls(1)
+        pairs[0] = Pair<View?, String>(scrollView, "transition_OTP_screen")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val options = ActivityOptions.makeSceneTransitionAnimation(this@SignUp3rdClass, *pairs)
+            startActivity(intent, options.toBundle())
+        } else {
+            startActivity(intent)
+        }
     }
 
-    private boolean validatePhoneNumber() {
-        String val = Objects.requireNonNull(phoneNumber.getEditText()).getText().toString().trim();
-        String checkspaces = "Aw{1,20}z";
-        if (val.isEmpty()) {
-            phoneNumber.setError(getString(R.string.EnterValidPhoneNo));
-            return false;
-        } else if (val.contains(" ")) {
-            phoneNumber.setError(getString(R.string.NoWhiteSpaces));
-            return false;
+    private fun validatePhoneNumber(): Boolean {
+        val `val` = Objects.requireNonNull(phoneNumber!!.editText).text.toString().trim { it <= ' ' }
+        val checkspaces = "Aw{1,20}z"
+        return if (`val`.isEmpty()) {
+            phoneNumber!!.error = getString(string.EnterValidPhoneNo)
+            false
+        } else if (`val`.contains(" ")) {
+            phoneNumber!!.error = getString(string.NoWhiteSpaces)
+            false
         } else {
-            phoneNumber.setError(null);
-            phoneNumber.setErrorEnabled(false);
-            return true;
+            phoneNumber!!.error = null
+            phoneNumber!!.isErrorEnabled = false
+            true
         }
+    }
+
+    companion object {
+        private const val TAG = "SignUp3rdClass"
     }
 }

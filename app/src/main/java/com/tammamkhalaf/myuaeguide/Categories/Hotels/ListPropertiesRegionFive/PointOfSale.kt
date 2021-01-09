@@ -1,6 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class PointOfSale{
-    public Currency currency;
-    public String numberSeparators;
-    public String brandName;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class PointOfSale {
+    var currency: Currency? = null
+    var numberSeparators: String? = null
+    var brandName: String? = null
 }

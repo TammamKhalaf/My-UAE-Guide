@@ -1,6 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Miscellaneous{
-    public String pageViewBeaconUrl;
-    public boolean showLegalInfoForStrikethroughPrices;
-    public String legalInfoForStrikethroughPrices;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Miscellaneous {
+    var pageViewBeaconUrl: String? = null
+    var showLegalInfoForStrikethroughPrices = false
+    var legalInfoForStrikethroughPrices: String? = null
 }

@@ -1,8 +1,9 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Pagination{
-    public int currentPage;
-    public String pageGroup;
-    public int nextPageStartIndex;
-    public int nextPageNumber;
-    public String nextPageGroup;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Pagination {
+    var currentPage = 0
+    var pageGroup: String? = null
+    var nextPageStartIndex = 0
+    var nextPageNumber = 0
+    var nextPageGroup: String? = null
 }

@@ -1,145 +1,111 @@
-package com.tammamkhalaf.myuaeguide.Common.LoginSignup.ForgetPassword;
+package com.tammamkhalaf.myuaeguide.Common.LoginSignup.ForgetPassword
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent
+import android.net.ConnectivityManager
+import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.hbb20.CountryCodePicker
+import com.tammamkhalaf.myuaeguide.Common.LoginSignup.VerifyOTP
+import com.tammamkhalaf.myuaeguide.R
+import com.tammamkhalaf.myuaeguide.R.string
+import java.util.*
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.hbb20.CountryCodePicker;
-import com.tammamkhalaf.myuaeguide.Common.LoginSignup.VerifyOTP;
-import com.tammamkhalaf.myuaeguide.R;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
-
-public class ForgetPassword extends AppCompatActivity {
-
-    Animation animation;
-    private TextInputLayout phoneNumberTextField;
-    private CountryCodePicker countryCodePicker;
-    RelativeLayout progressBar;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_forget_password);
-
-        ImageView screenIcon = findViewById(R.id.forget_password_icon);
-        TextView title = findViewById(R.id.forget_password_title);
-        TextView description = findViewById(R.id.forget_password_description);
-        phoneNumberTextField = findViewById(R.id.forget_password_phone_number);
-        countryCodePicker = findViewById(R.id.country_code_picker);
-        Button nextBtn = findViewById(R.id.forget_password_next_btn);
-        progressBar = findViewById(R.id.progress_bar);
+class ForgetPassword : AppCompatActivity() {
+    var animation: Animation? = null
+    private var phoneNumberTextField: TextInputLayout? = null
+    private var countryCodePicker: CountryCodePicker? = null
+    var progressBar: RelativeLayout? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        setContentView(R.layout.activity_forget_password)
+        val screenIcon = findViewById<ImageView>(R.id.forget_password_icon)
+        val title = findViewById<TextView>(R.id.forget_password_title)
+        val description = findViewById<TextView>(R.id.forget_password_description)
+        phoneNumberTextField = findViewById(R.id.forget_password_phone_number)
+        countryCodePicker = findViewById(R.id.country_code_picker)
+        val nextBtn = findViewById<Button>(R.id.forget_password_next_btn)
+        progressBar = findViewById(R.id.progress_bar)
 
 
         //Animation Hook
-        animation = AnimationUtils.loadAnimation(this, R.anim.slide_animation);
+        animation = AnimationUtils.loadAnimation(this, R.anim.slide_animation)
 
         //Set animation to all the elements
-        screenIcon.setAnimation(animation);
-        title.setAnimation(animation);
-        description.setAnimation(animation);
-        phoneNumberTextField.setAnimation(animation);
-        countryCodePicker.setAnimation(animation);
-        nextBtn.setAnimation(animation);
-
-
+        screenIcon.animation = animation
+        title.animation = animation
+        description.animation = animation
+        phoneNumberTextField.setAnimation(animation)
+        countryCodePicker.setAnimation(animation)
+        nextBtn.animation = animation
     }
 
-    public void callBackScreenFromForgetPassword(View view) {
-
-    }
-
-    public void verifyPhoneNumber(View view) {
-
-
+    fun callBackScreenFromForgetPassword(view: View?) {}
+    fun verifyPhoneNumber(view: View?) {
         if (isConnected(this) && validateField()) {
-            progressBar.setVisibility(View.VISIBLE);
+            progressBar!!.visibility = View.VISIBLE
             //Get complete phone number
-
-            String _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumberTextField.getEditText()).getText().toString().trim();
+            var _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumberTextField!!.editText).text.toString().trim { it <= ' ' }
             //Remove first zero if entered!
-            if (_getUserEnteredPhoneNumber.charAt(0) == '0') {
-                _getUserEnteredPhoneNumber = _getUserEnteredPhoneNumber.substring(1);
+            if (_getUserEnteredPhoneNumber[0] == '0') {
+                _getUserEnteredPhoneNumber = _getUserEnteredPhoneNumber.substring(1)
             }
             //Complete phone number
-            final String _phoneNo = "+" + countryCodePicker.getFullNumber() + _getUserEnteredPhoneNumber;
-
-            Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(_phoneNo);
-
-            checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+            val _phoneNo = "+" + countryCodePicker!!.fullNumber + _getUserEnteredPhoneNumber
+            val checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(_phoneNo)
+            checkUser.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
-                        phoneNumberTextField.setError(null);
-                        phoneNumberTextField.setErrorEnabled(false);
-
-                        Intent intent = new Intent(getApplicationContext(), VerifyOTP.class);
-                        intent.putExtra("phoneNo",_phoneNo);
-                        intent.putExtra("whatToDo","updateData");
-                        startActivity(intent);
-                        finish();
-                        progressBar.setVisibility(View.GONE);
-
-
+                        phoneNumberTextField!!.error = null
+                        phoneNumberTextField!!.isErrorEnabled = false
+                        val intent = Intent(applicationContext, VerifyOTP::class.java)
+                        intent.putExtra("phoneNo", _phoneNo)
+                        intent.putExtra("whatToDo", "updateData")
+                        startActivity(intent)
+                        finish()
+                        progressBar!!.visibility = View.GONE
                     } else {
-                        progressBar.setVisibility(View.GONE);
-                        phoneNumberTextField.setError(getString(R.string.NoSuchUser));
-                        phoneNumberTextField.requestFocus();
+                        progressBar!!.visibility = View.GONE
+                        phoneNumberTextField!!.error = getString(string.NoSuchUser)
+                        phoneNumberTextField!!.requestFocus()
                     }
                 }
 
-                @Override
-                public void onCancelled(@NonNull @NotNull DatabaseError error) {
-                    progressBar.setVisibility(View.GONE);
+                override fun onCancelled(error: DatabaseError) {
+                    progressBar!!.visibility = View.GONE
                 }
-            });
-
+            })
         }
-
     }
 
-    private boolean isConnected(ForgetPassword forgetPassword) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) forgetPassword.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo wifiConnection = connectivityManager.getNetworkInfo(connectivityManager.TYPE_WIFI);
-        NetworkInfo mobileConnection = connectivityManager.getNetworkInfo(connectivityManager.TYPE_MOBILE);
-
-        return wifiConnection != null && wifiConnection.isConnected() || (mobileConnection != null && mobileConnection.isConnected());
-
+    private fun isConnected(forgetPassword: ForgetPassword): Boolean {
+        val connectivityManager = forgetPassword.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val wifiConnection = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+        val mobileConnection = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+        return wifiConnection != null && wifiConnection.isConnected || mobileConnection != null && mobileConnection.isConnected
     }
 
-    private boolean validateField() {
-        String _phoneNumber = Objects.requireNonNull(phoneNumberTextField.getEditText()).getText().toString().trim();
-        if (_phoneNumber.isEmpty()) {
-            phoneNumberTextField.setError(getString(R.string.Empty_Field));
-            phoneNumberTextField.requestFocus();
-            return false;
+    private fun validateField(): Boolean {
+        val _phoneNumber = Objects.requireNonNull(phoneNumberTextField!!.editText).text.toString().trim { it <= ' ' }
+        return if (_phoneNumber.isEmpty()) {
+            phoneNumberTextField!!.error = getString(string.Empty_Field)
+            phoneNumberTextField!!.requestFocus()
+            false
         } else {
-            return true;//todo check zero for phone number add at the beginnings
+            true //todo check zero for phone number add at the beginnings
         }
-
     }
 }

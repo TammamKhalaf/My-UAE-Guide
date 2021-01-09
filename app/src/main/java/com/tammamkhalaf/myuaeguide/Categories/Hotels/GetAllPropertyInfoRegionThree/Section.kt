@@ -1,8 +1,8 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-import java.util.List; 
-public class Section{
-    public String heading;
-    public String freeText;
-    public List<Object> listItems;
-    public List<Object> subsections;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class Section {
+    var heading: String? = null
+    var freeText: String? = null
+    var listItems: List<Any>? = null
+    var subsections: List<Any>? = null
 }

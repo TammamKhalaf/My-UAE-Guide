@@ -1,10 +1,10 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-import java.util.List; 
-public class SmallPrint{
-    public List<String> alternativeNames;
-    public List<String> mandatoryFees;
-    public List<String> optionalExtras;
-    public List<String> policies;
-    public boolean mandatoryTaxesOrFees;
-    public boolean display;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class SmallPrint {
+    var alternativeNames: List<String>? = null
+    var mandatoryFees: List<String>? = null
+    var optionalExtras: List<String>? = null
+    var policies: List<String>? = null
+    var mandatoryTaxesOrFees = false
+    var display = false
 }

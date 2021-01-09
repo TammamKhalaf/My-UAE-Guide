@@ -1,7 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.searchHotelRegionOne;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.searchHotelRegionOne
 
-import java.util.List;
-public class Suggestion{
-    public String group;
-    public List<Entity> entities;
+class Suggestion {
+    var group: String? = null
+    var entities: List<Entity?>? = null
 }

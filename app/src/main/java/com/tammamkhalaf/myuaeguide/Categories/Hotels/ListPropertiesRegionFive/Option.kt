@@ -1,9 +1,9 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-import java.util.List; 
-public class Option{
-    public String label;
-    public String itemMeta;
-    public List<Choice> choices;
-    public List<EnhancedChoice> enhancedChoices;
-    public String selectedChoiceLabel;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Option {
+    var label: String? = null
+    var itemMeta: String? = null
+    var choices: List<Choice>? = null
+    var enhancedChoices: List<EnhancedChoice>? = null
+    var selectedChoiceLabel: String? = null
 }

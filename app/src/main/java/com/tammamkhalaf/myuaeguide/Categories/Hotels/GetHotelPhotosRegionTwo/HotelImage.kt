@@ -1,12 +1,12 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetHotelPhotosRegionTwo;
-import com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree.Size;
-import com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree.TrackingDetails;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetHotelPhotosRegionTwo
 
-import java.util.List;
-public class HotelImage{
-    public String baseUrl;
-    public int imageId;
-    public String mediaGUID;
-    public List<Size> sizes;
-    public TrackingDetails trackingDetails;
+import com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree.Size
+import com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree.TrackingDetails
+
+class HotelImage {
+    var baseUrl: String? = null
+    var imageId = 0
+    var mediaGUID: String? = null
+    var sizes: List<Size>? = null
+    var trackingDetails: TrackingDetails? = null
 }

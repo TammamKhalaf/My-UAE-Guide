@@ -1,5 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-public class CurrentPrice{
-    public String formatted;
-    public double plain;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class CurrentPrice {
+    var formatted: String? = null
+    var plain = 0.0
 }

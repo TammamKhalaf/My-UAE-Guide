@@ -1,29 +1,23 @@
-package com.tammamkhalaf.myuaeguide.Common.LoginSignup;
+package com.tammamkhalaf.myuaeguide.Common.LoginSignup
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
+import com.tammamkhalaf.myuaeguide.R
 
-import android.os.Bundle;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-
-import com.tammamkhalaf.myuaeguide.R;
-
-public class MakeSelection extends AppCompatActivity {
-
-    Animation animation;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_make_selection);
-
+class MakeSelection : AppCompatActivity() {
+    var animation: Animation? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        setContentView(R.layout.activity_make_selection)
 
 
         //Animation Hook
-        animation = AnimationUtils.loadAnimation(this, R.anim.slide_animation);
+        animation = AnimationUtils.loadAnimation(this, R.anim.slide_animation)
 
         //Set animation to all the elements
 //        screenIcon.setAnimation(animation);
@@ -34,11 +28,6 @@ public class MakeSelection extends AppCompatActivity {
 //        nextBtn.setAnimation(animation);
     }
 
-    public void callBackScreenFromMakeSelection(View view) {
-
-    }
-
-    public void callOTPScreenFromMakeSelection(View view) {
-
-    }
+    fun callBackScreenFromMakeSelection(view: View?) {}
+    fun callOTPScreenFromMakeSelection(view: View?) {}
 }

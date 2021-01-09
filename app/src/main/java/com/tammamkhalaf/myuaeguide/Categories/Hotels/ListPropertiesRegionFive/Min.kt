@@ -1,4 +1,5 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Min{
-    public double defaultValue;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Min {
+    var defaultValue = 0.0
 }

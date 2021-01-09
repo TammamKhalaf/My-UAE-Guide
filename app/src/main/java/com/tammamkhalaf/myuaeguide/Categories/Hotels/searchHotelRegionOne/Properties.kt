@@ -1,11 +1,10 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.searchHotelRegionOne;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.searchHotelRegionOne
 
-import java.util.List;
-public class Properties{
-    public String term;
-    public int moresuggestions;
-    public Object autoSuggestInstance;
-    public String trackingID;
-    public boolean misspellingfallback;
-    public List<Suggestion> suggestions;
+class Properties {
+    var term: String? = null
+    var moresuggestions = 0
+    var autoSuggestInstance: Any? = null
+    var trackingID: String? = null
+    var misspellingfallback = false
+    var suggestions: List<Suggestion>? = null
 }

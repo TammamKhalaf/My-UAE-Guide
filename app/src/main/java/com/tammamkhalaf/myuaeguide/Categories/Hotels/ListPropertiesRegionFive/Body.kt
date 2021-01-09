@@ -1,11 +1,12 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Body{
-    public String header;
-    public Query query;
-    public SearchResults searchResults;
-    public SortResults sortResults;
-    public Filters filters;
-    public PointOfSale pointOfSale;
-    public Miscellaneous miscellaneous;
-    public PageInfo pageInfo;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Body {
+    var header: String? = null
+    var query: Query? = null
+    var searchResults: SearchResults? = null
+    var sortResults: SortResults? = null
+    var filters: Filters? = null
+    var pointOfSale: PointOfSale? = null
+    var miscellaneous: Miscellaneous? = null
+    var pageInfo: PageInfo? = null
 }

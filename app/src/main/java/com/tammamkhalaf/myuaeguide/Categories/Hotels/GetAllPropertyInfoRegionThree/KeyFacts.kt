@@ -1,8 +1,8 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-import java.util.List; 
-public class KeyFacts{
-    public List<String> hotelSize;
-    public List<String> arrivingLeaving;
-    public List<String> specialCheckInInstructions;
-    public List<String> requiredAtCheckIn;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class KeyFacts {
+    var hotelSize: List<String>? = null
+    var arrivingLeaving: List<String>? = null
+    var specialCheckInInstructions: List<String>? = null
+    var requiredAtCheckIn: List<String>? = null
 }

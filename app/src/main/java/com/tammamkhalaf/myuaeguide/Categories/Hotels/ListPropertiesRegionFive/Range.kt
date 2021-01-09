@@ -1,6 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Range{
-    public Min min;
-    public Max max;
-    public int increments;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Range {
+    var min: Min? = null
+    var max: Max? = null
+    var increments = 0
 }

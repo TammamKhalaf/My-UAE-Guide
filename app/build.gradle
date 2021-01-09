@@ -69,6 +69,14 @@ dependencies {
     implementation 'com.ismaeldivita.chipnavigation:chip-navigation-bar:1.3.4'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.21'
 
+    def lifecycle_version = "2.2.0"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+
     // define a BOM and its version
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
 

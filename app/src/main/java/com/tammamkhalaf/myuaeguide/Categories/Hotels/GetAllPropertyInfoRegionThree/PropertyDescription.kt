@@ -1,15 +1,15 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-import java.util.List; 
-public class PropertyDescription{
-    public String clientToken;
-    public Address address;
-    public boolean priceMatchEnabled;
-    public String name;
-    public String starRatingTitle;
-    public double starRating;
-    public FeaturedPrice featuredPrice;
-    public MapWidget mapWidget;
-    public List<String> roomTypeNames;
-    public List<String> tagline;
-    public List<String> freebies;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class PropertyDescription {
+    var clientToken: String? = null
+    var address: Address? = null
+    var priceMatchEnabled = false
+    var name: String? = null
+    var starRatingTitle: String? = null
+    var starRating = 0.0
+    var featuredPrice: FeaturedPrice? = null
+    var mapWidget: MapWidget? = null
+    var roomTypeNames: List<String>? = null
+    var tagline: List<String>? = null
+    var freebies: List<String>? = null
 }

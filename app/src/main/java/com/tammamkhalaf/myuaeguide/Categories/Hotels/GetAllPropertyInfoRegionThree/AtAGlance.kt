@@ -1,7 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
 
-public class AtAGlance{
-    public KeyFacts keyFacts;
-    public TravellingOrInternet travellingOrInternet;
-    public TransportAndOther transportAndOther;
+class AtAGlance {
+    var keyFacts: KeyFacts? = null
+    var travellingOrInternet: TravellingOrInternet? = null
+    var transportAndOther: TransportAndOther? = null
 }

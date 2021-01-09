@@ -1,6 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-public class Miscellaneous{
-    public String pimmsAttributes;
-    public boolean showLegalInfoForStrikethroughPrices;
-    public String legalInfoForStrikethroughPrices;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class Miscellaneous {
+    var pimmsAttributes: String? = null
+    var showLegalInfoForStrikethroughPrices = false
+    var legalInfoForStrikethroughPrices: String? = null
 }

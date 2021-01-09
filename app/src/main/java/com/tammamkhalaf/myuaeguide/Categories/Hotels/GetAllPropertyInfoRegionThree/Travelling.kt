@@ -1,7 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-import java.util.List; 
-public class Travelling{
-    public List<Object> children;
-    public List<String> pets;
-    public List<Object> extraPeople;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class Travelling {
+    var children: List<Any>? = null
+    var pets: List<String>? = null
+    var extraPeople: List<Any>? = null
 }

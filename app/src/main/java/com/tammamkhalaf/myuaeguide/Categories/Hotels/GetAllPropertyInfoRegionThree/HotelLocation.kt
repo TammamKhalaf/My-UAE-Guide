@@ -1,7 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
 
-public class HotelLocation{
-    public Coordinates coordinates;
-    public String resolvedLocation;
-    public String locationName;
+class HotelLocation {
+    var coordinates: Coordinates? = null
+    var resolvedLocation: String? = null
+    var locationName: String? = null
 }

@@ -1,6 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-public class HygieneAndCleanliness{
-    public String title;
-    public HygieneQualifications hygieneQualifications;
-    public HealthAndSafetyMeasures healthAndSafetyMeasures;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class HygieneAndCleanliness {
+    var title: String? = null
+    var hygieneQualifications: HygieneQualifications? = null
+    var healthAndSafetyMeasures: HealthAndSafetyMeasures? = null
 }

@@ -1,5 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-public class Coordinates{
-    public double latitude;
-    public double longitude;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class Coordinates {
+    var latitude = 0.0
+    var longitude = 0.0
 }

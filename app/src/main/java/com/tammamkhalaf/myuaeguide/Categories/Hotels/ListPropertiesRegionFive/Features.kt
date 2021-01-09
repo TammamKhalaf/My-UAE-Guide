@@ -1,5 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Features{
-    public boolean paymentPreference;
-    public boolean noCCRequired;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Features {
+    var paymentPreference = false
+    var noCCRequired = false
 }

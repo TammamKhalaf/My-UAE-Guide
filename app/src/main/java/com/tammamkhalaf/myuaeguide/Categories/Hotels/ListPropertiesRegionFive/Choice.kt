@@ -1,7 +1,8 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Choice{
-    public String label;
-    public String value;
-    public boolean selected;
-    public double id;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Choice {
+    var label: String? = null
+    var value: String? = null
+    var selected = false
+    var id = 0.0
 }

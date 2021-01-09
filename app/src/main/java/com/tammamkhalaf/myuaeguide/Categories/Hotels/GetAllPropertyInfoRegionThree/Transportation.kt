@@ -1,6 +1,5 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
 
-import java.util.List;
-public class Transportation{
-    public List<TransportLocation> transportLocations;
+class Transportation {
+    var transportLocations: List<TransportLocation>? = null
 }

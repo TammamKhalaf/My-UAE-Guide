@@ -1,7 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-import java.util.List; 
-public class SearchResults{
-    public int totalCount;
-    public List<Result> results;
-    public Pagination pagination;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class SearchResults {
+    var totalCount = 0
+    var results: List<Result>? = null
+    var pagination: Pagination? = null
 }

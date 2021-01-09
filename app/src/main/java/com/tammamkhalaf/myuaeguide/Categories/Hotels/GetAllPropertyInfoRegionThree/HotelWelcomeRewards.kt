@@ -1,5 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-public class HotelWelcomeRewards{
-    public boolean applies;
-    public String info;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class HotelWelcomeRewards {
+    var applies = false
+    var info: String? = null
 }

@@ -1,6 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-public class TrackingDetails{
-    public String version;
-    public String namespace;
-    public String algorithmName;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class TrackingDetails {
+    var version: String? = null
+    var namespace: String? = null
+    var algorithmName: String? = null
 }

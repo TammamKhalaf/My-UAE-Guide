@@ -1,10 +1,11 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-public class FeaturedPrice{
-    public String beforePriceText;
-    public String afterPriceText;
-    public String pricingAvailability;
-    public String pricingTooltip;
-    public CurrentPrice currentPrice;
-    public boolean taxInclusiveFormatting;
-    public boolean bookNowButton;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class FeaturedPrice {
+    var beforePriceText: String? = null
+    var afterPriceText: String? = null
+    var pricingAvailability: String? = null
+    var pricingTooltip: String? = null
+    var currentPrice: CurrentPrice? = null
+    var taxInclusiveFormatting = false
+    var bookNowButton = false
 }

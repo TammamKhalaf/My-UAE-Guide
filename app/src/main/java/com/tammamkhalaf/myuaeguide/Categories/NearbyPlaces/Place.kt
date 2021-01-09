@@ -1,91 +1,37 @@
-package com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces;
+package com.tammamkhalaf.myuaeguide.Categories.NearbyPlaces
 
-import java.util.List;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
-public class Place {
-
+class Place {
     @SerializedName("id")
     @Expose
-    private String id;
+    var id: String? = null
+
     @SerializedName("name")
     @Expose
-    private String name;
+    var name: String? = null
+
     @SerializedName("address")
     @Expose
-    private String address;
+    var address: String? = null
+
     @SerializedName("phone_number")
     @Expose
-    private String phoneNumber;
+    var phoneNumber: String? = null
+
     @SerializedName("website")
     @Expose
-    private String website;
+    var website: String? = null
+
     @SerializedName("location")
     @Expose
-    private Location location;
+    var location: Location? = null
+
     @SerializedName("types")
     @Expose
-    private List<String> types = null;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public List<String> getTypes() {
-        return types;
-    }
-
-    public void setTypes(List<String> types) {
-        this.types = types;
-    }
-
-    @Override
-    public String toString() {
+    var types: List<String>? = null
+    override fun toString(): String {
         return "Result{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
@@ -94,6 +40,6 @@ public class Place {
                 ", website='" + website + '\'' +
                 ", location=" + location +
                 ", types=" + types +
-                '}';
+                '}'
     }
 }

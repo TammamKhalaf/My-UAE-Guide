@@ -1,6 +1,7 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-public class Destination{
-    public String id;
-    public String value;
-    public String resolvedLocation;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class Destination {
+    var id: String? = null
+    var value: String? = null
+    var resolvedLocation: String? = null
 }

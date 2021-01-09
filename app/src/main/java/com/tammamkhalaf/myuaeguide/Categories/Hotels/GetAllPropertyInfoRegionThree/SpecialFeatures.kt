@@ -1,5 +1,5 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree;
-import java.util.List; 
-public class SpecialFeatures{
-    public List<Section> sections;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
+
+class SpecialFeatures {
+    var sections: List<Section>? = null
 }

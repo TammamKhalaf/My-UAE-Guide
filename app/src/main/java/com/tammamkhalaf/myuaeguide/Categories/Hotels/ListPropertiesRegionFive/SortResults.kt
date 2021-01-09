@@ -1,6 +1,6 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive;
-import java.util.List; 
-public class SortResults{
-    public List<Option> options;
-    public double distanceOptionLandmarkId;
+package com.tammamkhalaf.myuaeguide.Categories.Hotels.ListPropertiesRegionFive
+
+class SortResults {
+    var options: List<Option>? = null
+    var distanceOptionLandmarkId = 0.0
 }

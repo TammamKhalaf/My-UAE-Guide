@@ -1,59 +1,41 @@
-package com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed;
+package com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.tammamkhalaf.myuaeguide.HelperClasses.HomeAdapter.MostViewed.MostViewedAdapter.MostViewedViewHolder
+import com.tammamkhalaf.myuaeguide.R
+import java.util.*
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.tammamkhalaf.myuaeguide.R;
-
-import java.util.ArrayList;
-
-public class MostViewedAdapter extends RecyclerView.Adapter<MostViewedAdapter.MostViewedViewHolder> {
-
-    ArrayList<MostViewedHelperClass> mostViewedLocations;
-
-    public MostViewedAdapter(ArrayList<MostViewedHelperClass> mostViewedLocations) {
-        this.mostViewedLocations = mostViewedLocations;
+class MostViewedAdapter(var mostViewedLocations: ArrayList<MostViewedHelperClass>) : RecyclerView.Adapter<MostViewedViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MostViewedViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.most_viewd_card_design, parent, false)
+        return MostViewedViewHolder(view)
     }
 
-    @NonNull
-    @Override
-    public MostViewedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.most_viewd_card_design, parent, false);
-        MostViewedViewHolder mostViewedViewHolder = new MostViewedViewHolder(view);
-        return mostViewedViewHolder;
+    override fun onBindViewHolder(holder: MostViewedViewHolder, position: Int) {
+        val helperClass = mostViewedLocations[position]
+        holder.ivImageOfHotel.setImageResource(helperClass.imageView)
+        holder.tvNameOfHotel.text = helperClass.textView
+        holder.tvDescriptionOfHotel.text = helperClass.getDescription()
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull MostViewedViewHolder holder, int position) {
-        MostViewedHelperClass helperClass = mostViewedLocations.get(position);
-
-        holder.ivImageOfHotel.setImageResource(helperClass.getImageView());
-        holder.tvNameOfHotel.setText(helperClass.getTextView());
-        holder.tvDescriptionOfHotel.setText(helperClass.getDescription());
+    override fun getItemCount(): Int {
+        return mostViewedLocations.size
     }
 
-    @Override
-    public int getItemCount() {
-        return mostViewedLocations.size();
-    }
+    class MostViewedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var ivImageOfHotel: ImageView
+        var tvNameOfHotel: TextView
+        var tvDescriptionOfHotel: TextView
 
-    public static class MostViewedViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView ivImageOfHotel;
-        TextView tvNameOfHotel,tvDescriptionOfHotel;
-
-        public MostViewedViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            ivImageOfHotel = itemView.findViewById(R.id.mv_image);
-            tvNameOfHotel = itemView.findViewById(R.id.mv_title);
-            tvDescriptionOfHotel = itemView.findViewById(R.id.mv_desc);
+        init {
+            ivImageOfHotel = itemView.findViewById(R.id.mv_image)
+            tvNameOfHotel = itemView.findViewById(R.id.mv_title)
+            tvDescriptionOfHotel = itemView.findViewById(R.id.mv_desc)
         }
     }
 }
