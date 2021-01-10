@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_SMS" />
 
     <application
+        android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,24 +17,24 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".HelperClasses.HomeAdapter.Featured.ShowFeaturedPlace"
+            android:name=".helperClasses.HomeAdapter.Featured.ShowFeaturedPlace"
             android:label="@string/title_activity_show_featured_place"
             android:theme="@style/Theme.MyUaeGuide.NoActionBar" />
-        <activity android:name=".LocationOwner.RetailerDashboard" />
-        <activity android:name=".Common.LoginSignup.ForgetPassword.SetNewPassword" />
-        <activity android:name=".Common.LoginSignup.ForgetPassword.ForgetPasswordSuccessMessage" />
-        <activity android:name=".Common.LoginSignup.MakeSelection" />
-        <activity android:name=".Common.LoginSignup.ForgetPassword.ForgetPassword" />
-        <activity android:name=".Common.LoginSignup.VerifyOTP" />
-        <activity android:name=".Common.LoginSignup.Login" />
-        <activity android:name=".Common.LoginSignup.SignUp.SignUp3rdClass" />
-        <activity android:name=".Common.LoginSignup.SignUp.SignUp2ndClass" />
-        <activity android:name=".Common.LoginSignup.SignUp.SignUp" />
-        <activity android:name=".Common.LoginSignup.RetailerStartUpScreen" />
-        <activity android:name=".User.AllCategories" />
-        <activity android:name=".Common.OnBoarding" />
-        <activity android:name=".User.UserDashboard" />
-        <activity android:name=".Common.SplashActivity">
+        <activity android:name=".locationOwner.RetailerDashboard" />
+        <activity android:name=".common.LoginSignup.ForgetPassword.SetNewPassword" />
+        <activity android:name=".common.LoginSignup.ForgetPassword.ForgetPasswordSuccessMessage" />
+        <activity android:name=".common.LoginSignup.MakeSelection" />
+        <activity android:name=".common.LoginSignup.ForgetPassword.ForgetPassword" />
+        <activity android:name=".common.LoginSignup.VerifyOTP" />
+        <activity android:name=".common.LoginSignup.Login" />
+        <activity android:name=".common.LoginSignup.SignUp.SignUp3rdClass" />
+        <activity android:name=".common.LoginSignup.SignUp.SignUp2ndClass" />
+        <activity android:name=".common.LoginSignup.SignUp.SignUp" />
+        <activity android:name=".common.LoginSignup.RetailerStartUpScreen" />
+        <activity android:name=".user.AllCategories" />
+        <activity android:name=".common.OnBoarding" />
+        <activity android:name=".user.UserDashboard" />
+        <activity android:name=".common.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

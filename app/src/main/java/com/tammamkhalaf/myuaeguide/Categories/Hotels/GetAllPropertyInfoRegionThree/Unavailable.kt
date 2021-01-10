@@ -1,3 +1,0 @@
-package com.tammamkhalaf.myuaeguide.Categories.Hotels.GetAllPropertyInfoRegionThree
-
-class Unavailable 

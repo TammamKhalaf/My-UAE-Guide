@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:padding="30dp"
     android:transitionName="transition_login"
-    tools:context=".Common.LoginSignup.RetailerStartUpScreen">
+    tools:context=".common.LoginSignup.RetailerStartUpScreen">
 
     <LinearLayout
         android:layout_width="match_parent"
