@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.MostViewed
+package com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.mostViewed
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.MostViewed.MostViewedAdapter.MostViewedViewHolder
+import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.mostViewed.MostViewedAdapter.MostViewedViewHolder
 import com.tammamkhalaf.myuaeguide.R
 import java.util.*
 

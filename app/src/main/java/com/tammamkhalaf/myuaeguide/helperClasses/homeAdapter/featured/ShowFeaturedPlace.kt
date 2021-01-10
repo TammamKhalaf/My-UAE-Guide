@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Featured
+package com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured
 
 import android.os.Bundle
 import android.view.View

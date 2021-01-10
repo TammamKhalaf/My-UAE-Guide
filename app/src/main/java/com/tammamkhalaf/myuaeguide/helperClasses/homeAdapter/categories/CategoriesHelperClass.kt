@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Categories
+package com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories
 
 import android.graphics.drawable.GradientDrawable
 

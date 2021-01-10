@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".helperClasses.HomeAdapter.Featured.ShowFeaturedPlace"
+            android:name=".helperClasses.homeAdapter.featured.ShowFeaturedPlace"
             android:label="@string/title_activity_show_featured_place"
             android:theme="@style/Theme.MyUaeGuide.NoActionBar" />
         <activity android:name=".locationOwner.RetailerDashboard" />

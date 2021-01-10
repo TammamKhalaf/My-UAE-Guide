@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Categories
+package com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Categories.CategoriesAdapter.AdapterAllCategoriesViewHolder
+import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesAdapter.AdapterAllCategoriesViewHolder
 import com.tammamkhalaf.myuaeguide.R
 import java.util.*
 

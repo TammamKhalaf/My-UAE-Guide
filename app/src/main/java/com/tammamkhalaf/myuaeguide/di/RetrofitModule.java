@@ -36,5 +36,14 @@ public class RetrofitModule {
                 .build()
                 .create(HotelServiceApi.class);
     }
+    @Provides
+    @Singleton
+    public static HotelServiceApi provideOpenTripMapApiService(){
+        return new Retrofit.Builder().baseUrl("https://api.opentripmap.com/0.1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .build()
+                .create(HotelServiceApi.class);
+    }
 
 }

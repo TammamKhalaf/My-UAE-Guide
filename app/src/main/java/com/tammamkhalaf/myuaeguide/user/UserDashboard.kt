@@ -3,25 +3,29 @@ package com.tammamkhalaf.myuaeguide.user
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
-import com.tammamkhalaf.myuaeguide.categories.hotels.getHotelPhotosModel.HotelImage
-import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceApi
-import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceBuilder
-import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
-import com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Categories.CategoriesAdapter
-import com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Categories.CategoriesHelperClass
-import com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Featured.FeaturedHelperClass
-import com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.MostViewed.MostViewedHelperClass
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
+import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceApi
+import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceBuilder
+import com.tammamkhalaf.myuaeguide.categories.openTripMap.Geoname
+import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
+import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesAdapter
+import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesHelperClass
+import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedAdapter
+import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedHelperClass
+import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.mostViewed.MostViewedAdapter
+import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.mostViewed.MostViewedHelperClass
 import com.tammamkhalaf.myuaeguide.viewmodels.UserDashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -31,18 +35,24 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     var featuredRecycler: RecyclerView? = null
     var mostViewedRecycler: RecyclerView? = null
     var categoriesRecycler: RecyclerView? = null
-    var adapter: RecyclerView.Adapter<*>? = null
+    private lateinit var featuredAdapter:FeaturedAdapter
+    private lateinit var categoriesAdapter: CategoriesAdapter
+    private lateinit var mostViewedAdapter: MostViewedAdapter
     var menuIcon: ImageView? = null
     var content: LinearLayout? = null
     var drawerLayout: DrawerLayout? = null
     var navigationView: NavigationView? = null
-    lateinit var viewModel: UserDashboardViewModel
+    private lateinit var viewModel: UserDashboardViewModel
+    lateinit var featuredLocations: ArrayList<FeaturedHelperClass>
 
     //todo add section for the mahrajanat in uae mahrajan zayed etc ....
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_user_dashboard)
+
+        viewModel = ViewModelProvider(this).get(UserDashboardViewModel::class.java)
+
 
         //Hooks
         featuredRecycler = findViewById(R.id.featured_recycler)
@@ -53,11 +63,16 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         menuIcon = findViewById(R.id.menu_icon)
         content = findViewById(R.id.content)
 
+
+
         navigationDrawer()
         //Functions will be executed automatically when this activity will be created
         featuredRecycler()
         mostViewedRecycler()
         categoriesRecycler()
+
+
+
     }
 
     //region navigation drawer
@@ -119,33 +134,17 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     private fun featuredRecycler() {
         featuredRecycler!!.setHasFixedSize(true)
         featuredRecycler!!.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-        val featuredLocations = ArrayList<FeaturedHelperClass>()
-        //val service = ServiceBuilder.buildService(TrueWayPlacesServiceApi::class.java) old pattern
-        val images = intArrayOf(R.drawable.coffee_shop)
-
       //todo we can add array of url images and downloaded with glide or picasso
 
-//                if (response.isSuccessful) {
-//                    places = response.body()?.results as ArrayList<Place?>
-//                    for (place in places!!) {
-//                        if (place != null) {
-//                            featuredLocations.add(FeaturedHelperClass(images[0], place.name, place.phoneNumber))
-//                        }
-//                    }
-//                    adapter = FeaturedAdapter(featuredLocations, this@UserDashboard)
-//                    featuredRecycler!!.adapter = adapter
-//                } else if (response.code() == 401) {
-//                    Toast.makeText(this@UserDashboard, string.SessionExpired, Toast.LENGTH_SHORT).show()
-//                } else {
-//                    Toast.makeText(this@UserDashboard, string.FailedToRetrieveItems, Toast.LENGTH_SHORT).show()
-//                }
-//    }
-//                if (t is IOException) {
-//                    Toast.makeText(this@UserDashboard, string.AConnectionErrorOccurred, Toast.LENGTH_SHORT).show()
-//                } else {
-//                    Toast.makeText(this@UserDashboard, string.FailedToRetrieveItems, Toast.LENGTH_SHORT).show()
-//                }
+        viewModel.getDetailedInfoAboutPlace("W286786280","5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
 
+        viewModel.detailedInfoAboutPlaceLiveData.observe(this, androidx.lifecycle.Observer {
+            featuredAdapter.featuredLocations.add(FeaturedHelperClass(it.image,it.name,it.wikidata))
+        })
+
+        Log.d(TAG, "featuredRecycler: ",)
+
+        featuredRecycler!!.adapter = featuredAdapter
     }
 
 
@@ -165,9 +164,9 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         categoriesHelperClasses.add(CategoriesHelperClass(gradient4, R.drawable.shopping_cat, getString(string.shopping)))
         categoriesHelperClasses.add(CategoriesHelperClass(gradient1, R.drawable.transport_cat, getString(string.transport)))
         categoriesRecycler!!.setHasFixedSize(true)
-        adapter = CategoriesAdapter(categoriesHelperClasses)
+        categoriesAdapter = CategoriesAdapter(categoriesHelperClasses)
         categoriesRecycler!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        categoriesRecycler!!.adapter = adapter
+        categoriesRecycler!!.adapter = categoriesAdapter
     }
 
     //endregion
@@ -179,50 +178,13 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         val service = HotelServiceBuilder.buildService(HotelServiceApi::class.java)
         val mostViewedLocations = ArrayList<MostViewedHelperClass>()
         //todo use hotel search take id of an item then image ->> property detail
-        val imagesFromApi = ArrayList<List<HotelImage>>()
-        CallingSearchHotelApi(service, mostViewedLocations)
+
     }
 
-    private fun CallingSearchHotelApi(serviceApi: HotelServiceApi, mostViewedLocations: ArrayList<MostViewedHelperClass>) {
-        val call = serviceApi!!.searchHotel("dubai", "en_US")
- //       call!!.enqueue(object : Callback<HotelResponse?> {
-//            override fun onResponse(call: Call<HotelResponse?>, response: Response<HotelResponse?>) {
-//                if (response.isSuccessful) {
-//                    suggestions = response.body()!!.suggestions as ArrayList<Suggestion?>
-//                    Log.d(TAG, "onResponse: " + response.body()!!.trackingID)
-//                    for (suggestion in suggestions!!) {
-//                        for (i in suggestion!!.entities!!.indices) {
-//                            mostViewedLocations.add(MostViewedHelperClass(R.drawable.beds,
-//                                    suggestion.entities!![i]!!.name,
-//                                    suggestion.entities!![i]!!.destinationId))
-//                        }
-//                    }
-//                    adapter = MostViewedAdapter(mostViewedLocations)
-//                    mostViewedRecycler!!.adapter = adapter
-//                } else if (response.code() == 401) {
-//                    Toast.makeText(this@UserDashboard, string.SessionExpired, Toast.LENGTH_SHORT).show()
-//                } else {
-//                    Log.d(TAG, "onResponse: Not-Successful Response Code = " + response.code() +
-//                            "-->>> Response Error Body:" + response.errorBody().toString())
-//                    Toast.makeText(this@UserDashboard, string.FailedToRetrieveItems, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-
-//            override fun onFailure(call: Call<HotelResponse?>, t: Throwable) {
-//                if (t is IOException) {
-//                    Toast.makeText(this@UserDashboard, string.AConnectionErrorOccurred, Toast.LENGTH_SHORT).show()
-//                    Log.d(TAG, "onFailure: " + t.getLocalizedMessage())
-//                } else {
-//                    Log.d(TAG, "onFailure: " + t.localizedMessage)
-//                    Toast.makeText(this@UserDashboard, string.FailedToRetrieveItems, Toast.LENGTH_SHORT).show()
-//                }
- //           }
-    //       })
-    }
 
     //endregion
 
-    fun callRetailerScreen(view: View?) {
+    fun callRetailerScreen() {
         startActivity(Intent(applicationContext, RetailerStartUpScreen::class.java))
     }
 

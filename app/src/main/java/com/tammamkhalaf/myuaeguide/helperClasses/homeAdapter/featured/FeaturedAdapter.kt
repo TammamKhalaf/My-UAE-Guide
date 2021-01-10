@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Featured
+package com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Featured.FeaturedAdapter.FeaturedViewHolder
+import com.bumptech.glide.Glide
+import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedAdapter.FeaturedViewHolder
 import com.tammamkhalaf.myuaeguide.R
 import java.util.*
 
@@ -20,7 +21,9 @@ class FeaturedAdapter(var featuredLocations: ArrayList<FeaturedHelperClass>, var
 
     override fun onBindViewHolder(holder: FeaturedViewHolder, position: Int) {
         val featuredHelperClass = featuredLocations[position]
-        holder.image.setImageResource(featuredHelperClass.image)
+
+        Glide.with(context).load(featuredLocations[position].imageUrl).into(holder.image);
+
         holder.title.text = featuredHelperClass.title
         holder.description.text = featuredHelperClass.description
         holder.itemView.setOnClickListener { v: View? ->
@@ -37,14 +40,9 @@ class FeaturedAdapter(var featuredLocations: ArrayList<FeaturedHelperClass>, var
     }
 
     class FeaturedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var image: ImageView
-        var title: TextView
-        var description: TextView
+        var image: ImageView = itemView.findViewById(R.id.featured_image)
+        var title: TextView = itemView.findViewById(R.id.featured_title)
+        var description: TextView = itemView.findViewById(R.id.featured_desc)
 
-        init {
-            image = itemView.findViewById(R.id.featured_image)
-            title = itemView.findViewById(R.id.featured_title)
-            description = itemView.findViewById(R.id.featured_desc)
-        }
     }
 }
