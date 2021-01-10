@@ -8,7 +8,7 @@
     android:background="@color/colorPrimary"
     android:padding="30dp"
     android:transitionName="transition_OTP_screen"
-    tools:context=".common.LoginSignup.SignUp.SignUp3rdClass">
+    tools:context=".common.loginSignup.signUp.SignUp3rdClass">
 
 
     <LinearLayout

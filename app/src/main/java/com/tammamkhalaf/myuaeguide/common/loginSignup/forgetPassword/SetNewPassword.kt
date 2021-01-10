@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.common.LoginSignup.ForgetPassword
+package com.tammamkhalaf.myuaeguide.common.loginSignup.forgetPassword
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -14,7 +14,7 @@ import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.database.FirebaseDatabase
-import com.tammamkhalaf.myuaeguide.common.LoginSignup.RetailerStartUpScreen
+import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
 import com.tammamkhalaf.myuaeguide.R
 import java.util.*
 

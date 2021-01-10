@@ -3,19 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="8dp"
-    android:layout_margin="10dp">
+    app:cardCornerRadius="@dimen/_10sdp"
+    app:cardElevation="@dimen/_8sdp"
+    android:layout_margin="@dimen/_10sdp">
 
     <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="200dp">
+        android:layout_width="@dimen/_300sdp"
+        android:layout_height="@dimen/_200sdp">
 
 
         <ImageView
             android:id="@+id/mv_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
             android:layout_below="@+id/mv_rating"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="0dp"
@@ -27,10 +27,12 @@
             android:id="@+id/mv_title"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:layout_alignEnd="@+id/mv_image"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
             android:layout_gravity="start"
+            android:layout_marginStart="٢٨٩dp"
+            android:layout_marginEnd="٢٩٠dp"
             android:fontFamily="@font/baloo"
             android:text="McDonald"
             android:textSize="12sp" />
@@ -53,9 +55,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/mv_title"
-            android:layout_alignParentEnd="true"
+            android:layout_alignEnd="@+id/mv_title"
             android:layout_gravity="center"
             android:layout_marginTop="0dp"
+            android:layout_marginEnd="٢٦٥dp"
             android:rating="4.5" />
 
     </RelativeLayout>

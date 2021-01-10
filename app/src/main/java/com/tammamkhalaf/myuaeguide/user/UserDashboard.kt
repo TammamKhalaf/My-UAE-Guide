@@ -15,9 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import com.tammamkhalaf.myuaeguide.categories.hotels.getHotelPhotosModel.HotelImage
 import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceApi
 import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceBuilder
-import com.tammamkhalaf.myuaeguide.categories.nearbyPlaces.network.ServiceBuilder
-import com.tammamkhalaf.myuaeguide.categories.nearbyPlaces.network.TrueWayPlacesServiceApi
-import com.tammamkhalaf.myuaeguide.common.LoginSignup.RetailerStartUpScreen
+import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
 import com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Categories.CategoriesAdapter
 import com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Categories.CategoriesHelperClass
 import com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.Featured.FeaturedHelperClass
@@ -25,8 +23,10 @@ import com.tammamkhalaf.myuaeguide.helperClasses.HomeAdapter.MostViewed.MostView
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
 import com.tammamkhalaf.myuaeguide.viewmodels.UserDashboardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     var featuredRecycler: RecyclerView? = null
     var mostViewedRecycler: RecyclerView? = null
@@ -53,12 +53,11 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         menuIcon = findViewById(R.id.menu_icon)
         content = findViewById(R.id.content)
 
+        navigationDrawer()
         //Functions will be executed automatically when this activity will be created
         featuredRecycler()
         mostViewedRecycler()
         categoriesRecycler()
-        navigationDrawer()
-        
     }
 
     //region navigation drawer
@@ -121,8 +120,10 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         featuredRecycler!!.setHasFixedSize(true)
         featuredRecycler!!.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         val featuredLocations = ArrayList<FeaturedHelperClass>()
-        val service = ServiceBuilder.buildService(TrueWayPlacesServiceApi::class.java)
+        //val service = ServiceBuilder.buildService(TrueWayPlacesServiceApi::class.java) old pattern
         val images = intArrayOf(R.drawable.coffee_shop)
+
+      //todo we can add array of url images and downloaded with glide or picasso
 
 //                if (response.isSuccessful) {
 //                    places = response.body()?.results as ArrayList<Place?>
@@ -229,4 +230,5 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         private const val TAG = "UserDashboard"
         const val END_SCALE = 0.7f
     }
+
 }

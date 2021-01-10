@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.common.LoginSignup
+package com.tammamkhalaf.myuaeguide.common.loginSignup
 
 import android.app.ActivityOptions
 import android.app.AlertDialog
@@ -20,8 +20,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.hbb20.CountryCodePicker
-import com.tammamkhalaf.myuaeguide.common.LoginSignup.ForgetPassword.ForgetPassword
-import com.tammamkhalaf.myuaeguide.common.LoginSignup.SignUp.SignUp
+import com.tammamkhalaf.myuaeguide.common.loginSignup.forgetPassword.ForgetPassword
+import com.tammamkhalaf.myuaeguide.common.loginSignup.signUp.SignUp
 import com.tammamkhalaf.myuaeguide.databases.SessionManager
 import com.tammamkhalaf.myuaeguide.locationOwner.RetailerDashboard
 import com.tammamkhalaf.myuaeguide.R

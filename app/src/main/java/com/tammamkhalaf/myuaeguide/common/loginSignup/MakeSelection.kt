@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.common.LoginSignup
+package com.tammamkhalaf.myuaeguide.common.loginSignup
 
 import android.os.Bundle
 import android.view.View

@@ -7,7 +7,7 @@
     android:background="@color/colorPrimary"
     android:padding="30dp"
     android:transitionName="transition_login"
-    tools:context=".common.LoginSignup.Login">
+    tools:context=".common.loginSignup.Login">
 
 
     <LinearLayout

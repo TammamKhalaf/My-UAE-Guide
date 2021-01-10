@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.common.LoginSignup.SignUp
+package com.tammamkhalaf.myuaeguide.common.loginSignup.signUp
 
 import android.app.ActivityOptions
 import android.content.Intent

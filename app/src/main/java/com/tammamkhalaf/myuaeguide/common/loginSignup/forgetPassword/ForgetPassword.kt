@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.common.LoginSignup.ForgetPassword
+package com.tammamkhalaf.myuaeguide.common.loginSignup.forgetPassword
 
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.hbb20.CountryCodePicker
-import com.tammamkhalaf.myuaeguide.common.LoginSignup.VerifyOTP
+import com.tammamkhalaf.myuaeguide.common.loginSignup.VerifyOTP
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
 import java.util.*

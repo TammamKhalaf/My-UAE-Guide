@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.common.LoginSignup.ForgetPassword
+package com.tammamkhalaf.myuaeguide.common.loginSignup.forgetPassword
 
 import android.os.Bundle
 import android.view.View

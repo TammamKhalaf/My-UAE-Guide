@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.common.LoginSignup
+package com.tammamkhalaf.myuaeguide.common.loginSignup
 
 import android.app.ActivityOptions
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.util.Pair
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.tammamkhalaf.myuaeguide.common.LoginSignup.SignUp.SignUp
+import com.tammamkhalaf.myuaeguide.common.loginSignup.signUp.SignUp
 import com.tammamkhalaf.myuaeguide.R
 
 class RetailerStartUpScreen : AppCompatActivity() {

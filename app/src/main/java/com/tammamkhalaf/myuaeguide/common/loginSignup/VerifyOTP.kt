@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.common.LoginSignup
+package com.tammamkhalaf.myuaeguide.common.loginSignup
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,7 +14,7 @@ import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
 import com.google.firebase.database.FirebaseDatabase
-import com.tammamkhalaf.myuaeguide.common.LoginSignup.ForgetPassword.SetNewPassword
+import com.tammamkhalaf.myuaeguide.common.loginSignup.forgetPassword.SetNewPassword
 import com.tammamkhalaf.myuaeguide.databases.UserHelperClass
 import com.tammamkhalaf.myuaeguide.R
 import java.util.*
