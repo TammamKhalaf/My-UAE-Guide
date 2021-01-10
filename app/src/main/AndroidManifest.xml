@@ -18,7 +18,7 @@
         <activity
             android:name=".HelperClasses.HomeAdapter.Featured.ShowFeaturedPlace"
             android:label="@string/title_activity_show_featured_place"
-            android:theme="@style/Theme.MyUaeGuide.NoActionBar"></activity>
+            android:theme="@style/Theme.MyUaeGuide.NoActionBar" />
         <activity android:name=".LocationOwner.RetailerDashboard" />
         <activity android:name=".Common.LoginSignup.ForgetPassword.SetNewPassword" />
         <activity android:name=".Common.LoginSignup.ForgetPassword.ForgetPasswordSuccessMessage" />

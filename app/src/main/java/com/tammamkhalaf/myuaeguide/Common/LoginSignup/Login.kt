@@ -34,10 +34,10 @@ class Login : AppCompatActivity() {
     var phoneNumber: TextInputLayout? = null
     var password: TextInputLayout? = null
     var progressbar: RelativeLayout? = null
-    var RememberMe: CheckBox? = null
-    var phoneNumberEditText: TextInputEditText? = null
-    var passwordEditText //todo create hooks
-            : TextInputEditText? = null
+    private var RememberMe: CheckBox? = null
+    lateinit var phoneNumberEditText: TextInputEditText
+    private lateinit var passwordEditText //todo create hooks
+            : TextInputEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,8 +71,8 @@ class Login : AppCompatActivity() {
         if (!validateFields()) {
             return
         }
-        val _phoneNumber = Objects.requireNonNull(phoneNumber!!.editText).text.toString().trim { it <= ' ' }
-        val _password = Objects.requireNonNull(password!!.editText).text.toString().trim { it <= ' ' }
+        val _phoneNumber = Objects.requireNonNull(phoneNumber!!.editText)?.text.toString().trim { it <= ' ' }
+        val _password = Objects.requireNonNull(password!!.editText)?.text.toString().trim { it <= ' ' }
 
         //Get complete phone number
         var _getUserEnteredPhoneNumber = _phoneNumber
@@ -138,8 +138,8 @@ class Login : AppCompatActivity() {
     }
 
     private fun validateFields(): Boolean {
-        val _phoneNumber = Objects.requireNonNull(phoneNumber!!.editText).text.toString().trim { it <= ' ' }
-        val _password = Objects.requireNonNull(password!!.editText).text.toString().trim { it <= ' ' }
+        val _phoneNumber = Objects.requireNonNull(phoneNumber!!.editText)?.text.toString().trim { it <= ' ' }
+        val _password = Objects.requireNonNull(password!!.editText)?.text.toString().trim { it <= ' ' }
         return if (_phoneNumber.isEmpty()) {
             phoneNumber!!.error = getString(string.Empty_Field)
             phoneNumber!!.requestFocus()
@@ -155,8 +155,8 @@ class Login : AppCompatActivity() {
 
     fun callSignUpScreen(view: View?) {
         val intent = Intent(applicationContext, SignUp::class.java)
-        val pairs: Array<Pair<*, *>> = arrayOfNulls(1)
-        pairs[0] = Pair<Any?, Any?>(findViewById(R.id.signup_btn), "transition_signup")
+        val pairs: Array<Pair<View, String>?> = arrayOfNulls(1)
+        pairs[0] = Pair<View, String>(findViewById(R.id.signup_btn), "transition_signup")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val options = ActivityOptions.makeSceneTransitionAnimation(this@Login, *pairs)
             startActivity(intent, options.toBundle())

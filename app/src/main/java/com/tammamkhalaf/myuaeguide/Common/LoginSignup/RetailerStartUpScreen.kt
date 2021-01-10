@@ -21,8 +21,8 @@ class RetailerStartUpScreen : AppCompatActivity() {
 
     fun callLoginScreen(view: View?) {
         val intent = Intent(applicationContext, Login::class.java)
-        val pairs: Array<Pair<*, *>> = arrayOfNulls(1)
-        pairs[0] = Pair<Any?, Any?>(findViewById(R.id.login_btn), "transition_login")
+        val pairs: Array<Pair<View, String>?> = arrayOfNulls(1)
+        pairs[0] = Pair<View, String>(findViewById(R.id.login_btn), "transition_login")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val options = ActivityOptions.makeSceneTransitionAnimation(this@RetailerStartUpScreen, *pairs)
             startActivity(intent, options.toBundle())
@@ -33,8 +33,8 @@ class RetailerStartUpScreen : AppCompatActivity() {
 
     fun callSignUpScreen(view: View?) {
         val intent = Intent(applicationContext, SignUp::class.java)
-        val pairs: Array<Pair<*, *>> = arrayOfNulls(1)
-        pairs[0] = Pair<Any?, Any?>(findViewById(R.id.signup_btn), "transition_signup")
+        val pairs: Array<Pair<View, String>?> = arrayOfNulls(1)
+        pairs[0] = Pair<View, String>(findViewById(R.id.signup_btn), "transition_signup")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val options = ActivityOptions.makeSceneTransitionAnimation(this@RetailerStartUpScreen, *pairs)
             startActivity(intent, options.toBundle())

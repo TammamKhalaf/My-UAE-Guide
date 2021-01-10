@@ -53,7 +53,7 @@ class SetNewPassword : AppCompatActivity() {
             return
         }
         progress_bar!!.visibility = View.VISIBLE
-        val confirmedPassword = Objects.requireNonNull(confirmPassword!!.editText).text.toString().trim { it <= ' ' }
+        val confirmedPassword = Objects.requireNonNull(confirmPassword!!.editText)?.text.toString().trim { it <= ' ' }
         val phoneNo = intent.getStringExtra("phoneNo")
         val reference = FirebaseDatabase.getInstance().getReference("Users")
         reference.child(phoneNo!!).child("password").setValue(confirmedPassword)
@@ -78,11 +78,11 @@ class SetNewPassword : AppCompatActivity() {
     }
 
     private fun validateFields(): Boolean {
-        return if (Objects.requireNonNull(newPassword!!.editText).text.toString().trim { it <= ' ' }.isEmpty()) {
+        return if (Objects.requireNonNull(newPassword!!.editText)?.text.toString().trim { it <= ' ' }.isEmpty()) {
             newPassword!!.error = "Field can not be empty"
             newPassword!!.requestFocus()
             false
-        } else if (Objects.requireNonNull(confirmPassword!!.editText).text.toString().trim { it <= ' ' }.isEmpty()) {
+        } else if (Objects.requireNonNull(confirmPassword!!.editText)?.text.toString().trim { it <= ' ' }.isEmpty()) {
             confirmPassword!!.error = "Field can not be empty"
             confirmPassword!!.requestFocus()
             false //todo check zero for phone number add at the beginnings

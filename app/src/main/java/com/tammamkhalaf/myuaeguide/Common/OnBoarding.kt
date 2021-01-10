@@ -17,10 +17,10 @@ import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.User.UserDashboard
 
 class OnBoarding : AppCompatActivity() {
-    var viewPager: ViewPager? = null
+    lateinit var viewPager: ViewPager
     var dots_layout: LinearLayout? = null
     var sliderAdapter: SliderAdapter? = null
-    var dots: Array<TextView?>
+    lateinit var dots: Array<TextView?>
     var letsGetsStarted: Button? = null
     var animation: Animation? = null
     var currentPosition = 0

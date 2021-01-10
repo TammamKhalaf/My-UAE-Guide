@@ -2,6 +2,7 @@ package com.tammamkhalaf.myuaeguide.Categories.Hotels
 
 import android.os.Build
 import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,7 +16,7 @@ object HotelServiceBuilder {
     private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
     //create Okhttp client
-    private val okHttp: Builder = Builder()
+    private val okHttp: OkHttpClient.Builder = OkHttpClient.Builder()
             .readTimeout(15, TimeUnit.SECONDS)
             .addInterceptor(Interceptor { chain: Interceptor.Chain ->
                 var request = chain.request()

@@ -25,8 +25,8 @@ import java.util.*
 
 class ForgetPassword : AppCompatActivity() {
     var animation: Animation? = null
-    private var phoneNumberTextField: TextInputLayout? = null
-    private var countryCodePicker: CountryCodePicker? = null
+    private lateinit var phoneNumberTextField: TextInputLayout
+    private lateinit var countryCodePicker: CountryCodePicker
     var progressBar: RelativeLayout? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +58,7 @@ class ForgetPassword : AppCompatActivity() {
         if (isConnected(this) && validateField()) {
             progressBar!!.visibility = View.VISIBLE
             //Get complete phone number
-            var _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumberTextField!!.editText).text.toString().trim { it <= ' ' }
+            var _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumberTextField!!.editText)?.text.toString().trim { it <= ' ' }
             //Remove first zero if entered!
             if (_getUserEnteredPhoneNumber[0] == '0') {
                 _getUserEnteredPhoneNumber = _getUserEnteredPhoneNumber.substring(1)
@@ -99,7 +99,7 @@ class ForgetPassword : AppCompatActivity() {
     }
 
     private fun validateField(): Boolean {
-        val _phoneNumber = Objects.requireNonNull(phoneNumberTextField!!.editText).text.toString().trim { it <= ' ' }
+        val _phoneNumber = Objects.requireNonNull(phoneNumberTextField!!.editText)?.text.toString().trim { it <= ' ' }
         return if (_phoneNumber.isEmpty()) {
             phoneNumberTextField!!.error = getString(string.Empty_Field)
             phoneNumberTextField!!.requestFocus()

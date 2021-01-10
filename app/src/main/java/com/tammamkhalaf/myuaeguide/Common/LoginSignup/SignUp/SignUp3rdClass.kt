@@ -45,7 +45,7 @@ class SignUp3rdClass : AppCompatActivity() {
         //String phoneNo = "+"+countryCodePicker.getSelectedCountryCode()+getUserEnteredPhoneNumber;//getFullNumber
 
         //Get complete phone number
-        var _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumber!!.editText).text.toString().trim { it <= ' ' }
+        var _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumber!!.editText)?.text.toString().trim { it <= ' ' }
         //Remove first zero if entered!
         if (_getUserEnteredPhoneNumber[0] == '0') {
             _getUserEnteredPhoneNumber = _getUserEnteredPhoneNumber.substring(1)
@@ -62,8 +62,8 @@ class SignUp3rdClass : AppCompatActivity() {
         intent.putExtra("phoneNo", _phoneNo)
 
         //todo Add Transition
-        val pairs: Array<Pair<*, *>> = arrayOfNulls(1)
-        pairs[0] = Pair<View?, String>(scrollView, "transition_OTP_screen")
+        val pairs: Array<Pair<View, String>?> = arrayOfNulls(1)
+        pairs[0] = Pair<View, String>(scrollView, "transition_OTP_screen")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val options = ActivityOptions.makeSceneTransitionAnimation(this@SignUp3rdClass, *pairs)
             startActivity(intent, options.toBundle())
@@ -73,7 +73,7 @@ class SignUp3rdClass : AppCompatActivity() {
     }
 
     private fun validatePhoneNumber(): Boolean {
-        val `val` = Objects.requireNonNull(phoneNumber!!.editText).text.toString().trim { it <= ' ' }
+        val `val` = Objects.requireNonNull(phoneNumber!!.editText)?.text.toString().trim { it <= ' ' }
         val checkspaces = "Aw{1,20}z"
         return if (`val`.isEmpty()) {
             phoneNumber!!.error = getString(string.EnterValidPhoneNo)

@@ -51,18 +51,18 @@ class SignUp : AppCompatActivity() {
             return
         }
         val intent = Intent(applicationContext, SignUp2ndClass::class.java)
-        intent.putExtra("fullName", Objects.requireNonNull(fullName!!.editText).text.toString().trim { it <= ' ' })
-        intent.putExtra("username", Objects.requireNonNull(username!!.editText).text.toString().trim { it <= ' ' })
-        intent.putExtra("email", Objects.requireNonNull(email!!.editText).text.toString().trim { it <= ' ' })
-        intent.putExtra("password", Objects.requireNonNull(password!!.editText).text.toString().trim { it <= ' ' })
+        intent.putExtra("fullName", Objects.requireNonNull(fullName!!.editText)?.text.toString().trim { it <= ' ' })
+        intent.putExtra("username", Objects.requireNonNull(username!!.editText)?.text.toString().trim { it <= ' ' })
+        intent.putExtra("email", Objects.requireNonNull(email!!.editText)?.text.toString().trim { it <= ' ' })
+        intent.putExtra("password", Objects.requireNonNull(password!!.editText)?.text.toString().trim { it <= ' ' })
 
         //Add Shared Animation
-        val pairs: Array<Pair<*, *>> = arrayOfNulls(5)
-        pairs[0] = Pair<Any?, Any?>(backBtn, "transition_back_arrow_btn")
-        pairs[1] = Pair<Any?, Any?>(next, "transition_next_btn")
-        pairs[2] = Pair<Any?, Any?>(login, "transition_login_btn")
-        pairs[3] = Pair<Any?, Any?>(titleText, "transition_title_text")
-        pairs[4] = Pair<Any?, Any?>(slideText, "transition_slide_text")
+        val pairs: Array<Pair<View, String>?> = arrayOfNulls(5)
+        pairs[0] = Pair<View, String>(backBtn, "transition_back_arrow_btn")
+        pairs[1] = Pair<View, String>(next, "transition_next_btn")
+        pairs[2] = Pair<View, String>(login, "transition_login_btn")
+        pairs[3] = Pair<View, String>(titleText, "transition_title_text")
+        pairs[4] = Pair<View, String>(slideText, "transition_slide_text")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val options = ActivityOptions.makeSceneTransitionAnimation(this@SignUp, *pairs)
             startActivity(intent, options.toBundle())
@@ -77,7 +77,7 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun validateFullName(): Boolean {
-        val `val` = Objects.requireNonNull(fullName!!.editText).text.toString().trim { it <= ' ' }
+        val `val` = Objects.requireNonNull(fullName!!.editText)?.text.toString().trim { it <= ' ' }
         return if (`val`.isEmpty()) {
             fullName!!.error = getString(string.Empty_Field)
             false
@@ -89,7 +89,7 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun validateUsername(): Boolean {
-        val `val` = Objects.requireNonNull(username!!.editText).text.toString().trim { it <= ' ' }
+        val `val` = Objects.requireNonNull(username!!.editText)?.text.toString().trim { it <= ' ' }
         val checkspaces = "\\A\\w{1,20}z"
         return if (`val`.isEmpty()) {
             username!!.error = getString(string.Empty_Field)
@@ -108,8 +108,8 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun validateEmail(): Boolean {
-        val `val` = Objects.requireNonNull(email!!.editText).text.toString().trim { it <= ' ' }
-        val checkEmail = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+"
+        val `val` = email!!.editText?.text.toString().trim { it <= ' ' }
+        val checkEmail = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+".toRegex()
         return if (`val`.isEmpty()) {
             email!!.error = getString(string.Empty_Field)
             false
@@ -146,7 +146,7 @@ class SignUp : AppCompatActivity() {
 //            password.setErrorEnabled(false);
 //            return true;
 //        }
-        return if (Objects.requireNonNull(password!!.editText).text.toString().trim { it <= ' ' }.length < 8 && !isValidPassword(password!!.editText!!.text.toString().trim { it <= ' ' })) {
+        return if (Objects.requireNonNull(password!!.editText)?.text.toString().trim { it <= ' ' }.length < 8 && !isValidPassword(password!!.editText!!.text.toString().trim { it <= ' ' })) {
             password!!.error = getString(string.PasswordStrenght)
             false
         } else {
@@ -169,3 +169,4 @@ class SignUp : AppCompatActivity() {
         }
     }
 }
+

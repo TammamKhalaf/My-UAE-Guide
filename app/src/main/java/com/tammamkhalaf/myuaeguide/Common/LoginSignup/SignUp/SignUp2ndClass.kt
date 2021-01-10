@@ -22,7 +22,7 @@ class SignUp2ndClass : AppCompatActivity() {
     var titleText: TextView? = null
     var slideText: TextView? = null
     var radioGroup: RadioGroup? = null
-    var selectedGender: RadioButton? = null
+    lateinit var selectedGender: RadioButton
     var datePicker: DatePicker? = null
     var gender = 0
     var currentAge = 0
@@ -65,12 +65,12 @@ class SignUp2ndClass : AppCompatActivity() {
         intent.putExtra("gender", selectedGend)
 
         //Add Transition and call next activity
-        val pairs: Array<Pair<*, *>> = arrayOfNulls(5)
-        pairs[0] = Pair<Any?, Any?>(backBtn, "transition_back_arrow_btn")
-        pairs[1] = Pair<Any?, Any?>(next, "transition_next_btn")
-        pairs[2] = Pair<Any?, Any?>(login, "transition_login_btn")
-        pairs[3] = Pair<Any?, Any?>(titleText, "transition_title_text")
-        pairs[4] = Pair<Any?, Any?>(slideText, "transition_slide_text")
+        val pairs:  Array<Pair<View, String>?> = arrayOfNulls(5)
+        pairs[0] = Pair<View, String>(backBtn, "transition_back_arrow_btn")
+        pairs[1] = Pair<View, String>(next, "transition_next_btn")
+        pairs[2] = Pair<View, String>(login, "transition_login_btn")
+        pairs[3] = Pair<View, String>(titleText, "transition_title_text")
+        pairs[4] = Pair<View, String>(slideText, "transition_slide_text")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val options = ActivityOptions.makeSceneTransitionAnimation(this@SignUp2ndClass, *pairs)
             startActivity(intent, options.toBundle())
