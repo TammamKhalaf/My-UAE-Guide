@@ -46,7 +46,8 @@ public interface OpenTripMapServiceApi {
 
     @Headers("content-type:application/json;charset=utf-8")
     @GET("{lang}/places/bbox")
-    Observable<ArrayList<SimpleFeature>> getAllPlaceInBBox(@Query("lon_min")Double lon_min,
+    Observable<ArrayList<SimpleFeature>> getAllPlaceInBBox(@Path("lang")String lang,
+                                                        @Query("lon_min")Double lon_min,
                                                       @Query("lon_max")Double lon_max,
                                                       @Query("lat_min")Double lat_min,
                                                       @Query("lat_max")Double lat_max,
@@ -113,6 +114,6 @@ public interface OpenTripMapServiceApi {
      */
     @Headers("content-type:application/json;charset=utf-8")
     @GET("{lang}/places/xid/{xid}")
-    Observable<Places> getDetailedInfoAboutPlace(@Path("xid")String placeId,@Query("apikey")String API_KEY);
+    Observable<Places> getDetailedInfoAboutPlace(@Path("lang")String lang,@Path("xid")String placeId,@Query("apikey")String API_KEY);
 
 }

@@ -18,7 +18,6 @@ import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
 import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceApi
 import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceBuilder
-import com.tammamkhalaf.myuaeguide.categories.openTripMap.Geoname
 import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesAdapter
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesHelperClass
@@ -28,22 +27,21 @@ import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.mostViewed.MostView
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.mostViewed.MostViewedHelperClass
 import com.tammamkhalaf.myuaeguide.viewmodels.UserDashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     var featuredRecycler: RecyclerView? = null
+    var featuredAdapter:FeaturedAdapter? = null
     var mostViewedRecycler: RecyclerView? = null
     var categoriesRecycler: RecyclerView? = null
-    private lateinit var featuredAdapter:FeaturedAdapter
-    private lateinit var categoriesAdapter: CategoriesAdapter
-    private lateinit var mostViewedAdapter: MostViewedAdapter
+    var categoriesAdapter: CategoriesAdapter? =null
+    var mostViewedAdapter: MostViewedAdapter?=null
     var menuIcon: ImageView? = null
     var content: LinearLayout? = null
     var drawerLayout: DrawerLayout? = null
     var navigationView: NavigationView? = null
     private lateinit var viewModel: UserDashboardViewModel
-    lateinit var featuredLocations: ArrayList<FeaturedHelperClass>
 
     //todo add section for the mahrajanat in uae mahrajan zayed etc ....
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +50,6 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         setContentView(R.layout.activity_user_dashboard)
 
         viewModel = ViewModelProvider(this).get(UserDashboardViewModel::class.java)
-
 
         //Hooks
         featuredRecycler = findViewById(R.id.featured_recycler)
@@ -63,16 +60,11 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         menuIcon = findViewById(R.id.menu_icon)
         content = findViewById(R.id.content)
 
-
-
         navigationDrawer()
         //Functions will be executed automatically when this activity will be created
         featuredRecycler()
         mostViewedRecycler()
         categoriesRecycler()
-
-
-
     }
 
     //region navigation drawer
@@ -132,19 +124,32 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     //region featured
     private fun featuredRecycler() {
-        featuredRecycler!!.setHasFixedSize(true)
-        featuredRecycler!!.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+        featuredRecycler?.setHasFixedSize(true)
+        featuredRecycler?.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
       //todo we can add array of url images and downloaded with glide or picasso
 
-        viewModel.getDetailedInfoAboutPlace("W286786280","5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
+//        viewModel.getDetailedInfoAboutPlace("en","W286786280","5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
+//
+//        viewModel.detailedInfoAboutPlaceLiveData.observe(this, {
+//            featuredAdapter?.featuredLocations?.add(FeaturedHelperClass(it.image, it.name, it.wikidata))
+//        })
+        viewModel.getAllPlaceInBBox("en",-55.296249,55.296249,-25.276987,25.276987,"osm","osm","malls"
+        ,1,"json",10,"5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
 
-        viewModel.detailedInfoAboutPlaceLiveData.observe(this, androidx.lifecycle.Observer {
-            featuredAdapter.featuredLocations.add(FeaturedHelperClass(it.image,it.name,it.wikidata))
+        viewModel.allPlacesInBBoxLiveData.observe(this, {
+            var list: ArrayList<FeaturedHelperClass> = ArrayList()
+
+            for (simpleFeature in it) {
+                Log.d(TAG, "featuredRecycler: List=${simpleFeature.name}")
+                list?.add(FeaturedHelperClass("", simpleFeature.name, simpleFeature.xid))
+            }
+
+
+
+            featuredRecycler?.adapter = list?.let { it1 -> FeaturedAdapter(it1, this) }
         })
 
-        Log.d(TAG, "featuredRecycler: ",)
 
-        featuredRecycler!!.adapter = featuredAdapter
     }
 
 

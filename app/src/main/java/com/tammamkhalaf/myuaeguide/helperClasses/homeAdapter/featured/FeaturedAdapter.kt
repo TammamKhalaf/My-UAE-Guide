@@ -2,6 +2,7 @@ package com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedAdapter.FeaturedViewHolder
 import com.tammamkhalaf.myuaeguide.R
-import java.util.*
 
-class FeaturedAdapter(var featuredLocations: ArrayList<FeaturedHelperClass>, var context: Context) : RecyclerView.Adapter<FeaturedViewHolder>() {
+class FeaturedAdapter(var featuredLocations: ArrayList<FeaturedHelperClass>, var context: Context) :
+        RecyclerView.Adapter<FeaturedViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeaturedViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.featured_card_design, parent, false)
         return FeaturedViewHolder(view)
@@ -22,11 +24,15 @@ class FeaturedAdapter(var featuredLocations: ArrayList<FeaturedHelperClass>, var
     override fun onBindViewHolder(holder: FeaturedViewHolder, position: Int) {
         val featuredHelperClass = featuredLocations[position]
 
-        Glide.with(context).load(featuredLocations[position].imageUrl).into(holder.image);
+        Glide.with(context).load(featuredLocations[position].imageUrl).into(holder.image)
+        Log.d(TAG, "onBindViewHolder: "+featuredLocations[position].imageUrl)
 
         holder.title.text = featuredHelperClass.title
         holder.description.text = featuredHelperClass.description
-        holder.itemView.setOnClickListener { v: View? ->
+        Log.d(TAG, "onBindViewHolder: text received ${holder.title.text} description ${holder.description.text} imageUrl " +
+                "${featuredLocations[position].imageUrl}")
+
+        holder.itemView.setOnClickListener {
             val intent = Intent(context, ShowFeaturedPlace::class.java)
             //todo add information about place inside extras and send it to new activity
             intent.putExtra("featuredItemTitle", featuredHelperClass.title)
@@ -44,5 +50,9 @@ class FeaturedAdapter(var featuredLocations: ArrayList<FeaturedHelperClass>, var
         var title: TextView = itemView.findViewById(R.id.featured_title)
         var description: TextView = itemView.findViewById(R.id.featured_desc)
 
+    }
+
+    companion object {
+        private const val TAG = "FeaturedAdapter"
     }
 }

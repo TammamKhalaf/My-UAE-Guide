@@ -16,7 +16,7 @@ object ServiceBuilder {
     private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
     //create Okhttp client
-    private val okHttp: OkHttpClient.Builder = OkHttpClient.Builder()
+    val okHttp: OkHttpClient.Builder = OkHttpClient.Builder()
             .readTimeout(15, TimeUnit.SECONDS)
             .addInterceptor(Interceptor { chain: Interceptor.Chain ->
                 var request = chain.request()
@@ -27,10 +27,14 @@ object ServiceBuilder {
                 chain.proceed(request)
             })
             .addInterceptor(logger)
+
+
     private val builder = Retrofit.Builder()
-            .baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
             .client(okHttp.build())
     private val retrofit = builder.build()
+
     fun <S> buildService(serviceType: Class<S>?): S {
         return retrofit.create(serviceType)
     }
