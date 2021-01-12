@@ -21,18 +21,16 @@ class ShowFeaturedPlace : AppCompatActivity() {
         val toolbar = binding!!.toolbar
         setSupportActionBar(toolbar)
         val toolBarLayout = binding!!.toolbarLayout
-        toolBarLayout.title = title
+        toolBarLayout.title = ""
+
+
         //todo
         val intent = intent
         val title = intent.getStringExtra("featuredItemTitle")
-        binding!!.nestedContent.FeaturedItemTitle.text = title
+        binding!!.FeaturedItemTitle.text = title
         val details = intent.getStringExtra("featuredItemDescription")
-        binding!!.nestedContent.FeaturedItemDetails.text = details
+        binding!!.FeaturedItemDetails.text = details
         intent.getIntExtra("featuredItemImage", 0)
-        val fab = binding!!.fab
-        fab.setOnClickListener { view: View? ->
-            Snackbar.make(view!!, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+
     }
 }

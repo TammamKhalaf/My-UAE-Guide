@@ -3,16 +3,19 @@ package com.tammamkhalaf.myuaeguide.viewmodels
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tammamkhalaf.myuaeguide.categories.openTripMap.Geoname
 import com.tammamkhalaf.myuaeguide.categories.openTripMap.Places
 import com.tammamkhalaf.myuaeguide.categories.openTripMap.SimpleFeature
 import com.tammamkhalaf.myuaeguide.categories.openTripMap.SimpleSuggestFeature
+import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedHelperClass
 import com.tammamkhalaf.myuaeguide.repository.Repository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
+import kotlin.collections.ArrayList
 
 class UserDashboardViewModel @ViewModelInject constructor(private val repository: Repository) : ViewModel() {
     var geonameMutableLiveData = MutableLiveData<Geoname>()
@@ -20,6 +23,16 @@ class UserDashboardViewModel @ViewModelInject constructor(private val repository
     var simpleSuggestClosestFeatureLiveData = MutableLiveData<ArrayList<SimpleSuggestFeature>>()
     var allPlacesInBBoxLiveData = MutableLiveData<ArrayList<SimpleFeature>>()
     var detailedInfoAboutPlaceLiveData = MutableLiveData<Places>()
+
+    var allFavoritePlacesInBBoxLiveData: LiveData<ArrayList<FeaturedHelperClass>>? = null
+
+    /***
+     *
+     * return data from repository - api
+     * repository - api
+     *
+     * **/
+
     @SuppressLint("CheckResult")
     fun getGeoName(lang: String?, placeName: String?, TwoChar: String?, apiKey: String?) {
         repository.getGeoName(lang, placeName, TwoChar, apiKey)

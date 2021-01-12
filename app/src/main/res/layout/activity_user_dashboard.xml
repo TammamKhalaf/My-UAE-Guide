@@ -73,35 +73,44 @@
                         android:textSize="28sp" />
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/app_name"
                         android:layout_marginLeft="40dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="40dp"
                         android:layout_marginBottom="20dp"
                         android:background="@color/white"
-                        android:elevation="8dp"
+                        android:elevation="0dp"
                         android:layout_marginEnd="40dp"
                         android:layout_marginStart="40dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="15dp"
-                            android:text="@string/search_text"
-                            android:layout_marginStart="15dp" />
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/searchUserDashboardTextInputLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="@string/search_text"
+                            android:textColorHint="@color/black"
+                            app:boxStrokeColor="@color/banner_background_light"
+                            app:boxStrokeWidthFocused="2dp"
+                            app:endIconMode="clear_text"
+                            app:endIconTint="@color/black"
+                            app:hintTextColor="@color/black"
+                            app:startIconDrawable="@drawable/general_search_icon"
+                            app:startIconTint="@color/black">
 
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="15dp"
-                            android:src="@drawable/search"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginEnd="15dp" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/searchUserDashboardTextInputEditText"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/muli_extralight"
+                                android:inputType="textFilter"
+                                android:textColor="@color/black"
+                                android:textColorHighlight="@color/black"
+                                android:textCursorDrawable="@null" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
 
                     </RelativeLayout>
 

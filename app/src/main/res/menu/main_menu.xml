@@ -9,6 +9,11 @@
             android:icon="@drawable/menu_search_icon"
             android:id="@+id/nav_search"
             android:title="@string/search" />
+
+        <item
+            android:icon="@drawable/favorite"
+            android:id="@+id/nav_favorite"
+            android:title="@string/nav_favorite" />
         <item
             android:icon="@drawable/menu_categories_icon"
             android:id="@+id/nav_all_categories"

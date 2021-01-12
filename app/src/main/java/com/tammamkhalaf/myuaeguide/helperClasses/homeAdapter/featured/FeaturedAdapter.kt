@@ -2,12 +2,12 @@ package com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedAdapter.FeaturedViewHolder
@@ -23,23 +23,27 @@ class FeaturedAdapter(var featuredLocations: ArrayList<FeaturedHelperClass>, var
 
     override fun onBindViewHolder(holder: FeaturedViewHolder, position: Int) {
         val featuredHelperClass = featuredLocations[position]
+        //todo if not work with live data go back to array list featuredLocations[position]
 
-        Glide.with(context).load(featuredLocations[position].imageUrl).into(holder.image)
-        Log.d(TAG, "onBindViewHolder: "+featuredLocations[position].imageUrl)
+        Glide.with(context).load(featuredLocations[position]?.imageUrl).into(holder.image)
 
-        holder.title.text = featuredHelperClass.title
-        holder.description.text = featuredHelperClass.description
-        Log.d(TAG, "onBindViewHolder: text received ${holder.title.text} description ${holder.description.text} imageUrl " +
-                "${featuredLocations[position].imageUrl}")
-
-        holder.itemView.setOnClickListener {
+        holder.title.text = featuredHelperClass?.title
+        holder.description.text = featuredHelperClass?.description
+        holder.image.setOnClickListener {
             val intent = Intent(context, ShowFeaturedPlace::class.java)
             //todo add information about place inside extras and send it to new activity
-            intent.putExtra("featuredItemTitle", featuredHelperClass.title)
-            intent.putExtra("featuredItemDescription", featuredHelperClass.description)
+                intent.putExtra("featuredItemTitle", featuredHelperClass?.title)
+
+            intent.putExtra("featuredItemDescription", featuredHelperClass?.description)
             context.startActivity(intent)
         }
+        holder.favorite.setOnClickListener{
+            //todo add item to favorite activity
+        }
+
     }
+
+
 
     override fun getItemCount(): Int {
         return featuredLocations.size
@@ -49,6 +53,7 @@ class FeaturedAdapter(var featuredLocations: ArrayList<FeaturedHelperClass>, var
         var image: ImageView = itemView.findViewById(R.id.featured_image)
         var title: TextView = itemView.findViewById(R.id.featured_title)
         var description: TextView = itemView.findViewById(R.id.featured_desc)
+        val favorite:ImageView = itemView.findViewById(R.id.favIV)
 
     }
 
