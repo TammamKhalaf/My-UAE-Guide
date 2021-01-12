@@ -1,11 +1,13 @@
 package com.tammamkhalaf.myuaeguide.repository
 
-import androidx.lifecycle.LiveData
+
+import com.tammamkhalaf.myuaeguide.categories.hereDeveloper.DiscoverExploreResponse
+import com.tammamkhalaf.myuaeguide.categories.hereDeveloper.hereDeveloperApiService
 import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceApi
 import com.tammamkhalaf.myuaeguide.categories.nearbyPlaces.network.TrueWayPlacesServiceApi
 import com.tammamkhalaf.myuaeguide.categories.openTripMap.*
-import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedHelperClass
 import io.reactivex.rxjava3.core.Observable
+import retrofit2.http.Query
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
@@ -14,14 +16,18 @@ class Repository {
     private val twpApiService: TrueWayPlacesServiceApi
     private val hotelServiceApi: HotelServiceApi
     private val openTripMapServiceApi: OpenTripMapServiceApi
+    private val hereDeveloperService: hereDeveloperApiService
+
 
     @Inject
     constructor(twpApiService: TrueWayPlacesServiceApi,
                 hotelServiceApi: HotelServiceApi,
-                openTripMapServiceApi: OpenTripMapServiceApi, ) {
+                openTripMapServiceApi: OpenTripMapServiceApi,
+                hereDeveloperService: hereDeveloperApiService) {
         this.twpApiService = twpApiService
         this.hotelServiceApi = hotelServiceApi
         this.openTripMapServiceApi = openTripMapServiceApi
+        this.hereDeveloperService = hereDeveloperService
     }
 
 
@@ -55,6 +61,14 @@ class Repository {
 
     fun getDetailedInfoAboutPlace(lang:String?,placeId: String?, API_KEY: String?): Observable<Places> {
         return openTripMapServiceApi.getDetailedInfoAboutPlace(lang,placeId,API_KEY)
+    }
+
+    fun discoverExplorePlacesHereDeveloper(app_id:String,
+                                            app_code:String,
+                                            position:String,//  circle_or_bounding_box:String,
+                                           cat_list:List<String>)
+    :Observable<DiscoverExploreResponse>? {// in or at circle_or_bounding_box
+        return hereDeveloperService.getRecommendedPlaces(app_id,app_code,position,cat_list)
     }
 
     companion object {

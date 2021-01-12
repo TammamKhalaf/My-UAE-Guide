@@ -19,7 +19,7 @@ interface HotelServiceApi {
      * 1
      * Search for related locations and suggestions
      */
-    @Headers("x-rapidapi-key:" + RAPIDAPI_KEY, "x-rapidapi-host:" + RAPIDAPI_HOTEL)
+    @Headers("x-rapidapi-key:$RAPIDAPI_KEY", "x-rapidapi-host:$RAPIDAPI_HOTEL")
     @GET("locations/search")
     fun searchHotel(@Query("query") query: String?,
                     @Query("locale") language: String?): Observable<HotelResponse?>?
@@ -31,8 +31,8 @@ interface HotelServiceApi {
      */
     //todo return Types Hotel and list of hotel images, room images-->
     //todo -->featuredImageTrackingDetails, and propertyImageTrackingDetails
-    @Headers("x-rapidapi-key:" + RAPIDAPI_KEY,
-            "x-rapidapi-host:" + RAPIDAPI_HOTEL)
+    @Headers("x-rapidapi-key:$RAPIDAPI_KEY",
+            "x-rapidapi-host:$RAPIDAPI_HOTEL")
     @GET("properties/get-hotel-photos/{id}")
     fun getHotelPhotos(@Path("id") id: Int): Observable<Hotel?>?
     //endregion
@@ -42,8 +42,8 @@ interface HotelServiceApi {
      * 3
      * Get all available information of a property
      */
-    @Headers("x-rapidapi-key:" + RAPIDAPI_KEY,
-            "x-rapidapi-host:" + RAPIDAPI_HOTEL)
+    @Headers("x-rapidapi-key:$RAPIDAPI_KEY",
+            "x-rapidapi-host:$RAPIDAPI_HOTEL")
     @GET("properties/get-details")
     fun  //todo create response pojo class
     //todo checkIn,checkOut,locale,currency
@@ -59,8 +59,8 @@ interface HotelServiceApi {
      *
      */  //todo create response pojo class
     @get:GET("get-meta-data")
-    @get:Headers("x-rapidapi-key:" + RAPIDAPI_KEY,
-            "x-rapidapi-host:" + RAPIDAPI_HOTEL)
+    @get:Headers("x-rapidapi-key:$RAPIDAPI_KEY",
+            "x-rapidapi-host:$RAPIDAPI_HOTEL")
     val metaData: Observable<MetaData?>?
     //endregion
 
@@ -69,8 +69,8 @@ interface HotelServiceApi {
      * 5
      * List properties with options and filters
      */
-    @Headers("x-rapidapi-key:" + RAPIDAPI_KEY,
-            "x-rapidapi-host:" + RAPIDAPI_HOTEL)
+    @Headers("x-rapidapi-key:$RAPIDAPI_KEY",
+            "x-rapidapi-host:$RAPIDAPI_HOTEL")
     @GET("properties/list")
     fun listProperties(@QueryMap filterA: HashMap<String?, Int?>?,  //todo add in this filter destinationId,pageNumber,pageSize,adults1
                        @QueryMap filterB: HashMap<String?, String?>?,  //todo add in this filter checkIn,checkOut,currency,locale

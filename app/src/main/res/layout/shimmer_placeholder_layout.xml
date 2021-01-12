@@ -34,12 +34,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-        <RatingBar
-            android:id="@+id/featured_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:rating="3.5"
-            style="@style/Widget.AppCompat.RatingBar.Small"/>
+            <RatingBar
+                android:id="@+id/featured_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rating="3.5"
+                style="@style/Widget.AppCompat.RatingBar.Small"/>
 
             <ImageView
                 android:id="@+id/favIV"

@@ -2,13 +2,13 @@ package com.tammamkhalaf.myuaeguide.user
 
 import android.content.Intent
 import android.graphics.drawable.GradientDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.View.GONE
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -18,19 +18,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
-import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceApi
-import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceBuilder
 import com.tammamkhalaf.myuaeguide.common.loginSignup.Login
 import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesAdapter
@@ -65,6 +62,8 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     lateinit var searchUserDashboardTextInputLayout: TextInputLayout
     lateinit var searchUserDashboardTextInputEditText: TextInputEditText
 
+
+
     //todo add section for the mahrajanat in uae mahrajan zayed etc ....
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,15 +86,15 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         searchUserDashboardTextInputEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                Log.d(TAG, "afterTextChanged: ${s.toString()}")
+                Log.d(Companion.TAG, "afterTextChanged: ${s.toString()}")
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                Log.d(TAG, "beforeTextChanged: ${s.toString()}")
+                Log.d(Companion.TAG, "beforeTextChanged: ${s.toString()}")
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.d(TAG, "beforeTextChanged: ${s.toString()}")
+                Log.d(Companion.TAG, "beforeTextChanged: ${s.toString()}")
             }
         })
 
@@ -107,7 +106,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         searchUserDashboardTextInputEditText.afterTextChanged {
         /*doSomethingWithText(it)*/
-            Log.d(TAG, "onCreate: afterTextChanged I am calling api")
+            Log.d(Companion.TAG, "onCreate: afterTextChanged I am calling api")
         }
     }
 
@@ -121,11 +120,10 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
             override fun afterTextChanged(editable: Editable?) {
                 afterTextChanged.invoke(editable.toString())
-                Log.d(TAG, "afterTextChanged: from extension function ${editable.toString()}")
+                Log.d(Companion.TAG, "afterTextChanged: from extension function ${editable.toString()}")
             }
         })
     }
-
 
 
     //region navigation drawer
@@ -197,9 +195,14 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     //region featured
     private fun featuredRecycler() {
+
+
         featuredRecycler?.setHasFixedSize(true)
         featuredRecycler?.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-      //todo we can add array of url images and downloaded with glide or picasso
+       //todo we can add array of url images and downloaded with glide or picasso
+
+        val container = findViewById<View>(R.id.shimmerFrameLayout) as ShimmerFrameLayout
+        container.startShimmer()
 
         viewModel.getAllPlaceInBBox("en", -55.296249, 55.296249, -25.276987, 25.276987,
                 "osm", "osm", "malls", 1, "json", 10,
@@ -211,31 +214,21 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             for (simpleFeature in it) {
                 list?.add(FeaturedHelperClass(getImageUrl(simpleFeature.xid), simpleFeature.name, simpleFeature.xid))
             }
-            featuredRecycler?.adapter = FeaturedAdapter(list,this)
-        })
+            featuredRecycler?.adapter = FeaturedAdapter(list, this)
 
+            container.stopShimmer()
+            container.visibility = GONE
+            featuredRecycler?.visibility  = View.VISIBLE
+        })
     }
 
+
     private fun getImageUrl(xid: String):String{
-        var imageUrl:String = "https://upload.wikimedia.org/wikipedia/commons/5/56/Dining_at_Dubai_Festival_City_Mall.jpg"
-        var oldUrl:String = "https://upload.wikimedia.org/wikipedia/commons/"
-        var newUrl:String = "https://upload.wikimedia.org/wikipedia/commons/"
+        //viewModel.getDetailedInfoAboutPlace("en", xid, "5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
 
-//        viewModel.getDetailedInfoAboutPlace("en", xid, "5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
-//
-//        viewModel.detailedInfoAboutPlaceLiveData.observe(this, {
-//            oldUrl = it.image
-//
-//            val uri: Uri = Uri.parse(oldUrl)
-//            val path: String? = uri.path
-//
-//            newUrl += path?.removePrefix("/wiki/File:")
-//
-//            Log.d(TAG, "getImageUrl: $newUrl ---")
-//
-//        })
+        //viewModel.detailedInfoAboutPlaceLiveData.observe(this, {})
 
-        return imageUrl
+        return "https://upload.wikimedia.org/wikipedia/commons/5/56/Dining_at_Dubai_Festival_City_Mall.jpg"
     }
 
     //endregion
@@ -266,18 +259,41 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         mostViewedRecycler!!.setHasFixedSize(true)
         mostViewedRecycler!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        viewModel.getAllPlaceInBBox("en", -55.296249, 55.296249, -25.276987, 25.276987,
-                "osm", "osm", "other_hotels", 1, "json", 10,
-                "5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
+//        viewModel.getAllPlaceInBBox("en", -55.296249, 55.296249, -25.276987, 25.276987,
+//                "osm", "osm", "other_hotels", 1, "json", 10,
+//                "5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
+//
+//        viewModel.allPlacesInBBoxLiveData.observe(this, {
+//            var list = ArrayList<MostViewedHelperClass>()
+//
+//            for (simpleFeature in it) {
+//                list?.add(MostViewedHelperClass(getMostImageUrl(simpleFeature.xid), simpleFeature.name, simpleFeature.rate.toString()))
+//            }
+//            mostViewedRecycler?.adapter = MostViewedAdapter(list, this)
+//        })
 
-        viewModel.allPlacesInBBoxLiveData.observe(this, {
-            var list = ArrayList<MostViewedHelperClass>()
+        // app_id dmLgAQo631UJfwF5R2hH //app_code 391hkRjz5Z3Ee1h3wz6Kng
 
-            for (simpleFeature in it) {
-                list?.add(MostViewedHelperClass(getMostImageUrl(simpleFeature.xid), simpleFeature.name, simpleFeature.rate.toString()))
+        var list = ArrayList<String>()
+
+        list.add("coffee-tea")
+        list.add("restaurant")
+        list.add("snacks-fast-food")
+
+        var listOfMostViewedAdapter = ArrayList<MostViewedHelperClass>()
+
+        viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH","391hkRjz5Z3Ee1h3wz6Kng",
+                "52.498619,13.37681",list)
+
+        viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this, Observer {
+            Log.d(TAG, "mostViewedRecycler: ")
+            for (item in it.results.items) {
+                Log.d(TAG, "mostViewedRecycler: ${item.icon} ${item.title} ${item.category.title}")
+                listOfMostViewedAdapter?.add(MostViewedHelperClass(item.icon, item.title, item.category.title))
             }
-            mostViewedRecycler?.adapter = MostViewedAdapter(list,this)
+            mostViewedRecycler?.adapter = MostViewedAdapter(listOfMostViewedAdapter, this)
         })
+
     }
 
     private fun getMostImageUrl(xid: String):String{

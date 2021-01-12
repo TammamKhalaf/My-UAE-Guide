@@ -1,6 +1,7 @@
 package com.tammamkhalaf.myuaeguide.di
 
 import android.os.Build
+import com.tammamkhalaf.myuaeguide.categories.hereDeveloper.hereDeveloperApiService
 import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceApi
 import com.tammamkhalaf.myuaeguide.categories.nearbyPlaces.network.TrueWayPlacesServiceApi
 import com.tammamkhalaf.myuaeguide.categories.openTripMap.OpenTripMapServiceApi
@@ -38,6 +39,18 @@ object RetrofitModule {
                 chain.proceed(request)
             })
             .addInterceptor(logger)
+
+
+    @Provides
+    @Singleton
+    fun provideHereDeveloperApiService(): hereDeveloperApiService {
+        return Retrofit.Builder().baseUrl("https://places.ls.hereapi.com")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .client(okHttpClient.build())
+                .build()
+                .create(hereDeveloperApiService::class.java)
+    }
 
 
     @Provides

@@ -6,6 +6,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.tammamkhalaf.myuaeguide.categories.hereDeveloper.DiscoverExploreResponse
 import com.tammamkhalaf.myuaeguide.categories.openTripMap.Geoname
 import com.tammamkhalaf.myuaeguide.categories.openTripMap.Places
 import com.tammamkhalaf.myuaeguide.categories.openTripMap.SimpleFeature
@@ -25,6 +26,8 @@ class UserDashboardViewModel @ViewModelInject constructor(private val repository
     var detailedInfoAboutPlaceLiveData = MutableLiveData<Places>()
 
     var allFavoritePlacesInBBoxLiveData: LiveData<ArrayList<FeaturedHelperClass>>? = null
+
+    var discoverExplorePlacesHereDeveloperLiveData = MutableLiveData<DiscoverExploreResponse>()
 
     /***
      *
@@ -61,7 +64,8 @@ class UserDashboardViewModel @ViewModelInject constructor(private val repository
 
     fun getSuggestionsClosestToPoint(radius: Int, lon: Double?, lat: Double?, _osm: String?, osm: String?, type: String?, rate: String?, json: String?,
                                      base_or_address: String?, limit: Int, API_KEY: String?) {
-        repository.getSuggestionsClosestToPoint(radius, lon, lat, _osm, osm, type, rate, json, base_or_address, limit, API_KEY).subscribeOn(Schedulers.io())
+        repository.getSuggestionsClosestToPoint(radius, lon, lat, _osm, osm, type, rate, json, base_or_address, limit, API_KEY)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result: ArrayList<SimpleSuggestFeature> -> simpleSuggestClosestFeatureLiveData.setValue(result) }
                 ) { error: Throwable? -> Log.e(TAG, "getSuggestionsClosestToPoint: ", error) }
@@ -72,6 +76,17 @@ class UserDashboardViewModel @ViewModelInject constructor(private val repository
                 .subscribe({ result: Places -> detailedInfoAboutPlaceLiveData.setValue(result) })
                 { error: Throwable? -> Log.e(TAG, "getDetailedInfoAboutPlace: ", error) }
     }
+
+
+    //at circle_or_bounding_box:String
+    fun discoverExplorePlacesHereDeveloper(app_id:String, app_code:String, position:String, cat_list:List<String>){
+        repository.discoverExplorePlacesHereDeveloper(app_id,app_code,position,cat_list)//circle_or_bounding_box
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({ result: DiscoverExploreResponse -> discoverExplorePlacesHereDeveloperLiveData.setValue(result) })
+                { error: Throwable? -> Log.e(TAG, "discoverExplorePlacesHereDeveloper: ", error) }
+    }
+
 
     companion object {
         private const val TAG = "UserDashboardViewModel"

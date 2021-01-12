@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".user.UserDashboard"
+    xmlns:shimmer="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout">
 
     <com.google.android.material.navigation.NavigationView
@@ -277,13 +278,55 @@
 
                     </LinearLayout>
 
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerFrameLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_gravity="center"
+                        android:layout_toRightOf="@id/featured_background"
+                        android:orientation="horizontal">
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                        <include layout="@layout/shimmer_placeholder_layout" />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/featured_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
                         android:layout_toRightOf="@id/featured_background"
                         android:background="@color/home_background"
-                        android:layout_toEndOf="@id/featured_background" />
+                        android:layout_toEndOf="@id/featured_background"
+                        android:visibility="gone" />
+
+
                 </RelativeLayout>
 
                 <LinearLayout
