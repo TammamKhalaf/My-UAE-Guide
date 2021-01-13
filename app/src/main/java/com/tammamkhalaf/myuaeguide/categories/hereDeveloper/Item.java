@@ -18,7 +18,7 @@ public class Item {
     private String title;
     @SerializedName("averageRating")
     @Expose
-    private Integer averageRating;
+    private Double averageRating;
     @SerializedName("category")
     @Expose
     private Category category;
@@ -28,6 +28,9 @@ public class Item {
     @SerializedName("vicinity")
     @Expose
     private String vicinity;
+    @SerializedName("having")
+    @Expose
+    private List<Object> having = null;
     @SerializedName("type")
     @Expose
     private String type;
@@ -37,6 +40,18 @@ public class Item {
     @SerializedName("id")
     @Expose
     private String id;
+    @SerializedName("alternativeNames")
+    @Expose
+    private List<AlternativeName> alternativeNames = null;
+    @SerializedName("tags")
+    @Expose
+    private List<Tag> tags = null;
+    @SerializedName("openingHours")
+    @Expose
+    private OpeningHours openingHours;
+    @SerializedName("chainIds")
+    @Expose
+    private List<String> chainIds = null;
 
     public List<Double> getPosition() {
         return position;
@@ -62,11 +77,11 @@ public class Item {
         this.title = title;
     }
 
-    public Integer getAverageRating() {
+    public Double getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(Integer averageRating) {
+    public void setAverageRating(Double averageRating) {
         this.averageRating = averageRating;
     }
 
@@ -94,6 +109,14 @@ public class Item {
         this.vicinity = vicinity;
     }
 
+    public List<Object> getHaving() {
+        return having;
+    }
+
+    public void setHaving(List<Object> having) {
+        this.having = having;
+    }
+
     public String getType() {
         return type;
     }
@@ -116,6 +139,38 @@ public class Item {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public List<AlternativeName> getAlternativeNames() {
+        return alternativeNames;
+    }
+
+    public void setAlternativeNames(List<AlternativeName> alternativeNames) {
+        this.alternativeNames = alternativeNames;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public OpeningHours getOpeningHours() {
+        return openingHours;
+    }
+
+    public void setOpeningHours(OpeningHours openingHours) {
+        this.openingHours = openingHours;
+    }
+
+    public List<String> getChainIds() {
+        return chainIds;
+    }
+
+    public void setChainIds(List<String> chainIds) {
+        this.chainIds = chainIds;
     }
 
 }

@@ -30,6 +30,7 @@ import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
 import com.tammamkhalaf.myuaeguide.common.loginSignup.Login
 import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
+import com.tammamkhalaf.myuaeguide.helperClasses.SplitText
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesAdapter
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesHelperClass
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedAdapter
@@ -43,9 +44,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     var featuredRecycler: RecyclerView? = null
-    var featuredAdapter:  FeaturedAdapter? = null
 
-    var mostViewedAdapter: MostViewedAdapter?=null
     var mostViewedRecycler: RecyclerView? = null
 
     var categoriesRecycler: RecyclerView? = null
@@ -80,6 +79,8 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         navigationView = findViewById(R.id.navigation_view)
         menuIcon = findViewById(R.id.menu_icon)
         content = findViewById(R.id.content)
+
+
         searchUserDashboardTextInputLayout=findViewById(R.id.searchUserDashboardTextInputLayout)
 
         searchUserDashboardTextInputEditText=findViewById(R.id.searchUserDashboardTextInputEditText)
@@ -110,7 +111,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         }
     }
 
-    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -218,7 +219,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
             container.stopShimmer()
             container.visibility = GONE
-            featuredRecycler?.visibility  = View.VISIBLE
+            featuredRecycler?.visibility = View.VISIBLE
         })
     }
 
@@ -259,20 +260,10 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         mostViewedRecycler!!.setHasFixedSize(true)
         mostViewedRecycler!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-//        viewModel.getAllPlaceInBBox("en", -55.296249, 55.296249, -25.276987, 25.276987,
-//                "osm", "osm", "other_hotels", 1, "json", 10,
-//                "5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
-//
-//        viewModel.allPlacesInBBoxLiveData.observe(this, {
-//            var list = ArrayList<MostViewedHelperClass>()
-//
-//            for (simpleFeature in it) {
-//                list?.add(MostViewedHelperClass(getMostImageUrl(simpleFeature.xid), simpleFeature.name, simpleFeature.rate.toString()))
-//            }
-//            mostViewedRecycler?.adapter = MostViewedAdapter(list, this)
-//        })
-
         // app_id dmLgAQo631UJfwF5R2hH //app_code 391hkRjz5Z3Ee1h3wz6Kng
+        val container = findViewById<View>(R.id.shimmerFrameLayoutMostViewed) as ShimmerFrameLayout
+        container.startShimmer()
+
 
         var list = ArrayList<String>()
 
@@ -282,16 +273,32 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         var listOfMostViewedAdapter = ArrayList<MostViewedHelperClass>()
 
-        viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH","391hkRjz5Z3Ee1h3wz6Kng",
-                "52.498619,13.37681",list)
+        viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
+                "24.466667,54.366669", list)
 
         viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this, Observer {
-            Log.d(TAG, "mostViewedRecycler: ")
             for (item in it.results.items) {
-                Log.d(TAG, "mostViewedRecycler: ${item.icon} ${item.title} ${item.category.title}")
-                listOfMostViewedAdapter?.add(MostViewedHelperClass(item.icon, item.title, item.category.title))
+                var str: StringBuilder
+                if(item.title.length>21){
+                    str = java.lang.StringBuilder(item.title)
+                    str.insert(21, "\n").toString()
+                }else{
+                    str = java.lang.StringBuilder(item.title)
+                }
+                listOfMostViewedAdapter.add(MostViewedHelperClass(
+                        item.icon,
+                        str.toString(),
+                        item?.alternativeNames?.get(0)?.name?:"",
+                        item.category.title ?: "Category?",
+                        item.openingHours?.label ?: "Opening Hours",
+                        item.openingHours?.text?.replace("<br/>", "\n") ?: "Not Available?",
+                        rating = item.averageRating ?: 4.0
+                ))
             }
             mostViewedRecycler?.adapter = MostViewedAdapter(listOfMostViewedAdapter, this)
+            container.stopShimmer()
+            container.visibility = GONE
+            mostViewedRecycler?.visibility = View.VISIBLE
         })
 
     }

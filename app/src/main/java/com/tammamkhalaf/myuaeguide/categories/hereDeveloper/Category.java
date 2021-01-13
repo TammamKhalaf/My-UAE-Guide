@@ -18,6 +18,9 @@ public class Category {
     @SerializedName("type")
     @Expose
     private String type;
+    @SerializedName("system")
+    @Expose
+    private String system;
 
     public String getId() {
         return id;
@@ -49,6 +52,14 @@ public class Category {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getSystem() {
+        return system;
+    }
+
+    public void setSystem(String system) {
+        this.system = system;
     }
 
 }

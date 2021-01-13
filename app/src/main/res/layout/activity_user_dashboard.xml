@@ -317,6 +317,7 @@
 
                     </com.facebook.shimmer.ShimmerFrameLayout>
 
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/featured_recycler"
                         android:layout_width="match_parent"
@@ -359,10 +360,51 @@
 
                     </RelativeLayout>
 
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerFrameLayoutMostViewed"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_toRightOf="@id/featured_background"
+                        android:orientation="horizontal">
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                        <include layout="@layout/most_viewed_shimmer_placeholder_layout" />
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/most_viewed_recycler"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp" />
+                        android:layout_height="200dp"
+                        android:visibility="gone"
+                        />
 
                 </LinearLayout>
 

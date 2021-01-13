@@ -9,14 +9,25 @@ public class Location {
 
     @SerializedName("position")
     @Expose
-    private List<String> position = null;
+    private List<Double> position = null;
+    @SerializedName("address")
+    @Expose
+    private Address address;
 
-    public List<String> getPosition() {
+    public List<Double> getPosition() {
         return position;
     }
 
-    public void setPosition(List<String> position) {
+    public void setPosition(List<Double> position) {
         this.position = position;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
 }
