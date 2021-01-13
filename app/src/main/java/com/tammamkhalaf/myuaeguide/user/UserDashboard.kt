@@ -10,27 +10,21 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.view.inputmethod.EditorInfo
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
 import com.tammamkhalaf.myuaeguide.common.loginSignup.Login
 import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
-import com.tammamkhalaf.myuaeguide.helperClasses.SplitText
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesAdapter
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesHelperClass
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedAdapter
@@ -39,6 +33,16 @@ import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.mostViewed.MostView
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.mostViewed.MostViewedHelperClass
 import com.tammamkhalaf.myuaeguide.viewmodels.UserDashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.ObservableEmitter
+import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.reactivestreams.Subscriber
+import java.util.concurrent.TimeUnit
 
 
 @AndroidEntryPoint
@@ -58,12 +62,11 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     private lateinit var viewModel: UserDashboardViewModel
 
-    lateinit var searchUserDashboardTextInputLayout: TextInputLayout
-    lateinit var searchUserDashboardTextInputEditText: TextInputEditText
+    var listOfMostViewedAdapter = ArrayList<MostViewedHelperClass>()
+
+    lateinit var container:ShimmerFrameLayout
 
 
-
-    //todo add section for the mahrajanat in uae mahrajan zayed etc ....
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -80,34 +83,121 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         menuIcon = findViewById(R.id.menu_icon)
         content = findViewById(R.id.content)
 
+        // Get a reference to the AutoCompleteTextView in the layout
+        val textView = findViewById<AutoCompleteTextView>(R.id.autocomplete_suggest)
+        // Get the string array
+        val countries: Array<out String> = resources.getStringArray(R.array.searchDiscoverExploreSuggest)
+        // Create the adapter and set it to the AutoCompleteTextView
+        ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries).also { adapter ->
+            textView.setAdapter(adapter)
+        }
 
-        searchUserDashboardTextInputLayout=findViewById(R.id.searchUserDashboardTextInputLayout)
+                Observable.create { emitter: ObservableEmitter<Any?>? ->
+                    textView.addTextChangedListener(object : TextWatcher {
+                        override fun afterTextChanged(s: Editable?) {
+                            Log.d(TAG, "afterTextChanged: ${s.toString()}")
 
-        searchUserDashboardTextInputEditText=findViewById(R.id.searchUserDashboardTextInputEditText)
+                            if (s?.length != 0)
+                                emitter?.onNext(s.toString())
+                        }
 
-        searchUserDashboardTextInputEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                Log.d(Companion.TAG, "afterTextChanged: ${s.toString()}")
+                        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                            Log.d(TAG, "beforeTextChanged: ${s.toString()}")
+                        }
+
+                        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                            Log.d(TAG, "beforeTextChanged: ${s.toString()}")
+                        }
+                    })
+
+                }
+                        .doOnNext{ c-> Log.d(TAG, "here > upstream: $c")}
+                        .map{
+                            //if you need to apply any thing to
+                            // object receive it before send it to final step
+                            it.toString().trim()
+                        }.debounce(5, TimeUnit.SECONDS)
+                        .distinctUntilChanged()
+                        .filter { (it.toString() != "abc")
+                            /*filtering some word based on text or size
+                             or other thing you need to filter it here */}
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe{ d->
+                            Log.d(TAG, "downstream :  --> CALLING here developer API $d")
+                            var list= ArrayList<String>()
+                            list.add(d.toString())
+                            sendDataToApiDemo(list)
+                        }
+
+
+        textView.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val text = v.text.toString()
+                Toast.makeText(this@UserDashboard, text, Toast.LENGTH_SHORT).show()
+                return@OnEditorActionListener true
             }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                Log.d(Companion.TAG, "beforeTextChanged: ${s.toString()}")
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.d(Companion.TAG, "beforeTextChanged: ${s.toString()}")
-            }
+            false
         })
 
-        navigationDrawer()
+        //endregion
+
         //Functions will be executed automatically when this activity will be created
+        navigationDrawer()
         featuredRecycler()
         mostViewedRecycler()
         categoriesRecycler()
 
-        searchUserDashboardTextInputEditText.afterTextChanged {
+        textView.afterTextChanged {
         /*doSomethingWithText(it)*/
-            Log.d(Companion.TAG, "onCreate: afterTextChanged I am calling api")
+            Log.d(TAG, "onCreate: afterTextChanged I am calling api")
+        }
+    }
+
+    private fun sendDataToApiDemo(data: ArrayList<String>) {
+
+        container.startShimmer()
+
+                viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
+                        "24.466667,54.366669", data)
+
+                viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this,
+                        Observer {
+                    for (item in it.results.items) {
+                        var str: StringBuilder
+                        if (item.title.length > 21) {
+                            str = java.lang.StringBuilder(item.title)
+                            str.insert(21, "\n").toString()
+                        } else {
+                            str = java.lang.StringBuilder(item.title)
+                        }
+                        listOfMostViewedAdapter.add(MostViewedHelperClass(
+                                item.icon,
+                                str.toString(),
+                                item?.alternativeNames?.get(0)?.name ?: "",
+                                item.category.title ?: "Category?",
+                                item.openingHours?.label ?: "Opening Hours",
+                                item.openingHours?.text?.replace("<br/>", "\n") ?: "Not Available?",
+                                rating = item.averageRating ?: 4.0
+                        ))
+                    }
+
+                    if (mostViewedRecycler?.adapter != null) // it works second time and later
+                        mostViewedRecycler?.adapter?.notifyDataSetChanged()
+                    else {
+                        mostViewedRecycler?.adapter = MostViewedAdapter(listOfMostViewedAdapter,
+                                this)
+                    }
+                    container.stopShimmer()
+                    container.visibility = GONE
+                    mostViewedRecycler?.visibility = View.VISIBLE
+                })
+}
+
+    abstract class NYTSubscriber<T> : Subscriber<T> {
+        fun onCompleted() {}
+        override fun onError(e: Throwable?) {
+            Log.e(TAG, "onError: ",e )
         }
     }
 
@@ -121,10 +211,11 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
             override fun afterTextChanged(editable: Editable?) {
                 afterTextChanged.invoke(editable.toString())
-                Log.d(Companion.TAG, "afterTextChanged: from extension function ${editable.toString()}")
+                Log.d(TAG, "afterTextChanged: from extension function ${editable.toString()}")
             }
         })
     }
+
 
 
     //region navigation drawer
@@ -261,7 +352,9 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         mostViewedRecycler!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         // app_id dmLgAQo631UJfwF5R2hH //app_code 391hkRjz5Z3Ee1h3wz6Kng
-        val container = findViewById<View>(R.id.shimmerFrameLayoutMostViewed) as ShimmerFrameLayout
+
+        container = findViewById<View>(R.id.shimmerFrameLayoutMostViewed) as ShimmerFrameLayout
+
         container.startShimmer()
 
 
@@ -271,7 +364,6 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         list.add("restaurant")
         list.add("snacks-fast-food")
 
-        var listOfMostViewedAdapter = ArrayList<MostViewedHelperClass>()
 
         viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
                 "24.466667,54.366669", list)
@@ -279,23 +371,27 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this, Observer {
             for (item in it.results.items) {
                 var str: StringBuilder
-                if(item.title.length>21){
+                if (item.title.length > 21) {
                     str = java.lang.StringBuilder(item.title)
                     str.insert(21, "\n").toString()
-                }else{
+                } else {
                     str = java.lang.StringBuilder(item.title)
                 }
                 listOfMostViewedAdapter.add(MostViewedHelperClass(
                         item.icon,
                         str.toString(),
-                        item?.alternativeNames?.get(0)?.name?:"",
+                        item?.alternativeNames?.get(0)?.name ?: "",
                         item.category.title ?: "Category?",
                         item.openingHours?.label ?: "Opening Hours",
                         item.openingHours?.text?.replace("<br/>", "\n") ?: "Not Available?",
                         rating = item.averageRating ?: 4.0
                 ))
             }
-            mostViewedRecycler?.adapter = MostViewedAdapter(listOfMostViewedAdapter, this)
+            if (mostViewedRecycler?.adapter != null) {
+                mostViewedRecycler?.adapter?.notifyDataSetChanged()
+            } else {
+                mostViewedRecycler?.adapter = MostViewedAdapter(listOfMostViewedAdapter, this)
+            }
             container.stopShimmer()
             container.visibility = GONE
             mostViewedRecycler?.visibility = View.VISIBLE
@@ -304,26 +400,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     }
 
     private fun getMostImageUrl(xid: String):String{
-        var imageUrl:String = "https://upload.wikimedia.org/wikipedia/commons/5/5b/Atlantis_The_Palm_hotel_from_the_sea%2C_Palm_Jumeirah%2C_Dubai.jpg"
-        var oldUrl:String = "https://upload.wikimedia.org/wikipedia/commons/"
-        var newUrl:String = "https://upload.wikimedia.org/wikipedia/commons/"
-
-        //todo use debounce with this RxJava Call to reduce huge calls at a time
-//        viewModel.getDetailedInfoAboutPlace("en", xid, "5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
-//
-//        viewModel.detailedInfoAboutPlaceLiveData.observe(this, {
-//            oldUrl = it.image
-//
-//            val uri: Uri = Uri.parse(oldUrl)
-//            val path: String? = uri.path
-//
-//            newUrl += path?.removePrefix("/wiki/File:")
-//
-//            Log.d(TAG, "getImageUrl: $newUrl ---")
-//
-//        })
-
-        return imageUrl
+        return "https://upload.wikimedia.org/wikipedia/commons/5/5b/Atlantis_The_Palm_hotel_from_the_sea%2C_Palm_Jumeirah%2C_Dubai.jpg"
     }
 
 
@@ -334,6 +411,9 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         const val END_SCALE = 0.7f
     }
 
-    fun callRetailerScreen(view: View) {startActivity(Intent(applicationContext, RetailerStartUpScreen::class.java))}
+//    fun callRetailerScreen(view: View) {startActivity(Intent(applicationContext, RetailerStartUpScreen::class.java))}
+//    override fun invoke(): Lifecycle {
+//        TODO("Not yet implemented")
+//    }
 
 }

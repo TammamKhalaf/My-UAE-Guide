@@ -98,18 +98,27 @@
                             app:endIconMode="clear_text"
                             app:endIconTint="@color/black"
                             app:hintTextColor="@color/black"
+                            android:focusable="auto"
                             app:startIconDrawable="@drawable/general_search_icon"
                             app:startIconTint="@color/black">
 
-                            <com.google.android.material.textfield.TextInputEditText
+<!--                            <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/searchUserDashboardTextInputEditText"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/muli_extralight"
                                 android:inputType="textFilter"
+                                android:focusable="auto"
                                 android:textColor="@color/black"
+                                android:imeOptions="actionSearch"
                                 android:textColorHighlight="@color/black"
-                                android:textCursorDrawable="@null" />
+                                android:textCursorDrawable="@null" />-->
+
+                            <AutoCompleteTextView
+                                android:id="@+id/autocomplete_suggest"
+                                android:imeOptions="actionSearch"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 

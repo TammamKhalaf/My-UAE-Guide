@@ -206,6 +206,27 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+
+    <string-array name="searchDiscoverExploreSuggest">
+        <item>eat-drink</item>
+        <item>restaurant</item>
+        <item>coffee-tea</item>
+        <item>snacks-fast-food</item>
+        <item>going-out</item>
+        <item>sights-museums</item>
+        <item>transport</item>
+        <item>airport</item>
+        <item>accommodation</item>
+        <item>shopping</item>
+        <item>leisure-outdoor</item>
+        <item>administrative-areas-buildings</item>
+        <item>natural-geographical</item>
+        <item>petrol-station</item>
+        <item>atm-bank-exchange</item>
+        <item>toilet-rest-area</item>
+        <item>hospital-health-care-facility</item>
+    </string-array>
+
     <string name="action_settings" translatable="false">Settings</string>
     <string name="SessionExpired" translatable="false">Your Session has Expired!</string>
     <string name="FailedToRetrieveItems" translatable="false">Failed To Retrieve Items!</string>
