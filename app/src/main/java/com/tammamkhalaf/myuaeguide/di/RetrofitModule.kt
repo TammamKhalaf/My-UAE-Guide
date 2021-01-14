@@ -1,10 +1,10 @@
 package com.tammamkhalaf.myuaeguide.di
 
 import android.os.Build
-import com.tammamkhalaf.myuaeguide.categories.hereDeveloper.hereDeveloperApiService
+import com.tammamkhalaf.myuaeguide.categories.hereDeveloper.discoverExplore.hereDevDiscoverExploreApiService
+import com.tammamkhalaf.myuaeguide.categories.hereDeveloper.discoverHere.hereDevDiscoverHereApiService
+import com.tammamkhalaf.myuaeguide.categories.hereDeveloper.discoverHere.LockupEntrypoint.hereDevLockupApiService
 import com.tammamkhalaf.myuaeguide.categories.hotels.network.HotelServiceApi
-import com.tammamkhalaf.myuaeguide.categories.nearbyPlaces.network.TrueWayPlacesServiceApi
-import com.tammamkhalaf.myuaeguide.categories.openTripMap.OpenTripMapServiceApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -43,25 +43,35 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideHereDeveloperApiService(): hereDeveloperApiService {
+    fun provideHereDevDiscoverExploreApiService(): hereDevDiscoverExploreApiService {
         return Retrofit.Builder().baseUrl("https://places.ls.hereapi.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .client(okHttpClient.build())
                 .build()
-                .create(hereDeveloperApiService::class.java)
+                .create(hereDevDiscoverExploreApiService::class.java)
     }
-
 
     @Provides
     @Singleton
-    fun provideTWPApiService(): TrueWayPlacesServiceApi {
-        return Retrofit.Builder().baseUrl("https://trueway-places.p.rapidapi.com/")
+    fun provideHereDevDiscoverHereApiService(): hereDevDiscoverHereApiService {
+        return Retrofit.Builder().baseUrl("https://places.sit.ls.hereapi.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .client(okHttpClient.build())
                 .build()
-                .create(TrueWayPlacesServiceApi::class.java)
+                .create(hereDevDiscoverHereApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHereDevLockupApiService(): hereDevLockupApiService {
+        return Retrofit.Builder().baseUrl("https://places.ls.hereapi.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .client(okHttpClient.build())
+                .build()
+                .create(hereDevLockupApiService::class.java)
     }
 
     @Provides
@@ -75,14 +85,7 @@ object RetrofitModule {
                 .create(HotelServiceApi::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideOpenTripMapApiService(): OpenTripMapServiceApi {
-        return Retrofit.Builder().baseUrl("https://api.opentripmap.com/0.1/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-                .client(okHttpClient.build())
-                .build()
-                .create(OpenTripMapServiceApi::class.java)
-    }
+
+
+
 }

@@ -1,22 +1,18 @@
-package com.tammamkhalaf.myuaeguide.user;
+package com.tammamkhalaf.myuaeguide.user
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.WindowManager
+import androidx.lifecycle.ViewModelProvider
+import com.tammamkhalaf.myuaeguide.R
+import com.tammamkhalaf.myuaeguide.viewmodels.ShowFeaturedPlaceViewModel
 
-import android.os.Bundle;
+class FavActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        setContentView(R.layout.activity_fav2)
 
-import com.tammamkhalaf.myuaeguide.R;
-
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.ObservableEmitter;
-import io.reactivex.rxjava3.core.ObservableOnSubscribe;
-
-public class FavActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fav2);
 
 
     }

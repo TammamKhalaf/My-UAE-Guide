@@ -1,10 +1,10 @@
 
-package com.tammamkhalaf.myuaeguide.categories.hereDeveloper;
+package com.tammamkhalaf.myuaeguide.categories.hereDeveloper.discoverHere;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Tag {
+public class Category {
 
     @SerializedName("id")
     @Expose
@@ -12,9 +12,12 @@ public class Tag {
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("group")
+    @SerializedName("href")
     @Expose
-    private String group;
+    private String href;
+    @SerializedName("type")
+    @Expose
+    private String type;
 
     public String getId() {
         return id;
@@ -32,12 +35,20 @@ public class Tag {
         this.title = title;
     }
 
-    public String getGroup() {
-        return group;
+    public String getHref() {
+        return href;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setHref(String href) {
+        this.href = href;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
 }

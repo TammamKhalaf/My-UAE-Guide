@@ -1,5 +1,5 @@
 
-package com.tammamkhalaf.myuaeguide.categories.hereDeveloper;
+package com.tammamkhalaf.myuaeguide.categories.hereDeveloper.discoverExplore;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

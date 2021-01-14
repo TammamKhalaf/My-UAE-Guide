@@ -62,7 +62,8 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     private lateinit var viewModel: UserDashboardViewModel
 
-    var listOfMostViewedAdapter = ArrayList<MostViewedHelperClass>()
+    private var listOfMostViewedAdapter = ArrayList<MostViewedHelperClass>()
+    private var listOfFeaturedAdapter = ArrayList<FeaturedHelperClass>()
 
     lateinit var container:ShimmerFrameLayout
 
@@ -216,8 +217,6 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         })
     }
 
-
-
     //region navigation drawer
     private fun navigationDrawer() {
         navigationView!!.bringToFront()
@@ -288,7 +287,6 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     //region featured
     private fun featuredRecycler() {
 
-
         featuredRecycler?.setHasFixedSize(true)
         featuredRecycler?.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
        //todo we can add array of url images and downloaded with glide or picasso
@@ -296,32 +294,44 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         val container = findViewById<View>(R.id.shimmerFrameLayout) as ShimmerFrameLayout
         container.startShimmer()
 
-        viewModel.getAllPlaceInBBox("en", -55.296249, 55.296249, -25.276987, 25.276987,
-                "osm", "osm", "malls", 1, "json", 10,
-                "5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
+        var list = ArrayList<String>()
 
-        viewModel.allPlacesInBBoxLiveData.observe(this, {
-            var list = ArrayList<FeaturedHelperClass>()
+        list.add("going-out")
+        list.add("natural-geographical")
+        list.add("leisure-outdoor")
 
-            for (simpleFeature in it) {
-                list?.add(FeaturedHelperClass(getImageUrl(simpleFeature.xid), simpleFeature.name, simpleFeature.xid))
+        viewModel.discoverHerePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
+                "24.466667,54.366669", list)
+
+        viewModel.discoverHerePlacesHereDeveloperLiveData.observe(this, Observer {
+            for (item in it.results.items) {
+                var str: StringBuilder
+                if (item.title.length > 21) {
+                    str = java.lang.StringBuilder(item.title)
+                    str.insert(21, "\n").toString()
+                } else {
+                    str = java.lang.StringBuilder(item.title)
+                }
+
+                Log.d(TAG, "item href : ---place id---> ${item.id}--- context ")
+
+                listOfFeaturedAdapter.add(FeaturedHelperClass(item.icon, str.toString(), item.category.title))
             }
-            featuredRecycler?.adapter = FeaturedAdapter(list, this)
+
+            if (featuredRecycler?.adapter != null) {
+                featuredRecycler?.adapter?.notifyDataSetChanged()
+            } else {
+                featuredRecycler?.adapter = FeaturedAdapter(listOfFeaturedAdapter, this)
+            }
 
             container.stopShimmer()
             container.visibility = GONE
             featuredRecycler?.visibility = View.VISIBLE
+
         })
+
     }
 
-
-    private fun getImageUrl(xid: String):String{
-        //viewModel.getDetailedInfoAboutPlace("en", xid, "5ae2e3f221c38a28845f05b64293a0f5d790db9d3aaf49fbb0ae5aed")
-
-        //viewModel.detailedInfoAboutPlaceLiveData.observe(this, {})
-
-        return "https://upload.wikimedia.org/wikipedia/commons/5/56/Dining_at_Dubai_Festival_City_Mall.jpg"
-    }
 
     //endregion
 
@@ -333,11 +343,13 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         val gradient3 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-0x83a61, -0x83a61))
         val gradient4 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-0x47280b, -0x47280b))
         val categoriesHelperClasses = ArrayList<CategoriesHelperClass>()
+
         categoriesHelperClasses.add(CategoriesHelperClass(gradient1, R.drawable.school_cat, getString(string.education)))
         categoriesHelperClasses.add(CategoriesHelperClass(gradient2, R.drawable.hospital_cat, getString(string.hospital)))
         categoriesHelperClasses.add(CategoriesHelperClass(gradient3, R.drawable.res_cat, getString(string.restaurant)))
         categoriesHelperClasses.add(CategoriesHelperClass(gradient4, R.drawable.shopping_cat, getString(string.shopping)))
         categoriesHelperClasses.add(CategoriesHelperClass(gradient1, R.drawable.transport_cat, getString(string.transport)))
+
         categoriesRecycler!!.setHasFixedSize(true)
         categoriesAdapter = CategoriesAdapter(categoriesHelperClasses)
         categoriesRecycler!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -357,13 +369,11 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         container.startShimmer()
 
-
         var list = ArrayList<String>()
 
         list.add("coffee-tea")
         list.add("restaurant")
         list.add("snacks-fast-food")
-
 
         viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
                 "24.466667,54.366669", list)
@@ -377,15 +387,14 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 } else {
                     str = java.lang.StringBuilder(item.title)
                 }
-                listOfMostViewedAdapter.add(MostViewedHelperClass(
-                        item.icon,
-                        str.toString(),
-                        item?.alternativeNames?.get(0)?.name ?: "",
-                        item.category.title ?: "Category?",
-                        item.openingHours?.label ?: "Opening Hours",
+                listOfMostViewedAdapter.add(MostViewedHelperClass(item.icon, str.toString(), item?.alternativeNames?.get(0)?.name
+                        ?: "",
+                        item.category.title ?: "Category?", item.openingHours?.label
+                        ?: "Opening Hours",
                         item.openingHours?.text?.replace("<br/>", "\n") ?: "Not Available?",
                         rating = item.averageRating ?: 4.0
                 ))
+                Log.d(TAG, "context = ${it.search.context.href}")
             }
             if (mostViewedRecycler?.adapter != null) {
                 mostViewedRecycler?.adapter?.notifyDataSetChanged()
@@ -410,10 +419,5 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         private const val TAG = "UserDashboard"
         const val END_SCALE = 0.7f
     }
-
-//    fun callRetailerScreen(view: View) {startActivity(Intent(applicationContext, RetailerStartUpScreen::class.java))}
-//    override fun invoke(): Lifecycle {
-//        TODO("Not yet implemented")
-//    }
 
 }

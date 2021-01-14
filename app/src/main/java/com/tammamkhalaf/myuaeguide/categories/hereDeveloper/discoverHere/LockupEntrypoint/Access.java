@@ -1,18 +1,18 @@
 
-package com.tammamkhalaf.myuaeguide.categories.hereDeveloper;
+package com.tammamkhalaf.myuaeguide.categories.hereDeveloper.discoverHere.LockupEntrypoint;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Location {
+public class Access {
 
     @SerializedName("position")
     @Expose
     private List<Double> position = null;
-    @SerializedName("address")
+    @SerializedName("accessType")
     @Expose
-    private Address address;
+    private String accessType;
 
     public List<Double> getPosition() {
         return position;
@@ -22,12 +22,12 @@ public class Location {
         this.position = position;
     }
 
-    public Address getAddress() {
-        return address;
+    public String getAccessType() {
+        return accessType;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAccessType(String accessType) {
+        this.accessType = accessType;
     }
 
 }

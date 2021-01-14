@@ -1,5 +1,5 @@
 
-package com.tammamkhalaf.myuaeguide.categories.hereDeveloper;
+package com.tammamkhalaf.myuaeguide.categories.hereDeveloper.discoverExplore;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

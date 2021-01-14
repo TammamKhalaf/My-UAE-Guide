@@ -1,5 +1,5 @@
 
-package com.tammamkhalaf.myuaeguide.categories.hereDeveloper;
+package com.tammamkhalaf.myuaeguide.categories.hereDeveloper.discoverHere.LockupEntrypoint;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -21,6 +21,9 @@ public class Category {
     @SerializedName("system")
     @Expose
     private String system;
+    @SerializedName("icon")
+    @Expose
+    private String icon;
 
     public String getId() {
         return id;
@@ -60,6 +63,14 @@ public class Category {
 
     public void setSystem(String system) {
         this.system = system;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
 }
