@@ -37,10 +37,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.reactivestreams.Subscriber
 import java.util.concurrent.TimeUnit
 
@@ -313,9 +309,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                     str = java.lang.StringBuilder(item.title)
                 }
 
-                Log.d(TAG, "item href : ---place id---> ${item.id}--- context ")
-
-                listOfFeaturedAdapter.add(FeaturedHelperClass(item.icon, str.toString(), item.category.title))
+                listOfFeaturedAdapter.add(FeaturedHelperClass(item.icon, str.toString(), item.category.title,item.id))
             }
 
             if (featuredRecycler?.adapter != null) {
@@ -418,6 +412,10 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     companion object {
         private const val TAG = "UserDashboard"
         const val END_SCALE = 0.7f
+    }
+
+    fun callRetailerScreen(view: View) {
+        startActivity(Intent(this,RetailerStartUpScreen::class.java))
     }
 
 }

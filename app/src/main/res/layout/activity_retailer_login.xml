@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:buttonTint="@color/black"
-                    android:onClick="RememberMeButton"
+                    android:onClick="rememberMeButton"
                     android:text="@string/remember_me"
                     android:textColor="@color/black" />
 

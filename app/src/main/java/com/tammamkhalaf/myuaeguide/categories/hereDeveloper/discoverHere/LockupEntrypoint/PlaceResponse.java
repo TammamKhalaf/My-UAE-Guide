@@ -31,6 +31,9 @@ public class PlaceResponse {
     @SerializedName("media")
     @Expose
     private Media media;
+    @SerializedName("extended")
+    @Expose
+    private Extended extended;
     @SerializedName("related")
     @Expose
     private Related related;
@@ -97,6 +100,14 @@ public class PlaceResponse {
 
     public void setMedia(Media media) {
         this.media = media;
+    }
+
+    public Extended getExtended() {
+        return extended;
+    }
+
+    public void setExtended(Extended extended) {
+        this.extended = extended;
     }
 
     public Related getRelated() {

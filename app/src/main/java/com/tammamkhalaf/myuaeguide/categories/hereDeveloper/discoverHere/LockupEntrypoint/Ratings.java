@@ -12,7 +12,7 @@ public class Ratings {
     private Integer available;
     @SerializedName("items")
     @Expose
-    private List<Object> items = null;
+    private List<Item_> items = null;
 
     public Integer getAvailable() {
         return available;
@@ -22,11 +22,11 @@ public class Ratings {
         this.available = available;
     }
 
-    public List<Object> getItems() {
+    public List<Item_> getItems() {
         return items;
     }
 
-    public void setItems(List<Object> items) {
+    public void setItems(List<Item_> items) {
         this.items = items;
     }
 

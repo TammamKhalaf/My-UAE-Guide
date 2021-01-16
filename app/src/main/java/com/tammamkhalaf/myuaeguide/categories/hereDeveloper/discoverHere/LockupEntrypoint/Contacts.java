@@ -10,6 +10,9 @@ public class Contacts {
     @SerializedName("phone")
     @Expose
     private List<Phone> phone = null;
+    @SerializedName("email")
+    @Expose
+    private List<Email> email = null;
     @SerializedName("website")
     @Expose
     private List<Website> website = null;
@@ -20,6 +23,14 @@ public class Contacts {
 
     public void setPhone(List<Phone> phone) {
         this.phone = phone;
+    }
+
+    public List<Email> getEmail() {
+        return email;
+    }
+
+    public void setEmail(List<Email> email) {
+        this.email = email;
     }
 
     public List<Website> getWebsite() {

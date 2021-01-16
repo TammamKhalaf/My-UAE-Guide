@@ -25,16 +25,19 @@ class FeaturedAdapter(var featuredLocations: ArrayList<FeaturedHelperClass>, var
         val featuredHelperClass = featuredLocations[position]
         //todo if not work with live data go back to array list featuredLocations[position]
 
-        Glide.with(context).load(featuredLocations[position]?.imageUrl).into(holder.image)
+        Glide.with(context).load(featuredLocations[position].imageUrl).into(holder.image)
 
-        holder.title.text = featuredHelperClass?.title
-        holder.description.text = featuredHelperClass?.description
+        holder.title.text = featuredHelperClass.title
+        holder.description.text = featuredHelperClass.description
         holder.image.setOnClickListener {
             val intent = Intent(context, ShowFeaturedPlace::class.java)
             //todo add information about place inside extras and send it to new activity
-                intent.putExtra("featuredItemTitle", featuredHelperClass?.title)
+            intent.putExtra("featuredItemTitle", featuredHelperClass.title)
 
-            intent.putExtra("featuredItemDescription", featuredHelperClass?.description)
+            intent.putExtra("featuredItemDescription", featuredHelperClass.description)
+
+            intent.putExtra("placeID",featuredHelperClass.id)
+
             context.startActivity(intent)
         }
         holder.favorite.setOnClickListener{

@@ -17,7 +17,7 @@ import com.tammamkhalaf.myuaeguide.user.UserDashboard
 
 class OnBoarding : AppCompatActivity() {
     lateinit var viewPager: ViewPager
-    var dots_layout: LinearLayout? = null
+    private var dots_layout: LinearLayout? = null
     var sliderAdapter: SliderAdapter? = null
     lateinit var dots: Array<TextView?>
     var letsGetsStarted: Button? = null
@@ -31,7 +31,7 @@ class OnBoarding : AppCompatActivity() {
         dots_layout = findViewById(R.id.dots)
         letsGetsStarted = findViewById(R.id.get_started_btn)
         sliderAdapter = SliderAdapter(this)
-        viewPager.setAdapter(sliderAdapter)
+        viewPager.adapter = sliderAdapter
         addDots(0)
         viewPager.addOnPageChangeListener(changeListener)
     }
@@ -45,7 +45,7 @@ class OnBoarding : AppCompatActivity() {
             dots[i]!!.textSize = 35f
             dots_layout!!.addView(dots[i])
         }
-        if (dots.size > 0) {
+        if (dots.isNotEmpty()) {
             dots[position]!!.setTextColor(resources.getColor(R.color.colorPrimaryDark))
         }
     }
@@ -77,6 +77,6 @@ class OnBoarding : AppCompatActivity() {
     }
 
     fun next(view: View?) {
-        viewPager!!.currentItem = currentPosition + 1
+        viewPager.currentItem = currentPosition + 1
     }
 }

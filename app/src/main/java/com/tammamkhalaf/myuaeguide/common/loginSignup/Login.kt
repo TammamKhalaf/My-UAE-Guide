@@ -49,15 +49,17 @@ class Login : AppCompatActivity() {
         RememberMe = findViewById(R.id.remember_me)
         phoneNumberEditText = findViewById(R.id.login_phone_number_editText)
         passwordEditText = findViewById(R.id.login_password_editText)
-        val sessionManager = SessionManager(this@Login, SessionManager.Companion.SESSION_REMEMBER_ME)
+        val sessionManager = SessionManager(this@Login, SessionManager.SESSION_REMEMBER_ME)
         if (sessionManager.checkRememberMe()) {
             val rememberMeDetails = sessionManager.rememberMeDetailFromSession
-            phoneNumberEditText.setText(rememberMeDetails!![SessionManager.Companion.KEY_SESSION_PHONE_NUMBER])
-            passwordEditText.setText(rememberMeDetails[SessionManager.Companion.KEY_SESSION_PASSWORD])
+            phoneNumberEditText.setText(rememberMeDetails[SessionManager.KEY_SESSION_PHONE_NUMBER])
+            passwordEditText.setText(rememberMeDetails[SessionManager.KEY_SESSION_PASSWORD])
         }
     }
 
-    fun RememberMeButton(view: View?) {}
+    fun rememberMeButton(view: View?) {
+
+    }
     fun callForgetPassword(view: View?) {
         startActivity(Intent(applicationContext, ForgetPassword::class.java))
     }
@@ -82,7 +84,7 @@ class Login : AppCompatActivity() {
         //Complete phone number
         val _phoneNo = "+" + countryCodePicker!!.fullNumber + _getUserEnteredPhoneNumber
         if (RememberMe!!.isChecked) {
-            val sessionManager = SessionManager(this@Login, SessionManager.Companion.SESSION_REMEMBER_ME)
+            val sessionManager = SessionManager(this@Login, SessionManager.SESSION_REMEMBER_ME)
             sessionManager.createRememberMeSession(_password, _getUserEnteredPhoneNumber)
         }
         val checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(_phoneNo)
@@ -101,7 +103,7 @@ class Login : AppCompatActivity() {
                         val systemDOB = snapshot.child(_phoneNo).child("date").getValue(String::class.java)
                         val systemPhoneNo = snapshot.child(_phoneNo).child("phoneNo").getValue(String::class.java)
                         val systemGender = snapshot.child(_phoneNo).child("gender").getValue(String::class.java)
-                        val sessionManager = SessionManager(this@Login, SessionManager.Companion.SESSION_USER_SESSION)
+                        val sessionManager = SessionManager(this@Login, SessionManager.SESSION_USER_SESSION)
                         sessionManager.createLoginSession(systemFullName, systemUsername, systemEmail, systemPassword, systemGender, systemDOB, systemPhoneNo)
                         startActivity(Intent(applicationContext, RetailerDashboard::class.java))
                     } else {
@@ -131,7 +133,8 @@ class Login : AppCompatActivity() {
         val builder = AlertDialog.Builder(this@Login)
         builder.setMessage(string.ConnectInternet)
                 .setCancelable(false)
-                .setPositiveButton(string.connect) { dialogInterface: DialogInterface?, i: Int -> startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }.setNegativeButton(string.cancel) { dialogInterface: DialogInterface?, i: Int -> startActivity(Intent(applicationContext, RetailerStartUpScreen::class.java)) }
+                .setPositiveButton(string.connect) { _: DialogInterface?, _: Int -> startActivity(Intent(Settings.ACTION_WIFI_SETTINGS)) }
+                .setNegativeButton(string.cancel) { _: DialogInterface?, _: Int -> startActivity(Intent(applicationContext, RetailerStartUpScreen::class.java)) }
         val alertDialog = builder.create()
         alertDialog.show()
     }
@@ -139,16 +142,20 @@ class Login : AppCompatActivity() {
     private fun validateFields(): Boolean {
         val _phoneNumber = Objects.requireNonNull(phoneNumber!!.editText)?.text.toString().trim { it <= ' ' }
         val _password = Objects.requireNonNull(password!!.editText)?.text.toString().trim { it <= ' ' }
-        return if (_phoneNumber.isEmpty()) {
-            phoneNumber!!.error = getString(string.Empty_Field)
-            phoneNumber!!.requestFocus()
-            false
-        } else if (_password.isEmpty()) {
-            password!!.error = getString(string.Empty_Field)
-            password!!.requestFocus()
-            false
-        } else {
-            true
+        return when {
+            _phoneNumber.isEmpty() -> {
+                phoneNumber!!.error = getString(string.Empty_Field)
+                phoneNumber!!.requestFocus()
+                false
+            }
+            _password.isEmpty() -> {
+                password!!.error = getString(string.Empty_Field)
+                password!!.requestFocus()
+                false
+            }
+            else -> {
+                true
+            }
         }
     }
 

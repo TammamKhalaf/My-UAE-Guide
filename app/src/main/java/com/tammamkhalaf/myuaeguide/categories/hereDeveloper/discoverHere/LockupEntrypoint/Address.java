@@ -9,6 +9,15 @@ public class Address {
     @SerializedName("text")
     @Expose
     private String text;
+    @SerializedName("house")
+    @Expose
+    private String house;
+    @SerializedName("street")
+    @Expose
+    private String street;
+    @SerializedName("postalCode")
+    @Expose
+    private String postalCode;
     @SerializedName("district")
     @Expose
     private String district;
@@ -18,6 +27,9 @@ public class Address {
     @SerializedName("county")
     @Expose
     private String county;
+    @SerializedName("state")
+    @Expose
+    private String state;
     @SerializedName("country")
     @Expose
     private String country;
@@ -31,6 +43,30 @@ public class Address {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getHouse() {
+        return house;
+    }
+
+    public void setHouse(String house) {
+        this.house = house;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getDistrict() {
@@ -55,6 +91,14 @@ public class Address {
 
     public void setCounty(String county) {
         this.county = county;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getCountry() {

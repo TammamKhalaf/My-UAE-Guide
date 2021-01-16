@@ -1,13 +1,16 @@
 package com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.snackbar.Snackbar
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.ViewTarget
+import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.databinding.ActivityShowFeaturedPlaceBinding
 import com.tammamkhalaf.myuaeguide.viewmodels.ShowFeaturedPlaceViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,6 +20,9 @@ class ShowFeaturedPlace : AppCompatActivity() {
     //This works if you have used a variable in your <data> tag and you have built your project afterwards, if you don't have an activity
     var binding: ActivityShowFeaturedPlaceBinding? = null
     private lateinit var viewModel: ShowFeaturedPlaceViewModel
+    lateinit var toolBarLayout: CollapsingToolbarLayout
+    var id:String? = null
+    private lateinit var imageFromApi:ImageView
 
     //if you have an activity, you can use setContentView from the DataBindingUtils. Don't forget to delete the generic setContentView
     //ActivityShowFeaturedPlaceBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_show_featured_place);
@@ -30,31 +36,39 @@ class ShowFeaturedPlace : AppCompatActivity() {
         setContentView(binding!!.root)
         val toolbar = binding!!.toolbar
         setSupportActionBar(toolbar)
-        val toolBarLayout = binding!!.toolbarLayout
+        toolBarLayout = binding!!.toolbarLayout
         toolBarLayout.title = ""
 
+         imageFromApi = findViewById(R.id.imageFromApi)
 
-
-        //todo
-        val intent = intent
-        val title = intent.getStringExtra("featuredItemTitle")
-        binding!!.FeaturedItemTitle.text = title
-        val details = intent.getStringExtra("featuredItemDescription")
-        binding!!.FeaturedItemDetails.text = details
-        intent.getIntExtra("featuredItemImage", 0)
+        id = intent.getStringExtra("placeID")
 
         callingApiData()
     }
 
     private fun callingApiData() {
-        viewModel.discoverHerePlaceHereDeveloper(
-                "dmLgAQo631UJfwF5R2hH",
-                "391hkRjz5Z3Ee1h3wz6Kng",
-                "sharing",
-                "784thqej-0c5fbeadf8b94059acbdcea7dc41bbf3")//todo continue
+        id?.let {
+            viewModel.discoverHerePlaceHereDeveloper(
+                    "dmLgAQo631UJfwF5R2hH",
+                    "391hkRjz5Z3Ee1h3wz6Kng",
+                    "sharing",
+                    it,
+            )
+        }//todo continue
 
         viewModel.discoverHerePlaceHereDeveloperLiveData.observe(this, {
-            Log.d(TAG, "callingApiData: ${it.name}")
+
+            Log.d(TAG, "callingApiData: ${it.media.images.available}")
+
+            if (it.media.images.available != 0)
+            Glide.with(this).load(it.media.images.items[0].src).into(imageFromApi)
+
+            Glide.with(this).load(it.icon).into(imageFromApi)
+
+            binding!!.FeaturedItemTitle.text = it.name
+
+            binding!!.FeaturedItemDetails.text = it.categories[0].title
+
         })
 
     }

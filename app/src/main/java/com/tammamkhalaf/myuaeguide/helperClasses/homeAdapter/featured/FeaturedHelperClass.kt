@@ -7,12 +7,13 @@ class FeaturedHelperClass {
     var imageUrl: String
     var title: String?
     var description: String?
+    var id:String?
 
-    constructor(imageUrl: String, title: String?, description: String?) {
+    constructor(imageUrl: String, title: String?, description: String?, id: String) {
         this.imageUrl = imageUrl
         this.title = title
         this.description = description
-        Log.d(TAG, ": $imageUrl--->$title--->$description")
+        this.id = id
     }
 
     companion object {
