@@ -50,42 +50,57 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="50dp"
+                android:layout_marginTop="100dp">
 
                 <ImageView
                     android:id="@+id/imageFromApi"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center|end"
-                    android:layout_margin="50dp"
-                    android:padding="10dp"
+                    android:layout_marginTop="50dp"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/Featured_item_title"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/imageFromApi"
-                    android:layout_margin="30dp"
-                    android:padding="20dp"
+                    android:layout_marginTop="50dp"
                     android:text="Title"
-                    app:layout_constraintTop_toBottomOf="@+id/imageFromApi"
-                    tools:layout_editor_absoluteX="٣٠dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageFromApi" />
 
                 <TextView
                     android:id="@+id/Featured_item_details"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/Featured_item_title"
-                    android:layout_margin="30dp"
-                    android:layout_marginBottom="0dp"
                     android:text="Details"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/Featured_item_title"
-                    tools:layout_editor_absoluteX="30dp" />
+                    android:layout_marginTop="50dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/Featured_item_contacts" />
+
+                <TextView
+                    android:id="@+id/Featured_item_contacts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Contacts"
+                    android:layout_marginTop="50dp"
+                    app:layout_constraintTop_toBottomOf="@+id/Featured_item_title" />
+
+                <TextView
+                    android:id="@+id/Featured_item_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:layout_marginTop="50dp"
+                    app:layout_constraintTop_toBottomOf="@+id/Featured_item_details" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -93,19 +108,33 @@
 
     </androidx.core.widget.NestedScrollView>
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:baselineAlignBottom="false"
+        android:clickable="true"
+        android:src="@drawable/map"
+        app:fabSize="normal"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="end|bottom"
+        android:contentDescription="TODO"
+        android:onClick="viewOnMap"
+        android:layout_marginEnd="30dp"
+        android:focusable="true"
+        android:backgroundTint="@color/banner_background"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:baselineAlignBottom="false"
         android:clickable="true"
-        android:src="@drawable/menu_share_icon"
+        android:src="@drawable/save"
         app:fabSize="normal"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="end|bottom"
         android:contentDescription="TODO"
-        android:layout_marginEnd="30dp"
+        android:onClick="savePlace"
+        android:layout_marginEnd="100dp"
         android:focusable="true"
         android:backgroundTint="@color/banner_background"/>
 

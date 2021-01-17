@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.MyUaeGuide" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#FFE400</item>
-        <item name="colorPrimaryDark">#ffa600</item>
-        <item name="colorAccent">#272727</item>
+        <item name="colorPrimary">#CDDC39</item>
+        <item name="colorPrimaryDark">#AFB42B</item>
+        <item name="colorAccent">#5D4037</item>
         <!-- Secondary brand color. -->
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

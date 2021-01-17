@@ -16,7 +16,7 @@
         android:theme="@style/Theme.MyUaeGuide"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".user.FavActivity"></activity>
+        <activity android:name=".user.FavoriteActivity" />
         <activity
             android:name=".helperClasses.homeAdapter.featured.ShowFeaturedPlace"
             android:label="@string/title_activity_show_featured_place"

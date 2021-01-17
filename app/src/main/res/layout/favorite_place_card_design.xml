@@ -14,13 +14,14 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/featured_image"
+            android:id="@+id/fav_featured_image"
             android:layout_width="match_parent"
             android:layout_height="140dp"
+            android:src="@drawable/map"
             android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/featured_title"
+            android:id="@+id/fav_featured_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/baloo"
@@ -33,14 +34,14 @@
             android:orientation="horizontal">
 
             <RatingBar
-                android:id="@+id/featured_rating"
+                android:id="@+id/fav_featured_rating"
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rating="3.5" />
 
             <ImageView
-                android:id="@+id/favIV"
+                android:id="@+id/fav_favIV"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="left"
@@ -49,7 +50,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/featured_desc"
+            android:id="@+id/fav_featured_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="" />

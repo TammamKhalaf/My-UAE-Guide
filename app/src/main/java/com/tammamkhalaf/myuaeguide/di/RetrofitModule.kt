@@ -86,6 +86,4 @@ object RetrofitModule {
     }
 
 
-
-
 }

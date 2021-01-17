@@ -1,11 +1,20 @@
 
 package com.tammamkhalaf.myuaeguide.categories.hereDeveloper.discoverHere.LockupEntrypoint;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PlaceResponse {
+@Entity(tableName = "PlacesTable")
+public class PlaceResponse{
+
+    @Expose(deserialize = false, serialize = false)
+    @PrimaryKey(autoGenerate = true)
+    private int id;
 
     @SerializedName("name")
     @Expose
@@ -16,27 +25,62 @@ public class PlaceResponse {
     @SerializedName("view")
     @Expose
     private String view;
-    @SerializedName("location")
-    @Expose
-    private Location location;
-    @SerializedName("contacts")
-    @Expose
-    private Contacts contacts;
-    @SerializedName("categories")
-    @Expose
-    private List<Category> categories = null;
+
     @SerializedName("icon")
     @Expose
     private String icon;
+
+    @Ignore
+    @SerializedName("location")
+    @Expose
+    private Location location;
+
+    @Ignore
+    @SerializedName("contacts")
+    @Expose
+    private Contacts contacts;
+
+    @Ignore
+    @SerializedName("categories")
+    @Expose
+    private List<Category> categories;
+
+    @Ignore
     @SerializedName("media")
     @Expose
     private Media media;
+
+
     @SerializedName("extended")
     @Expose
+    @Ignore
     private Extended extended;
+
+    @Ignore
     @SerializedName("related")
     @Expose
     private Related related;
+
+    public PlaceResponse(String name, String placeId, String view, Location location, Contacts contacts,
+                         List<Category> categories, String icon, Media media, Extended extended, Related related) {
+        this.name = name;
+        this.placeId = placeId;
+        this.view = view;
+        this.location = location;
+        this.contacts = contacts;
+        this.categories = categories;
+        this.icon = icon;
+        this.media = media;
+        this.extended = extended;
+        this.related = related;
+    }
+
+    public PlaceResponse() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -118,4 +162,7 @@ public class PlaceResponse {
         this.related = related;
     }
 
+    public int getId() {
+        return id;
+    }
 }

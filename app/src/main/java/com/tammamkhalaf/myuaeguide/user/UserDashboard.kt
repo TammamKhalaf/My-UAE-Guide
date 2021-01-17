@@ -257,7 +257,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 startActivity(Intent(applicationContext, AllCategories::class.java))
             }
             R.id.nav_favorite -> {
-                startActivity(Intent(applicationContext, FavActivity::class.java))
+                startActivity(Intent(applicationContext, FavoriteActivity::class.java))
             }
             R.id.nav_login -> {
                 startActivity(Intent(applicationContext, Login::class.java))
