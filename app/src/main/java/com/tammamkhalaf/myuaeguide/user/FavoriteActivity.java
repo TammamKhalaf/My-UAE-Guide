@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tammamkhalaf.myuaeguide.R;
 import com.tammamkhalaf.myuaeguide.categories.hereDeveloper.discoverHere.LockupEntrypoint.PlaceResponse;
 import com.tammamkhalaf.myuaeguide.databases.hereDeveloper.AppDatabase;
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.ShowFeaturedAdapter;
+import com.tammamkhalaf.myuaeguide.viewmodels.FavPlacesViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,6 +26,8 @@ public class FavoriteActivity extends AppCompatActivity {
 
     private RecyclerView placesRecyclerView;
 
+    //private FavPlacesViewModel viewModel; todo use viewModel
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -31,14 +35,16 @@ public class FavoriteActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_fav);
 
+        //viewModel = new ViewModelProvider(this).get(FavPlacesViewModel.class);
+
         placesRecyclerView = findViewById(R.id.fav_recyclerView);
 
         final ShowFeaturedAdapter adapter = new ShowFeaturedAdapter(this);
 
         placesRecyclerView.setAdapter(adapter);
 
-        final AppDatabase appDatabase = AppDatabase.getInstance(this);
 
+        final AppDatabase appDatabase = AppDatabase.getInstance(this);
 
         appDatabase.placesDao().getPlaces().subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<PlaceResponse>>() {

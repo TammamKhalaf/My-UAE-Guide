@@ -5,6 +5,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:name=".BaseApplication"
@@ -46,6 +52,18 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <meta-data android:name="com.here.android.maps.appid" android:value="{WBxqrkW7yaro8inXngMW}"/>
+        <meta-data android:name="com.here.android.maps.apptoken" android:value="{391hkRjz5Z3Ee1h3wz6Kng}"/>
+        <meta-data android:name="com.here.android.maps.license.key" android:value="{EulhoffF1D7VD+JQsmNcV4jPh7mu5eCByvIdwoei1V7p+jcveReERydbZ3
+        jmsSsHgI8Y8+c7ydEHLYLdhh40/sLoW2ni/
+        DDH+aG9GxyZAOkmKBtFgpGnCG/I2jntJGnlTyOUjBZHSfJZ6fuXc4r1evvyeAtppb91ElI4LKmFLPWmNMs3Aq1E6LsTCRVRo/
+        bZyGGjVgdt6Qxd14WQ9913+52k055iO3IyCLGZn2sylG0akQXrDnzpDj9MgSPBfP7F7VjQo1yNsk343FCsRtgT+esmncwTX2woqJ5yxJNZECQCtrM9aorMpHv7Qy/
+        owioDeCYho35FCfBdrUIMhyXvIgnVGxlc45dxKokbQ3x7OlkbUxekAWt8wtLNHnDPH259BMFuSaCLgMaRc/xVT+gH2BKk2CykFCK8z2sOvUxNMQzS6a9QefcMplzxHtpzNnc
+        7y0v17PHeLqZmBd4W93u8kfssxatRCBpYLKSziLXkJbR6gnFPdTiS5zuNyVIhsJp1K4B1ElleuvARdJtUhifVLpSGOSiDYDx6+RCdVAj99cThRSPjCWnhsYlis2cBIkAXo
+        KoYManf3TKT+wbZ87DPJjhOFt6q6R4TjGk+dEJ8KjAiOSXc7p8yXEXxDzt5Peni6UpZ2oowIoWzT0BBDcW3IM61CfbP7CeMNryNoE9GmHw=}"/>
+
+
     </application>
 
 </manifest>

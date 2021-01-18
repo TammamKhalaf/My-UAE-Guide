@@ -29,11 +29,17 @@ class ShowFeaturedAdapter(var context: Context) : RecyclerView.Adapter<ShowFeatu
         holderShow.title.text = placesList[position].name
         holderShow.description.text = placesList[position].id.toString()
 
-
         holderShow.image.setOnClickListener {
             val intent = Intent(context, ShowFeaturedPlace::class.java)
+            //todo add information about place inside extras and send it to new activity
+            intent.putExtra("featuredItemTitle", placesList[position].name)
+
+            intent.putExtra("featuredItemDescription", placesList[position].view)
+
+            intent.putExtra("placeID",placesList[position].placeId)
             context.startActivity(intent)
         }
+
         holderShow.favorite.setOnClickListener{
             //todo remove item from favorite activity
         }

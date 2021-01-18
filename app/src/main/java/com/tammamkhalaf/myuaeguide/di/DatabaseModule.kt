@@ -15,7 +15,7 @@ import javax.inject.Singleton
 @Module
 class DatabaseModule {
     @Provides
-    fun provideChannelDao(appDatabase: AppDatabase): PlacesDao {
+    fun providePlacesDao(appDatabase: AppDatabase): PlacesDao {
         return appDatabase.placesDao()
     }
 

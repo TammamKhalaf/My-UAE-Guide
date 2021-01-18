@@ -1,8 +1,7 @@
 package com.tammamkhalaf.myuaeguide.databases.hereDeveloper;
 
-import android.database.Observable;
-
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
@@ -21,4 +20,8 @@ public interface PlacesDao {
 
     @Query("select * from placestable")
     Single<List<PlaceResponse>> getPlaces();
+
+    @Delete
+    Completable delete(PlaceResponse place);
+
 }
