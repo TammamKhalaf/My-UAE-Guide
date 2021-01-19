@@ -15,6 +15,9 @@ class RetailerDashboard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_retailer_dashboard)
+
+
+
         chipNavigationBar = findViewById(R.id.bottom_nav_menu)
         chipNavigationBar?.setItemSelected(R.id.bottom_nav_profile, true)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, RetailerProfileFragment()).commit()

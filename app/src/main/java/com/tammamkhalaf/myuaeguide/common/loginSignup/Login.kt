@@ -49,12 +49,14 @@ class Login : AppCompatActivity() {
         RememberMe = findViewById(R.id.remember_me)
         phoneNumberEditText = findViewById(R.id.login_phone_number_editText)
         passwordEditText = findViewById(R.id.login_password_editText)
+        //region session
         val sessionManager = SessionManager(this@Login, SessionManager.SESSION_REMEMBER_ME)
         if (sessionManager.checkRememberMe()) {
             val rememberMeDetails = sessionManager.rememberMeDetailFromSession
             phoneNumberEditText.setText(rememberMeDetails[SessionManager.KEY_SESSION_PHONE_NUMBER])
             passwordEditText.setText(rememberMeDetails[SessionManager.KEY_SESSION_PASSWORD])
         }
+        //endregion
     }
 
     fun rememberMeButton(view: View?) {
@@ -122,6 +124,7 @@ class Login : AppCompatActivity() {
         })
     }
 
+    //
     private fun isConnected(login: Login): Boolean {
         val connectivityManager = login.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
         val wifiConnection = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
@@ -138,6 +141,7 @@ class Login : AppCompatActivity() {
         val alertDialog = builder.create()
         alertDialog.show()
     }
+
 
     private fun validateFields(): Boolean {
         val _phoneNumber = Objects.requireNonNull(phoneNumber!!.editText)?.text.toString().trim { it <= ' ' }

@@ -1,6 +1,6 @@
-package com.tammamkhalaf.myuaeguide.databases
+package com.tammamkhalaf.myuaeguide.databases.firebase.models
 
-class UserHelperClass {
+class User {
     var fullName: String? = null
     var username: String? = null
     var email: String? = null
@@ -8,8 +8,13 @@ class UserHelperClass {
     var gender: String? = null
     var date: String? = null
     var phoneNo: String? = null
+    var profile_img: String? =null
 
-    constructor(fullName: String?, username: String?, email: String?, password: String?, gender: String?, date: String?, phoneNo: String?) {
+
+    constructor() {}
+
+    constructor(fullName: String?, username: String?, email: String?, password: String?, gender:
+    String?, date: String?, phoneNo: String?, profile_img: String) {
         this.fullName = fullName
         this.username = username
         this.email = email
@@ -17,7 +22,8 @@ class UserHelperClass {
         this.gender = gender
         this.date = date
         this.phoneNo = phoneNo
+        this.profile_img = profile_img
     }
 
-    constructor() {}
+
 }

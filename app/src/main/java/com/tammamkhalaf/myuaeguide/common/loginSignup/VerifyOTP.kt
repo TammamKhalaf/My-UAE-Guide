@@ -15,7 +15,7 @@ import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
 import com.google.firebase.database.FirebaseDatabase
 import com.tammamkhalaf.myuaeguide.common.loginSignup.forgetPassword.SetNewPassword
-import com.tammamkhalaf.myuaeguide.databases.UserHelperClass
+import com.tammamkhalaf.myuaeguide.databases.firebase.models.User
 import com.tammamkhalaf.myuaeguide.R
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -85,8 +85,14 @@ class VerifyOTP : AppCompatActivity() {
     private fun storeNewUsersData() {
         val rootNode = FirebaseDatabase.getInstance()
         val myRef = rootNode.getReference("Users")
-        val userHelperClass = UserHelperClass(fullName, username, email, password, gender, date, phoneNo)
-        myRef.child(phoneNo!!).setValue(userHelperClass)
+        val user = User(fullName, username, email, password, gender, date, phoneNo, "")
+        myRef.child(phoneNo!!).setValue(user).addOnCompleteListener {
+            //todo add toast message
+        }.addOnFailureListener {
+            //todo add toast message
+        }.addOnCanceledListener {
+            //todo add toast message
+        }
     }
 
     private fun sendVerificationCodeToUser(phoneNo: String?) {
@@ -109,7 +115,7 @@ class VerifyOTP : AppCompatActivity() {
             //     user action.
             val code = credential.smsCode
             if (code != null) {
-                pinFromUser!!.setText(code)
+                pinFromUser?.setText(code)
                 verifyCode(code)
             }
             Log.d(TAG, "onVerificationCompleted: ")
@@ -146,10 +152,13 @@ class VerifyOTP : AppCompatActivity() {
         }
     }
 
-    fun goToHomeFromOTP(view: View?) {}
+    fun goToHomeFromOTP(view: View?) {
+
+    }
+
     fun callNextScreenFromOTP(view: View?) {
         val code = Objects.requireNonNull(pinFromUser!!.text).toString()
-        if (!code.isEmpty()) {
+        if (code.isNotEmpty()) {
             verifyCode(code)
         }
     }
