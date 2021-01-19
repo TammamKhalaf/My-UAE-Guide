@@ -51,8 +51,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="50dp"
-                android:layout_marginTop="100dp">
+                android:layout_marginTop="100dp"
+                android:padding="50dp">
 
                 <ImageView
                     android:id="@+id/imageFromApi"
@@ -80,8 +80,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/Featured_item_title"
-                    android:text="Details"
                     android:layout_marginTop="50dp"
+                    android:text="Details"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/Featured_item_contacts" />
@@ -90,16 +90,16 @@
                     android:id="@+id/Featured_item_contacts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Contacts"
                     android:layout_marginTop="50dp"
+                    android:text="Contacts"
                     app:layout_constraintTop_toBottomOf="@+id/Featured_item_title" />
 
                 <TextView
                     android:id="@+id/Featured_item_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Location"
                     android:layout_marginTop="50dp"
+                    android:text="Location"
                     app:layout_constraintTop_toBottomOf="@+id/Featured_item_details" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -126,16 +126,16 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:backgroundTint="@color/banner_background"
         android:baselineAlignBottom="false"
         android:clickable="true"
+        android:contentDescription="TODO"
+        android:focusable="true"
+        android:onClick="savePlace"
         android:src="@drawable/save"
         app:fabSize="normal"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="end|bottom"
-        android:contentDescription="TODO"
-        android:onClick="savePlace"
-        android:layout_marginEnd="100dp"
-        android:focusable="true"
-        android:backgroundTint="@color/banner_background"/>
+        app:layout_anchor="@+id/app_bar"
+        app:layout_anchorGravity="end|bottom" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

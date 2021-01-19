@@ -1,6 +1,8 @@
 package com.tammamkhalaf.myuaeguide.user
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.text.Editable
@@ -12,14 +14,19 @@ import android.view.View.GONE
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.*
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.gms.common.api.internal.BackgroundDetector.initialize
 import com.google.android.material.navigation.NavigationView
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
@@ -38,6 +45,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableEmitter
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.reactivestreams.Subscriber
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -63,6 +71,17 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     lateinit var container:ShimmerFrameLayout
 
+    /**
+     * permissions request code
+     */
+    private val REQUEST_CODE_ASK_PERMISSIONS = 1
+
+    /**
+     * Permissions that need to be explicitly requested from end user.
+     */
+    private val REQUIRED_SDK_PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +89,8 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         setContentView(R.layout.activity_user_dashboard)
 
         viewModel = ViewModelProvider(this).get(UserDashboardViewModel::class.java)
+
+        checkPermissions();
 
         //Hooks
         featuredRecycler = findViewById(R.id.featured_recycler)
@@ -160,41 +181,42 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
                 viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this,
                         Observer {
-                    for (item in it.results.items) {
-                        var str: StringBuilder
-                        if (item.title.length > 21) {
-                            str = java.lang.StringBuilder(item.title)
-                            str.insert(21, "\n").toString()
-                        } else {
-                            str = java.lang.StringBuilder(item.title)
-                        }
-                        listOfMostViewedAdapter.add(MostViewedHelperClass(
-                                item.icon,
-                                str.toString(),
-                                item?.alternativeNames?.get(0)?.name ?: "",
-                                item.category.title ?: "Category?",
-                                item.openingHours?.label ?: "Opening Hours",
-                                item.openingHours?.text?.replace("<br/>", "\n") ?: "Not Available?",
-                                rating = item.averageRating ?: 4.0
-                        ))
-                    }
+                            for (item in it.results.items) {
+                                var str: StringBuilder
+                                if (item.title.length > 21) {
+                                    str = java.lang.StringBuilder(item.title)
+                                    str.insert(21, "\n").toString()
+                                } else {
+                                    str = java.lang.StringBuilder(item.title)
+                                }
+                                listOfMostViewedAdapter.add(MostViewedHelperClass(
+                                        item.icon,
+                                        str.toString(),
+                                        item?.alternativeNames?.get(0)?.name ?: "",
+                                        item.category.title ?: "Category?",
+                                        item.openingHours?.label ?: "Opening Hours",
+                                        item.openingHours?.text?.replace("<br/>", "\n")
+                                                ?: "Not Available?",
+                                        rating = item.averageRating ?: 4.0
+                                ))
+                            }
 
-                    if (mostViewedRecycler?.adapter != null) // it works second time and later
-                        mostViewedRecycler?.adapter?.notifyDataSetChanged()
-                    else {
-                        mostViewedRecycler?.adapter = MostViewedAdapter(listOfMostViewedAdapter,
-                                this)
-                    }
-                    container.stopShimmer()
-                    container.visibility = GONE
-                    mostViewedRecycler?.visibility = View.VISIBLE
-                })
+                            if (mostViewedRecycler?.adapter != null) // it works second time and later
+                                mostViewedRecycler?.adapter?.notifyDataSetChanged()
+                            else {
+                                mostViewedRecycler?.adapter = MostViewedAdapter(listOfMostViewedAdapter,
+                                        this)
+                            }
+                            container.stopShimmer()
+                            container.visibility = GONE
+                            mostViewedRecycler?.visibility = View.VISIBLE
+                        })
 }
 
     abstract class NYTSubscriber<T> : Subscriber<T> {
         fun onCompleted() {}
         override fun onError(e: Throwable?) {
-            Log.e(TAG, "onError: ",e )
+            Log.e(TAG, "onError: ", e)
         }
     }
 
@@ -309,7 +331,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                     str = java.lang.StringBuilder(item.title)
                 }
 
-                listOfFeaturedAdapter.add(FeaturedHelperClass(item.icon, str.toString(), item.category.title,item.id))
+                listOfFeaturedAdapter.add(FeaturedHelperClass(item.icon, str.toString(), item.category.title, item.id))
             }
 
             if (featuredRecycler?.adapter != null) {
@@ -409,13 +431,64 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     //endregion
 
+    //region request permission
+
+    /**
+     * Checks the dynamically-controlled permissions and requests missing permissions from end user.
+     */
+    protected fun checkPermissions() {
+        val missingPermissions: MutableList<String> = ArrayList()
+        // check all required dynamic permissions
+        for (permission in REQUIRED_SDK_PERMISSIONS) {
+            val result = ContextCompat.checkSelfPermission(this, permission)
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                missingPermissions.add(permission)
+            }
+        }
+        if (!missingPermissions.isEmpty()) {
+            // request all missing permissions
+            val permissions = missingPermissions
+                    .toTypedArray()
+            ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE_ASK_PERMISSIONS)
+        } else {
+            val grantResults = IntArray(REQUIRED_SDK_PERMISSIONS.size)
+            Arrays.fill(grantResults, PackageManager.PERMISSION_GRANTED)
+            onRequestPermissionsResult(REQUEST_CODE_ASK_PERMISSIONS, REQUIRED_SDK_PERMISSIONS,
+                    grantResults)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>,
+                                            @NonNull grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_CODE_ASK_PERMISSIONS -> {
+                var index = permissions.size - 1
+                while (index >= 0) {
+                    if (grantResults[index] != PackageManager.PERMISSION_GRANTED) {
+                        // exit the app if one permission is not granted
+                        Toast.makeText(this, "Required permission '" + permissions[index]
+                                + "' not granted, exiting", Toast.LENGTH_LONG).show()
+                        finish()
+                        return
+                    }
+                    --index
+                }
+                // all permissions were granted
+                initialize(application)
+            }
+        }
+    }
+
+    //endregion
+
+
     companion object {
         private const val TAG = "UserDashboard"
         const val END_SCALE = 0.7f
     }
 
     fun callRetailerScreen(view: View) {
-        startActivity(Intent(this,RetailerStartUpScreen::class.java))
+        startActivity(Intent(this, RetailerStartUpScreen::class.java))
     }
 
 }

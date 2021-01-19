@@ -9,30 +9,31 @@
     android:layout_margin="@dimen/_10sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="@dimen/_300sdp"
-        android:layout_height="@dimen/_200sdp">
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:weightSum="2">
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="190dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:padding="20dp"
             android:orientation="vertical"
-            android:weightSum="4"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="@+id/guideline">
 
             <TextView
                 android:id="@+id/mv_title_en"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
+                android:layout_margin="5dp"
                 android:layout_marginTop="20dp"
-                android:singleLine="false"
                 android:fontFamily="@font/baloo"
+                android:singleLine="false"
                 android:text="Title English"
                 android:textSize="12sp" />
 
@@ -40,7 +41,8 @@
                 android:id="@+id/mv_opening_hours_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="left"
+                android:layout_margin="5dp"
                 android:fontFamily="@font/baloo"
                 android:text="Opening Hours Label"
                 android:textSize="12sp"
@@ -51,7 +53,8 @@
                 android:id="@+id/mv_opening_hours_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_gravity="left"
+                android:layout_margin="5dp"
                 android:fontFamily="@font/baloo"
                 android:text="Opening Hours Text"
                 android:textSize="12sp"
@@ -64,6 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
+                android:layout_margin="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:rating="4.5" />
@@ -74,24 +78,21 @@
             android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:weightSum="3"
+            android:padding="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline"
             app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/mv_title_ar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="25dp"
+                android:layout_gravity="right"
+                android:layout_margin="5dp"
                 android:fontFamily="@font/baloo"
-                android:gravity="left"
                 android:text="Title Arabic"
                 android:textSize="12sp" />
 
@@ -99,6 +100,8 @@
                 android:id="@+id/mv_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="10dp"
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/baloo"
                 android:text="Category"
@@ -106,15 +109,29 @@
 
             <ImageView
                 android:id="@+id/mv_image"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_100sdp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="50dp"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_70sdp"
+                android:layout_gravity="center_horizontal"
                 android:scaleType="centerInside"
+                android:layout_margin="1dp"
                 android:src="@drawable/favorite" />
 
 
         </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="20dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
