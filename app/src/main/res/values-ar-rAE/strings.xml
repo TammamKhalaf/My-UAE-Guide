@@ -45,11 +45,11 @@
     <string name="enter_password">ادخل كلمة المرور</string>
     <string name="remember_me">تذكرني</string>
     <string name="forget_password">نسيت كلمة المرور</string>
-    <string name="enter_full_name">ادخل الاسم الكامل</string>
-    <string name="enter_username">ادخل اسم المستخدم</string>
-    <string name="enter_email">ادخل الإيميل</string>
+    <string name="enter_full_name">الاسم الأول , الأسم الاخير</string>
+    <string name="enter_username">اسم المستخدم</string>
+    <string name="enter_email">الإيميل</string>
     <string name="create_account">انشئ حسابك</string>
-    <string name="retailer_heading">نمو عملك التجاري</string>
+    <string name="retailer_heading">وسّع عملك التجاري</string>
     <string name="retailer_tag_line">سنساعدك على تنمية عملك باستخدام الخدمة عبر الإنترنت!</string>
     <string name="how_we_work">كيف نعمل</string>
     <string name="sign_up">التسجيل</string>
@@ -96,4 +96,5 @@
     <string name="hospital">مستشفى</string>
     <string name="shopping">تسوق</string>
     <string name="transport">مواصلات</string>
+    <string name="username">اسم المستخدم</string>
 </resources>

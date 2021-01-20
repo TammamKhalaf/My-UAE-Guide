@@ -232,6 +232,7 @@
     <string name="FailedToRetrieveItems" translatable="false">Failed To Retrieve Items!</string>
     <string name="AConnectionErrorOccurred" translatable="false">A Connection Error Occurred</string>
     <string name="nav_favorite" translatable="false">Favorite</string>
+    <string name="username">username</string>
 
 
 </resources>
