@@ -1,6 +1,8 @@
 package com.tammamkhalaf.myuaeguide.categories.hotels.listPropertiesModel
 
-class Choice {
+import android.content.Intent
+
+class Choice(s: String, s1: String, intent: Intent) {
     var label: String? = null
     var value: String? = null
     var selected = false

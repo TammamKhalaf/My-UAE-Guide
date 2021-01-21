@@ -16,8 +16,6 @@ class RetailerDashboard : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_retailer_dashboard)
 
-
-
         chipNavigationBar = findViewById(R.id.bottom_nav_menu)
         chipNavigationBar?.setItemSelected(R.id.bottom_nav_profile, true)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, RetailerProfileFragment()).commit()
@@ -36,6 +34,11 @@ class RetailerDashboard : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment!!).commit()
             }
         })
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        //todo go to main activity
     }
 
     companion object {

@@ -9,7 +9,8 @@ import java.util.*
 class SessionManager(var context: Login, sessionName: String?) {
 
 
-    var editor: SharedPreferences.Editor
+
+
     fun createLoginSession(fullName: String?, username: String?, email: String?, password: String?, gender: String?, date: String?, phoneNo: String?) {
         editor.putBoolean(IS_LOGIN, true)
         editor.putString(KEY_FULLNAME, fullName)
@@ -31,15 +32,6 @@ class SessionManager(var context: Login, sessionName: String?) {
 
 
 
-    fun checkLogin(): Boolean {
-        return userSessions.getBoolean(IS_LOGIN, true)
-    }
-
-    fun logoutUserFromSession() {
-        editor.clear()
-        editor.clear()
-    }
-
     val rememberMeDetailFromSession: HashMap<String, String?>
         get() {
             val userData = HashMap<String, String?>()
@@ -53,7 +45,8 @@ class SessionManager(var context: Login, sessionName: String?) {
     }
 
     companion object {
-        lateinit var userSessions: SharedPreferences
+
+        lateinit var userSessions:SharedPreferences
 
         val usersDetailFromSession: HashMap<String, String?> get() {
             val userData = HashMap<String, String?>()
@@ -65,7 +58,21 @@ class SessionManager(var context: Login, sessionName: String?) {
             userData[KEY_DATE] = userSessions.getString(KEY_DATE, null)
             userData[KEY_GENDER] = userSessions.getString(KEY_GENDER, null)
             return userData
+
         }
+            lateinit var editor: SharedPreferences.Editor
+
+
+            fun checkLogin(): Boolean {
+                return userSessions.getBoolean(IS_LOGIN, true)
+            }
+
+            fun logoutUserFromSession() {
+                editor.clear()
+                editor.clear()
+            }
+
+
 
 
         const val SESSION_USER_SESSION = "userLoginSession"

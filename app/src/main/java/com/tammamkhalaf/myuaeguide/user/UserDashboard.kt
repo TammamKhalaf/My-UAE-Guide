@@ -30,14 +30,15 @@ import com.google.android.gms.common.api.internal.BackgroundDetector.initialize
 import com.google.android.material.navigation.NavigationView
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
-import com.tammamkhalaf.myuaeguide.common.loginSignup.Login
 import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
+import com.tammamkhalaf.myuaeguide.common.loginSignup.login.EntryChoiceActivity
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesAdapter
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesHelperClass
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedAdapter
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedHelperClass
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.mostViewed.MostViewedAdapter
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.mostViewed.MostViewedHelperClass
+import com.tammamkhalaf.myuaeguide.locationOwner.SettingsActivity
 import com.tammamkhalaf.myuaeguide.viewmodels.UserDashboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -79,18 +80,17 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     /**
      * Permissions that need to be explicitly requested from end user.
      */
-    private val REQUIRED_SDK_PERMISSIONS = arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    private val REQUIRED_SDK_PERMISSIONS = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_user_dashboard)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         viewModel = ViewModelProvider(this).get(UserDashboardViewModel::class.java)
 
-        checkPermissions();
+        checkPermissions()
 
         //Hooks
         featuredRecycler = findViewById(R.id.featured_recycler)
@@ -282,10 +282,13 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 startActivity(Intent(applicationContext, FavoriteActivity::class.java))
             }
             R.id.nav_login -> {
-                startActivity(Intent(applicationContext, Login::class.java))
+                startActivity(Intent(applicationContext, EntryChoiceActivity::class.java))
             }
             R.id.nav_home -> {
                 startActivity(Intent(applicationContext, UserDashboard::class.java))
+            }
+            R.id.nav_settings->{
+                startActivity(Intent(applicationContext, SettingsActivity::class.java))
             }
             else -> {
                 Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()

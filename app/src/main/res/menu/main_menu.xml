@@ -36,6 +36,12 @@
                     android:icon="@drawable/menu_profile_icon"
                     android:id="@+id/nav_profile"
                     android:title="@string/profile" />
+
+                <item
+                    android:icon="@drawable/settings"
+                    android:id="@+id/nav_settings"
+                    android:title="@string/Settings" />
+
                 <item
                     android:icon="@drawable/menu_logout_icon"
                     android:id="@+id/nav_logout"

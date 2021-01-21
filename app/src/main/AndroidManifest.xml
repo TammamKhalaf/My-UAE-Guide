@@ -6,11 +6,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:name=".BaseApplication"
@@ -22,6 +23,9 @@
         android:theme="@style/Theme.MyUaeGuide"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <activity
+            android:name=".locationOwner.SettingsActivity"
+            android:label="@string/title_activity_settings" />
         <activity android:name=".user.FavoriteActivity" />
         <activity
             android:name=".helperClasses.homeAdapter.featured.ShowFeaturedPlace"
@@ -52,16 +56,85 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.here.android.maps.appid"
+            android:value="{WBxqrkW7yaro8inXngMW}" />
+        <meta-data
+            android:name="com.here.android.maps.apptoken"
+            android:value="{391hkRjz5Z3Ee1h3wz6Kng}" />
+        <meta-data
+            android:name="com.here.android.maps.license.key"
+            android:value="{EulhoffF1D7VD+JQsmNcV4jPh7mu5eCByvIdwoei1V7p+jcveReERydbZ3jmsSsHgI8Y8+c7ydEHLYLdhh40/sLoW2ni/DDH+aG9GxyZAOkmKBtFgpGnCG/I2jntJGnlTyOUjBZHSfJZ6fuXc4r1evvyeAtppb91ElI4LKmFLPWmNMs3Aq1E6LsTCRVRo/         bZyGGjVgdt6Qxd14WQ9913+52k055iO3IyCLGZn2sylG0akQXrDnzpDj9MgSPBfP7F7VjQo1yNsk343FCsRtgT+esmncwTX2woqJ5yxJNZECQCtrM9aorMpHv7Qy/         owioDeCYho35FCfBdrUIMhyXvIgnVGxlc45dxKokbQ3x7OlkbUxekAWt8wtLNHnDPH259BMFuSaCLgMaRc/xVT+gH2BKk2CykFCK8z2sOvUxNMQzS6a9QefcMplzxHtpzNnc         7y0v17PHeLqZmBd4W93u8kfssxatRCBpYLKSziLXkJbR6gnFPdTiS5zuNyVIhsJp1K4B1ElleuvARdJtUhifVLpSGOSiDYDx6+RCdVAj99cThRSPjCWnhsYlis2cBIkAXo         KoYManf3TKT+wbZ87DPJjhOFt6q6R4TjGk+dEJ8KjAiOSXc7p8yXEXxDzt5Peni6UpZ2oowIoWzT0BBDcW3IM61CfbP7CeMNryNoE9GmHw=}" />
 
-        <meta-data android:name="com.here.android.maps.appid" android:value="{WBxqrkW7yaro8inXngMW}"/>
-        <meta-data android:name="com.here.android.maps.apptoken" android:value="{391hkRjz5Z3Ee1h3wz6Kng}"/>
-        <meta-data android:name="com.here.android.maps.license.key" android:value="{EulhoffF1D7VD+JQsmNcV4jPh7mu5eCByvIdwoei1V7p+jcveReERydbZ3
-        jmsSsHgI8Y8+c7ydEHLYLdhh40/sLoW2ni/
-        DDH+aG9GxyZAOkmKBtFgpGnCG/I2jntJGnlTyOUjBZHSfJZ6fuXc4r1evvyeAtppb91ElI4LKmFLPWmNMs3Aq1E6LsTCRVRo/
-        bZyGGjVgdt6Qxd14WQ9913+52k055iO3IyCLGZn2sylG0akQXrDnzpDj9MgSPBfP7F7VjQo1yNsk343FCsRtgT+esmncwTX2woqJ5yxJNZECQCtrM9aorMpHv7Qy/
-        owioDeCYho35FCfBdrUIMhyXvIgnVGxlc45dxKokbQ3x7OlkbUxekAWt8wtLNHnDPH259BMFuSaCLgMaRc/xVT+gH2BKk2CykFCK8z2sOvUxNMQzS6a9QefcMplzxHtpzNnc
-        7y0v17PHeLqZmBd4W93u8kfssxatRCBpYLKSziLXkJbR6gnFPdTiS5zuNyVIhsJp1K4B1ElleuvARdJtUhifVLpSGOSiDYDx6+RCdVAj99cThRSPjCWnhsYlis2cBIkAXo
-        KoYManf3TKT+wbZ87DPJjhOFt6q6R4TjGk+dEJ8KjAiOSXc7p8yXEXxDzt5Peni6UpZ2oowIoWzT0BBDcW3IM61CfbP7CeMNryNoE9GmHw=}"/>
+
+        <!--new activities-->
+        <activity android:name=".common.loginSignup.login.EntryChoiceActivity"/>
+
+        <activity android:name=".common.loginSignup.login.java.ChooserActivity" />
+        <activity
+            android:name=".common.loginSignup.login.java.CustomAuthActivity"
+            android:label="@string/label_custom_auth" />
+        <activity
+            android:name=".common.loginSignup.login.java.GoogleSignInActivity"
+            android:label="@string/label_google_sign_in" />
+        <activity
+            android:name=".common.loginSignup.login.java.FacebookLoginActivity"
+            android:label="@string/label_facebook_login" />
+        <activity
+            android:name=".common.loginSignup.login.java.EmailPasswordActivity"
+            android:label="@string/label_emailpassword"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".common.loginSignup.login.java.PasswordlessActivity"
+            android:label="@string/label_passwordless"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <data
+                    android:host="your-project-id.firebaseapp.com"
+                    android:scheme="https" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".common.loginSignup.login.java.PhoneAuthActivity"
+            android:label="@string/label_phone_auth"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".common.loginSignup.login.java.AnonymousAuthActivity"
+            android:label="@string/label_anonymous_auth" />
+        <activity
+            android:name=".common.loginSignup.login.java.FirebaseUIActivity"
+            android:label="@string/label_firebase_ui" />
+        <activity
+            android:name=".common.loginSignup.login.java.GenericIdpActivity"
+            android:label="@string/label_generic_idp" />
+        <activity
+            android:name=".common.loginSignup.login.java.MultiFactorActivity"
+            android:label="@string/label_multi_factor" />
+        <activity
+            android:name=".common.loginSignup.login.java.MultiFactorEnrollActivity"
+            android:label="MultiFactor Sign-In" />
+        <activity
+            android:name=".common.loginSignup.login.java.MultiFactorSignInActivity"
+            android:label="MultiFactor Sign-In" />
+        <activity
+            android:name=".common.loginSignup.login.java.MultiFactorUnenrollActivity"
+            android:label="MultiFactor Unenroll" />
+
+        <!-- Facebook Configuration -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"
+            tools:replace="android:value" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
+            tools:replace="android:theme" />
 
 
     </application>

@@ -32,6 +32,8 @@ class VerifyOTP : AppCompatActivity() {
     var date: String? = null
     var phoneNo: String? = null
     var whatTodo: String? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -114,6 +116,7 @@ class VerifyOTP : AppCompatActivity() {
             //     detect the incoming verification SMS and perform verification without
             //     user action.
             val code = credential.smsCode
+            Log.d(TAG, "onVerificationCompleted: ${code}")
             if (code != null) {
                 pinFromUser?.setText(code)
                 verifyCode(code)
