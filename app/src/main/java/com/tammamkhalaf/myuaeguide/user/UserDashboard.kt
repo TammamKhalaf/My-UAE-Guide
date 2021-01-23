@@ -28,10 +28,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.gms.common.api.internal.BackgroundDetector.initialize
 import com.google.android.material.navigation.NavigationView
+import com.nostra13.universalimageloader.core.ImageLoader
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
 import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
-import com.tammamkhalaf.myuaeguide.common.loginSignup.login.EntryChoiceActivity
+import com.tammamkhalaf.myuaeguide.common.loginSignup.login.java.PhoneAuthActivity
+import com.tammamkhalaf.myuaeguide.databases.firebase.storage.Utility.UniversalImageLoader
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesAdapter
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesHelperClass
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedAdapter
@@ -170,6 +172,17 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         /*doSomethingWithText(it)*/
             Log.d(TAG, "onCreate: afterTextChanged I am calling api")
         }
+
+
+        initImageLoader();
+    }
+
+    /**
+     * init universal image loader
+     */
+    private fun initImageLoader(){
+        var imageLoader = UniversalImageLoader(this)
+        ImageLoader.getInstance().init(imageLoader.config)
     }
 
     private fun sendDataToApiDemo(data: ArrayList<String>) {
@@ -282,7 +295,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 startActivity(Intent(applicationContext, FavoriteActivity::class.java))
             }
             R.id.nav_login -> {
-                startActivity(Intent(applicationContext, EntryChoiceActivity::class.java))
+                startActivity(Intent(applicationContext, PhoneAuthActivity::class.java))
             }
             R.id.nav_home -> {
                 startActivity(Intent(applicationContext, UserDashboard::class.java))

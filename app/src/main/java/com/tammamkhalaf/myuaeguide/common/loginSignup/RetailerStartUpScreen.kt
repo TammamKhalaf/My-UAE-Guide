@@ -10,7 +10,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.tammamkhalaf.myuaeguide.common.loginSignup.signUp.SignUp
 import com.tammamkhalaf.myuaeguide.R
-import com.tammamkhalaf.myuaeguide.common.loginSignup.login.EntryChoiceActivity
+import com.tammamkhalaf.myuaeguide.common.loginSignup.login.java.PhoneAuthActivity
 
 class RetailerStartUpScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +20,7 @@ class RetailerStartUpScreen : AppCompatActivity() {
     }
 
     fun callLoginScreen(view: View?) {
-        val intent = Intent(applicationContext, EntryChoiceActivity::class.java)
+        val intent = Intent(applicationContext, PhoneAuthActivity::class.java)
         val pairs: Array<Pair<View, String>?> = arrayOfNulls(1)
         pairs[0] = Pair<View, String>(findViewById(R.id.login_btn), "transition_login")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

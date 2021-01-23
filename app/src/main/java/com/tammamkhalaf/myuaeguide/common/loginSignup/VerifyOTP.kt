@@ -14,15 +14,16 @@ import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
 import com.google.firebase.database.FirebaseDatabase
+import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.common.loginSignup.forgetPassword.SetNewPassword
 import com.tammamkhalaf.myuaeguide.databases.firebase.models.User
-import com.tammamkhalaf.myuaeguide.R
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+
 class VerifyOTP : AppCompatActivity() {
     var pinFromUser: PinView? = null
-    var codeBySystem: String? = null
+    lateinit var codeBySystem: String
     private var mAuth: FirebaseAuth? = null
     var fullName: String? = null
     var username: String? = null
@@ -54,14 +55,17 @@ class VerifyOTP : AppCompatActivity() {
     }
 
     private fun verifyCode(code: String) {
-        val credential = PhoneAuthProvider.getCredential(codeBySystem!!, code)
-        Toast.makeText(this, "verifyCode", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Verifying...", Toast.LENGTH_SHORT).show()
+
+        val credential = PhoneAuthProvider.getCredential(codeBySystem, code)
         signInWithPhoneAuthCredential(credential)
+
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         mAuth!!.signInWithCredential(credential)
                 .addOnCompleteListener(this) { task: Task<AuthResult?> ->
+                    Log.d(TAG, "signInWithPhoneAuthCredential: credential $credential \n code by system $codeBySystem")
                     if (task.isSuccessful) {
                         if (whatTodo != null && whatTodo == "updateData") {
                             updateOldUsersData()
@@ -116,7 +120,7 @@ class VerifyOTP : AppCompatActivity() {
             //     detect the incoming verification SMS and perform verification without
             //     user action.
             val code = credential.smsCode
-            Log.d(TAG, "onVerificationCompleted: ${code}")
+            Log.d(TAG, "onVerificationCompleted: credential $credential")
             if (code != null) {
                 pinFromUser?.setText(code)
                 verifyCode(code)

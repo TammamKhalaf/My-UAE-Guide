@@ -8,7 +8,7 @@ class User {
     var gender: String? = null
     var date: String? = null
     var phoneNo: String? = null
-    var profile_img: String? =null
+    var profile_image: String? =null
 
 
     constructor() {}
@@ -22,7 +22,7 @@ class User {
         this.gender = gender
         this.date = date
         this.phoneNo = phoneNo
-        this.profile_img = profile_img
+        this.profile_image = profile_img
     }
 
 
