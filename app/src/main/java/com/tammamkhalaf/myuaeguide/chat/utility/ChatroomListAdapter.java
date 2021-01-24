@@ -106,7 +106,7 @@ public class ChatroomListAdapter extends ArrayAdapter<Chatroom> {
                         //ImageLoader.getInstance().displayImage(singleSnapshot.getValue(User.class).getProfile_image() , holder.mProfileImage);
                         Glide.with(holder.mProfileImage.getContext())
                                 .load(singleSnapshot.getValue(User.class).getProfile_image())
-                                .centerCrop()
+                                .circleCrop()
                                 .placeholder(R.drawable.person)
                                 .into(holder.mProfileImage);
                         Log.d(TAG, "onDataChange: profile_image = "+singleSnapshot.getValue(User.class).getProfile_image());
