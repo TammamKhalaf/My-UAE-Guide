@@ -358,4 +358,100 @@
     <string name="error_sign_in_failed">Sign in failed, see logs for details.</string>
     <string name="multi_factor_signed_out">You are not signed in. To use this sample, first navigate to the Email/Password example to sign in and then return here to enroll in multi-factor auth.</string>
 
+
+    <string name="prompt_email" translatable="false">Email</string>
+
+    <string name="prompt_password" translatable="false">Password (optional)</string>
+
+    <string name="action_sign_in" translatable="false">Sign in or register</string>
+
+    <string name="action_sign_in_short" translatable="false">Sign in</string>
+
+    <string name="error_invalid_email" translatable="false">This email address is invalid</string>
+
+    <string name="error_invalid_password" translatable="false">This password is too short</string>
+
+    <string name="error_incorrect_password" translatable="false">This password is incorrect</string>
+
+    <string name="error_field_required" translatable="false">This field is required</string>
+
+    <string name="permission_rationale" translatable="false">"Contacts permissions are needed for providing emailcompletions." </string>
+
+    <string name="resend_verification_email" translatable="false">Resend Verification Email</string>
+
+    <string name="forgot_password" translatable="false">Forgot Password</string>
+
+    <string name="register" translatable="false">Register</string>
+
+    <string name="password">Password</string>
+
+    <string name="confirm">CONFIRM</string>
+
+    <string name="reset_password">Reset Password</string>
+
+    <string name="account_settings">Account Settings</string>
+
+    <string name="current_password">Current Password</string>
+
+    <string name="confirm_new_password">Confirm New Password</string>
+
+    <string name="first_and_last_name">First and last name</string>
+
+    <string name="save">Save</string>
+
+    <string name="primary_phone_contact">Primary phone contact #</string>
+
+    <string name="chat">Chat</string>
+
+    <!-- Intent Extras -->
+
+
+    <string name="intent_chatroom" translatable="false">intent_chatroom</string>
+
+    <!-- Dialog Names -->
+
+
+    <string name="dialog_new_chatroom">NewChatroomDialog</string>
+
+    <string name="dialog_delete_chatroom">DeleteChatroomDialog</string>
+
+    <!-- Firebase Database Nodes -->
+
+
+    <string name="dbnode_chatrooms">chatrooms</string>
+
+    <!-- Firebase Database Fields -->
+
+
+    <string name="field_chatroom_name" translatable="false">chatroom_name</string>
+
+    <string name="field_creator_id" translatable="false">creator_id</string>
+
+    <string name="field_security_level" translatable="false">security_level</string>
+
+    <string name="field_email">email</string>
+
+    <string name="field_name">name</string>
+
+    <string name="field_phone">phone</string>
+
+    <string name="field_user_id" translatable="false">user_id</string>
+
+    <string name="field_chatroom_id" translatable="false">chatroom_id</string>
+
+    <string name="field_chatroom_messages" translatable="false">chatroom_messages</string>
+
+    <string name="field_message">message</string>
+
+    <string name="field_timestamp">timestamp</string>
+
+    <!-- Strings -->
+
+
+    <string name="alert_dialog_delete">DELETE</string>
+
+    <string name="alert_dialog_cancel">Cancel</string>
+
+    <string name="chatroom">Chatting</string>
+
 </resources>

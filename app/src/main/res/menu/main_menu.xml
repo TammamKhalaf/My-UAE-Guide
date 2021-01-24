@@ -22,6 +22,12 @@
             android:icon="@drawable/menu_add_missing_place"
             android:id="@+id/nav_add_missing_place"
             android:title="@string/add_missing_place" />
+
+        <item
+            android:icon="@drawable/ic_chatroom"
+            android:id="@+id/nav_chatroom"
+            android:title="@string/chatroom" />
+
     </group>
 
 

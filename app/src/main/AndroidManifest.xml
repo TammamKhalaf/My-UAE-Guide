@@ -136,6 +136,8 @@
             android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen"
             tools:replace="android:theme" />
 
+        <activity android:name=".chat.ChatActivity"/>
+        <activity android:name=".chat.ChatroomActivity"/>
 
     </application>
 

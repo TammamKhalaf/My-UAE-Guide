@@ -31,6 +31,8 @@ import com.google.android.material.navigation.NavigationView
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
+import com.tammamkhalaf.myuaeguide.chat.ChatActivity
+import com.tammamkhalaf.myuaeguide.chat.ChatroomActivity
 import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
 import com.tammamkhalaf.myuaeguide.common.loginSignup.login.java.PhoneAuthActivity
 import com.tammamkhalaf.myuaeguide.databases.firebase.storage.Utility.UniversalImageLoader
@@ -302,6 +304,9 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             }
             R.id.nav_settings->{
                 startActivity(Intent(applicationContext, SettingsActivity::class.java))
+            }
+            R.id.nav_chatroom->{
+                startActivity(Intent(applicationContext, ChatActivity::class.java))
             }
             else -> {
                 Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()

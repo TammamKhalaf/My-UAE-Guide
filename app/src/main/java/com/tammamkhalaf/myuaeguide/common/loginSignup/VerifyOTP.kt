@@ -91,7 +91,10 @@ class VerifyOTP : AppCompatActivity() {
     private fun storeNewUsersData() {
         val rootNode = FirebaseDatabase.getInstance()
         val myRef = rootNode.getReference("Users")
-        val user = User(fullName, username, email, password, gender, date, phoneNo, "")
+        val user = User(fullName, username, email, password, gender, date, phoneNo,
+                "https://www.flaticon.com/svg/vstatic/svg/747/747376.svg?token=exp=1611500775~hmac=cf9be3d76837703bdd2da51012324d42",
+                FirebaseAuth.getInstance().currentUser?.uid,
+                "1")
         myRef.child(phoneNo!!).setValue(user).addOnCompleteListener {
             //todo add toast message
         }.addOnFailureListener {
