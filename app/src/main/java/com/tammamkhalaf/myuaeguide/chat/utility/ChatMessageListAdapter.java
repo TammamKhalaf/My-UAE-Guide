@@ -14,6 +14,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,6 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tammamkhalaf.myuaeguide.R;
 import com.tammamkhalaf.myuaeguide.databases.firebase.models.ChatMessage;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -71,15 +74,26 @@ public class ChatMessageListAdapter extends ArrayAdapter<ChatMessage> {
         }
 
         try{
-            //set the message
-            holder.message.setText(getItem(position).getMessage());
+                        holder.message.setText(getItem(position).getMessage());
 
-            ImageLoader.getInstance().displayImage(getItem(position).getProfile_image(),
-                    holder.mProfileImage);
-            holder.name.setText(getItem(position).getName());
+                        //ImageLoader.getInstance().displayImage(getItem(position).getProfile_image(),holder.mProfileImage);
+                        Glide.with(holder.mProfileImage.getContext())
+                                .load(getItem(position).getProfile_image())
+                                .centerCrop()
+                                .placeholder(R.drawable.person)
+                                .into(holder.mProfileImage);
+
+                        Log.d(TAG, "getView:image  " + getItem(position).getProfile_image());
+                        Log.d(TAG, "getView:message " + getItem(position).getMessage());
+                        Log.d(TAG, "getView:timestamp " + getItem(position).getTimestamp());
+                        Log.d(TAG, "getView:user_id " + getItem(position).getUser_id());
+                        Log.d(TAG, "getView:name " + getItem(position).getName());
+                        Log.d(TAG, "getView:class " + getItem(position).getClass());
+
+                        holder.name.setText(getItem(position).getName());
 
 
-        }catch (NullPointerException e){
+            }catch (NullPointerException e){
             Log.e(TAG, "getView: NullPointerException: ", e.getCause() );
         }
 

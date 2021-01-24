@@ -378,8 +378,7 @@ public class SettingsActivity extends AppCompatActivity implements
 
                 //this loop will return a single result
                 for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
-                    Log.d(TAG, "onDataChange: (QUERY METHOD 1) found user: "
-                            + singleSnapshot.getValue(User.class).toString());
+                    Log.d(TAG, "onDataChange: (QUERY METHOD 1) found user: " + singleSnapshot.getValue(User.class).toString());
                     User user = singleSnapshot.getValue(User.class);
                     mName.setText(user.getFullName());
                     mPhone.setText(user.getPhoneNo());

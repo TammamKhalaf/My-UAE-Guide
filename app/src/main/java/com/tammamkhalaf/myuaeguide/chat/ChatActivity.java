@@ -8,12 +8,14 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +28,10 @@ import com.tammamkhalaf.myuaeguide.chat.utility.ChatroomListAdapter;
 import com.tammamkhalaf.myuaeguide.common.loginSignup.login.java.PhoneAuthActivity;
 import com.tammamkhalaf.myuaeguide.databases.firebase.models.ChatMessage;
 import com.tammamkhalaf.myuaeguide.databases.firebase.models.Chatroom;
+import com.tammamkhalaf.myuaeguide.databases.firebase.models.User;
 import com.tammamkhalaf.myuaeguide.databases.firebase.storage.Utility.UniversalImageLoader;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,16 +63,16 @@ public class ChatActivity extends AppCompatActivity {
 
         init();
 
-        initImageLoader();
+        //initImageLoader();
     }
 
     /**
      * init universal image loader
      */
-    private void initImageLoader(){
-        UniversalImageLoader imageLoader = new UniversalImageLoader(ChatActivity.this);
-        ImageLoader.getInstance().init(imageLoader.getConfig());
-    }
+//    private void initImageLoader(){
+//        UniversalImageLoader imageLoader = new UniversalImageLoader(ChatActivity.this);
+//        ImageLoader.getInstance().init(imageLoader.getConfig());
+//    }
 
     public void init(){
 
@@ -127,6 +132,42 @@ public class ChatActivity extends AppCompatActivity {
                         message.setTimestamp(snapshot.getValue(ChatMessage.class).getTimestamp());
                         message.setUser_id(snapshot.getValue(ChatMessage.class).getUser_id());
                         message.setMessage(snapshot.getValue(ChatMessage.class).getMessage());
+
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())
+                                .child("username").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                String username = snapshot.getValue(String.class);
+                                message.setName(username);
+                                Log.d(TAG, "onDataChange: username "+snapshot.getValue(String.class));
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("Users")
+                                .child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())
+                                .child("profile_image").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                String imageUrl = snapshot.getValue(String.class);
+                                message.setProfile_image(imageUrl);
+                                Log.d(TAG, "onDataChange: image "+ snapshot.getValue(String.class));
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                            }
+                        });
+
                         messagesList.add(message);
                     }
                     chatroom.setChatroom_messages(messagesList);

@@ -15,6 +15,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tammamkhalaf.myuaeguide.R;
 import com.tammamkhalaf.myuaeguide.chat.ChatActivity;
+import com.tammamkhalaf.myuaeguide.chat.ChatroomActivity;
 import com.tammamkhalaf.myuaeguide.databases.firebase.models.Chatroom;
 import com.tammamkhalaf.myuaeguide.databases.firebase.models.User;
 
@@ -67,11 +69,11 @@ public class ChatroomListAdapter extends ArrayAdapter<Chatroom> {
             convertView = mInflater.inflate(mLayoutResource, parent, false);
             holder = new ViewHolder();
 
-            holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.creatorName = (TextView) convertView.findViewById(R.id.creator_name);
-            holder.numberMessages = (TextView) convertView.findViewById(R.id.number_chatmessages);
-            holder.mProfileImage = (ImageView) convertView.findViewById(R.id.profile_image);
-            holder.mTrash = (ImageView) convertView.findViewById(R.id.icon_trash);
+            holder.name = convertView.findViewById(R.id.name);
+            holder.creatorName = convertView.findViewById(R.id.creator_name);
+            holder.numberMessages = convertView.findViewById(R.id.number_chatmessages);
+            holder.mProfileImage = convertView.findViewById(R.id.profile_image);
+            holder.mTrash = convertView.findViewById(R.id.icon_trash);
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
@@ -98,8 +100,16 @@ public class ChatroomListAdapter extends ArrayAdapter<Chatroom> {
                                 + singleSnapshot.getValue(User.class).toString());
                         String createdBy = "created by " + singleSnapshot.getValue(User.class).getUsername();
                         holder.creatorName.setText(createdBy);
-                        ImageLoader.getInstance().displayImage(
-                                singleSnapshot.getValue(User.class).getProfile_image() , holder.mProfileImage);
+
+                        Log.d(TAG, "onDataChange: "+"created by " + singleSnapshot.getValue(User.class).getUsername());
+
+                        //ImageLoader.getInstance().displayImage(singleSnapshot.getValue(User.class).getProfile_image() , holder.mProfileImage);
+                        Glide.with(holder.mProfileImage.getContext())
+                                .load(singleSnapshot.getValue(User.class).getProfile_image())
+                                .centerCrop()
+                                .placeholder(R.drawable.person)
+                                .into(holder.mProfileImage);
+                        Log.d(TAG, "onDataChange: profile_image = "+singleSnapshot.getValue(User.class).getProfile_image());
                     }
                 }
 
@@ -109,17 +119,14 @@ public class ChatroomListAdapter extends ArrayAdapter<Chatroom> {
                 }
             });
 
-            holder.mTrash.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(getItem(position).getCreator_id().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
-                        Log.d(TAG, "onClick: asking for permission to delete icon.");
-                        ((ChatActivity)mContext).showDeleteChatroomDialog(getItem(position).getChatroom_id());
-                    }else{
-                        Toast.makeText(mContext, "You didn't create this chatroom", Toast.LENGTH_SHORT).show();
-                    }
-
+            holder.mTrash.setOnClickListener(v -> {
+                if(getItem(position).getCreator_id().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                    Log.d(TAG, "onClick: asking for permission to delete icon.");
+                    ((ChatActivity)mContext).showDeleteChatroomDialog(getItem(position).getChatroom_id());
+                }else{
+                    Toast.makeText(mContext, "You didn't create this chatroom", Toast.LENGTH_SHORT).show();
                 }
+
             });
 
         }catch (NullPointerException e){
@@ -129,20 +136,3 @@ public class ChatroomListAdapter extends ArrayAdapter<Chatroom> {
         return convertView;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

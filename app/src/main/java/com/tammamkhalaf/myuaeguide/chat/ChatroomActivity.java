@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.common.api.PendingResult;
@@ -27,12 +28,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tammamkhalaf.myuaeguide.R;
 import com.tammamkhalaf.myuaeguide.chat.utility.ChatMessageListAdapter;
 import com.tammamkhalaf.myuaeguide.common.loginSignup.login.java.PhoneAuthActivity;
 import com.tammamkhalaf.myuaeguide.databases.firebase.models.ChatMessage;
 import com.tammamkhalaf.myuaeguide.databases.firebase.models.Chatroom;
 import com.tammamkhalaf.myuaeguide.databases.firebase.models.User;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,6 +66,10 @@ public class ChatroomActivity extends AppCompatActivity {
     private List<ChatMessage> mMessagesList;
     private ChatMessageListAdapter mAdapter;
 
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseUser mFirebaseUser;
+
+    String username,profile_image;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,12 +83,38 @@ public class ChatroomActivity extends AppCompatActivity {
         //getSupportActionBar().hide();
         Log.d(TAG, "onCreate: started.");
         mMessagesList = new ArrayList<>();
+        username = ANONYMOUS;
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
+        /*
+            ---------- QUERY Method 1 ----------
+         */
+        Query query1 = reference.child("Users").orderByKey().equalTo(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+        query1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //this loop will return a single result
+                for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
+                    Log.d(TAG, "onDataChange: (QUERY METHOD 1) found user: " + singleSnapshot.getValue(User.class).toString());
+                    User user = singleSnapshot.getValue(User.class);
+                    username=user.getUsername();
+                    profile_image=user.getProfile_image();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         setupFirebaseAuth();
         getChatroom();
         init();
         hideSoftKeyboard();
     }
+
+    public static final String ANONYMOUS = "anonymous";
 
     private void init(){
 
@@ -100,6 +134,8 @@ public class ChatroomActivity extends AppCompatActivity {
                 newMessage.setTimestamp(getTimestamp());
                 newMessage.setUser_id(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
+                newMessage.setName(username);
+                newMessage.setProfile_image(profile_image);
                 //get a database reference
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                         .child(getString(R.string.dbnode_chatrooms))
@@ -110,9 +146,7 @@ public class ChatroomActivity extends AppCompatActivity {
                 String newMessageId = reference.push().getKey();
 
                 //insert the new message into the chatroom
-                reference
-                        .child(newMessageId)
-                        .setValue(newMessage);
+                reference.child(newMessageId).setValue(newMessage);
 
                 //clear the EditText
                 mMessage.setText("");
@@ -167,6 +201,8 @@ public class ChatroomActivity extends AppCompatActivity {
                             message.setMessage(snapshot.getValue(ChatMessage.class).getMessage());
                             message.setUser_id(snapshot.getValue(ChatMessage.class).getUser_id());
                             message.setTimestamp(snapshot.getValue(ChatMessage.class).getTimestamp());
+                            message.setProfile_image(snapshot.getValue(ChatMessage.class).getProfile_image());// i have add this
+                            message.setName(snapshot.getValue(ChatMessage.class).getName());
                             mMessagesList.add(message);
                         }else{
                             message.setMessage(snapshot.getValue(ChatMessage.class).getMessage());
@@ -196,17 +232,14 @@ public class ChatroomActivity extends AppCompatActivity {
             Log.d(TAG, "onDataChange: searching for userId: " + mMessagesList.get(i).getUser_id());
             final int j = i;
             if(mMessagesList.get(i).getUser_id() != null){
-                Query query = reference.child(getString(R.string.dbnode_users))
-                        .orderByKey()
-                        .equalTo(mMessagesList.get(i).getUser_id());
+                Query query = reference.child(getString(R.string.dbnode_users)).orderByKey().equalTo(mMessagesList.get(i).getUser_id());
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         //DataSnapshot singleSnapshot = dataSnapshot.getChildren().iterator().next();
                         for(DataSnapshot singleSnapshot:dataSnapshot.getChildren()) {
 
-                            Log.d(TAG, "onDataChange: found user id: "
-                                    + singleSnapshot.getValue(User.class).getUser_id());
+                            Log.d(TAG, "onDataChange: found user id: " + singleSnapshot.getValue(User.class).getUser_id());
                             mMessagesList.get(j).setProfile_image(singleSnapshot.getValue(User.class).getProfile_image());
                             mMessagesList.get(j).setName(singleSnapshot.getValue(User.class).getUsername());
                             mAdapter.notifyDataSetChanged();
