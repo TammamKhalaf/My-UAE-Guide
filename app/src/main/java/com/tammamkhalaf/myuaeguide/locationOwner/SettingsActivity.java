@@ -107,6 +107,7 @@ public class SettingsActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.settings_activity);
         Log.d(TAG, "onCreate: started.");
         mEmail = findViewById(R.id.input_email);

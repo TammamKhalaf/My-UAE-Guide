@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.tammamkhalaf.myuaeguide.R;
 import com.tammamkhalaf.myuaeguide.databinding.ActivityPhoneAuthBinding;
 
@@ -53,6 +57,7 @@ public class PhoneAuthActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mBinding = ActivityPhoneAuthBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
@@ -145,6 +150,22 @@ public class PhoneAuthActivity extends AppCompatActivity implements
         // [END phone_auth_callbacks]
     }
 
+    private void initFCM(){
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Log.d(TAG, "initFCM: token: "+token);
+        sendRegistrationTokenToServer(token);
+    }
+
+    private void sendRegistrationTokenToServer(String refreshedToken) {
+        Log.d(TAG, "sendRegistrationTokenToServer: sending token to the server"+refreshedToken);
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+
+        reference.child("Users")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())
+                .child("messaging_token").setValue(refreshedToken);
+    }
+
     // [START on_start_check_user]
     @Override
     public void onStart() {
@@ -222,6 +243,7 @@ public class PhoneAuthActivity extends AppCompatActivity implements
                             Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = task.getResult().getUser();
+                            initFCM();
                             // [START_EXCLUDE]
                             updateUI(STATE_SIGNIN_SUCCESS, user);
                             // [END_EXCLUDE]
@@ -291,8 +313,7 @@ public class PhoneAuthActivity extends AppCompatActivity implements
                 break;
             case STATE_VERIFY_SUCCESS:
                 // Verification has succeeded, proceed to firebase sign in
-                disableViews(mBinding.buttonStartVerification, mBinding.buttonVerifyPhone, mBinding.buttonResend, mBinding.fieldPhoneNumber,
-                        mBinding.fieldVerificationCode);
+                disableViews(mBinding.buttonStartVerification, mBinding.buttonVerifyPhone, mBinding.buttonResend, mBinding.fieldPhoneNumber, mBinding.fieldVerificationCode);
                 mBinding.detail.setText(R.string.status_verification_succeeded);
 
                 // Set the verification text based on the credential

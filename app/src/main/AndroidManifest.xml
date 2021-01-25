@@ -67,7 +67,7 @@
 
 
         <!--new activities-->
-        <activity android:name=".common.loginSignup.login.EntryChoiceActivity"/>
+        <activity android:name=".common.loginSignup.login.EntryChoiceActivity" />
 
         <activity android:name=".common.loginSignup.login.java.ChooserActivity" />
         <activity
@@ -92,6 +92,7 @@
                 <data
                     android:host="your-project-id.firebaseapp.com"
                     android:scheme="https" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -122,11 +123,20 @@
             android:name=".common.loginSignup.login.java.MultiFactorUnenrollActivity"
             android:label="MultiFactor Unenroll" />
 
-        <!-- Facebook Configuration -->
+        <service android:name=".chat.utility.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
+        <service android:name=".chat.utility.MyFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
 
-        <activity android:name=".chat.ChatActivity"/>
-        <activity android:name=".chat.ChatroomActivity"/>
+        <activity android:name=".chat.ChatActivity" />
+        <activity android:name=".chat.ChatroomActivity" />
 
     </application>
 

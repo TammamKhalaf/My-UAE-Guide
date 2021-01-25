@@ -93,7 +93,7 @@ public class ChatMessageListAdapter extends ArrayAdapter<ChatMessage> {
                     .circleCrop()
                     .placeholder(R.drawable.person)
                     .apply(requestOptions)
-                    .override(300, 300)
+                    //.override(300, 300)
                     .into(holder.mProfileImage);
 
             Log.d(TAG, "getView:image  " + getItem(position).getProfile_image());
