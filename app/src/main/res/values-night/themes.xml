@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.MyUaeGuide" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#CDDC39</item>
-        <item name="colorPrimaryDark">#AFB42B</item>
+        <item name="colorPrimary">#C89B43</item>
+        <item name="colorPrimaryDark">#FF9800</item>
         <item name="colorAccent">#5D4037</item>
         <!-- Secondary brand color. -->
         <!-- Status bar color. -->

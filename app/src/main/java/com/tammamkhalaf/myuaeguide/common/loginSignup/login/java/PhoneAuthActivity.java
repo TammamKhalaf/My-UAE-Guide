@@ -1,5 +1,6 @@
 package com.tammamkhalaf.myuaeguide.common.loginSignup.login.java;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -375,6 +376,11 @@ public class PhoneAuthActivity extends AppCompatActivity implements
         for (View v : views) {
             v.setEnabled(false);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override

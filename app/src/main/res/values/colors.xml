@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#CDDC39</color>
-    <color name="colorPrimaryDark">#AFB42B</color>
+    <color name="colorPrimary">#C89B43</color>
+    <color name="colorPrimaryDark">#FF9800</color>
     <color name="colorAccent">#5D4037</color>
     <!-- Secondary brand color. -->
     <color name="lightWhite">#f2f5f8</color>

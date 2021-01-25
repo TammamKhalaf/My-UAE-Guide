@@ -15,7 +15,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="200dp"
             android:src="@drawable/circle_black_border" />
 
 
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="25dp"
             android:fontFamily="@font/baloo"
             android:text="@string/retailer_heading"
             android:textAlignment="center"

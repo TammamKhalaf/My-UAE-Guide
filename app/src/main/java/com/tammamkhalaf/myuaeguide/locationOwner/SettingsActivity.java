@@ -21,10 +21,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -80,6 +84,7 @@ public class SettingsActivity extends AppCompatActivity implements
         }
     }
 
+    private CoordinatorLayout coordinatorLayout;
 
     private static final int REQUEST_CODE = 1234;
     private static final double MB_THRESHHOLD = 5.0;
@@ -90,11 +95,10 @@ public class SettingsActivity extends AppCompatActivity implements
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     //widgets
-    private EditText mEmail, mCurrentPassword, mName, mPhone;
+    private TextInputEditText mPhone,mName,mEmail,mCurrentPassword;
     private ImageView mProfileImage;
     private Button mSave;
     private ProgressBar mProgressBar;
-    private TextView mResetPasswordLink;
 
     //vars
     private boolean mStoragePermissions;
@@ -114,15 +118,13 @@ public class SettingsActivity extends AppCompatActivity implements
         mCurrentPassword = findViewById(R.id.input_password);
         mSave = findViewById(R.id.btn_save);
         mProgressBar = findViewById(R.id.progressBar);
-        mResetPasswordLink = findViewById(R.id.change_password);
         mName = findViewById(R.id.input_name);
-        mPhone = findViewById(R.id.input_phone);
+        mPhone = findViewById(R.id.input_phone_edittext);
         mProfileImage = findViewById(R.id.profile_image);
-
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
 
         setupFirebaseAuth();
         hideSoftKeyboard();
-
     }
 
 
@@ -156,17 +158,51 @@ public class SettingsActivity extends AppCompatActivity implements
                         .child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())
                         .child("fullName")
                         .setValue(mName.getText().toString());
+
+                Snackbar snackbar = Snackbar.make(coordinatorLayout, "All Done", Snackbar.LENGTH_LONG)
+                        .setAction("Ok", view -> {
+                                //                            Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Thanks", Snackbar.LENGTH_SHORT);
+                                //                            snackbar1.show();
+                        });
+                snackbar.show();
+            }
+
+
+            if (!mEmail.getText().toString().equals("")) {
+                reference.child("Users")
+                        .child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())
+                        .child("email")
+                        .setValue(mEmail.getText().toString());
+
+                Snackbar snackbar = Snackbar.make(coordinatorLayout, "All Done", Snackbar.LENGTH_LONG)
+                        .setAction("Ok", view -> {
+                            //                            Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Thanks", Snackbar.LENGTH_SHORT);
+                            //                            snackbar1.show();
+                        });
+                snackbar.show();
             }
 
 
             /*
             ------ Change Phone Number -----
              */
-            if (!mPhone.getText().toString().equals("")) {
-                reference.child("Users")
-                        .child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())
-                        .child("phoneNo")
-                        .setValue(mPhone.getText().toString());
+            if (!mPhone.getText().toString().equals(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())) {
+
+
+                Snackbar snackbar = Snackbar.make(coordinatorLayout, "Sorry ! Not Available  Right Now", Snackbar.LENGTH_LONG)
+                        .setAction("Ok", view -> {
+                            Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Thanks", Snackbar.LENGTH_SHORT);
+                            snackbar1.show();
+                        });
+
+                snackbar.show();
+
+                Log.d(TAG, "Change phone Number !");
+
+                //                reference.child("Users")
+                //                        .child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber())
+                //                        .child("phoneNo")
+                //                        .setValue(mPhone.getText().toString());
             }
 
              /*
@@ -384,6 +420,7 @@ public class SettingsActivity extends AppCompatActivity implements
                     User user = singleSnapshot.getValue(User.class);
                     mName.setText(user.getFullName());
                     mPhone.setText(user.getPhoneNo());
+                    mEmail.setText(user.getEmail());
                     ImageLoader.getInstance().displayImage(user.getProfile_image(), mProfileImage);
                 }
             }
@@ -482,7 +519,7 @@ public class SettingsActivity extends AppCompatActivity implements
             Intent intent = new Intent(SettingsActivity.this, PhoneAuthActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            //finish();
+            finish();
         } else {
             Log.d(TAG, "checkAuthenticationState: user is authenticated.");
         }
@@ -512,8 +549,11 @@ public class SettingsActivity extends AppCompatActivity implements
             }
             // ...
         };
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override

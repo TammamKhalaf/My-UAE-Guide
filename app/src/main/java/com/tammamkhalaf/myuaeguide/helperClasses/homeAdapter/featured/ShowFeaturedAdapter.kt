@@ -27,7 +27,7 @@ class ShowFeaturedAdapter(var context: Context) : RecyclerView.Adapter<ShowFeatu
         Glide.with(context).load(placesList[position].icon?:"").into(holderShow.image)//todo this media.images.available?:"" //test why icon must not be null
         Log.d(TAG, "onBindViewHolder: ${placesList[position].icon}")
         holderShow.title.text = placesList[position].name
-        holderShow.description.text = placesList[position].id.toString()
+        holderShow.description.text = placesList[position].contacts?.phone?.toString()?:""
 
         holderShow.image.setOnClickListener {
             val intent = Intent(context, ShowFeaturedPlace::class.java)

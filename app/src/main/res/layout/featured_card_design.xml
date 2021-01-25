@@ -25,7 +25,14 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/baloo"
             android:textColor="@color/colorAccent"
-            android:textSize="20sp" />
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/featured_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:textSize="10sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -37,9 +44,10 @@
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:rating="3.5" />
+                android:rating="4.3" />
 
             <ImageView
+                android:visibility="invisible"
                 android:id="@+id/favIV"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -47,12 +55,6 @@
                 android:layout_marginStart="20dp"
                 android:src="@drawable/favorite" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/featured_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="" />
 
     </LinearLayout>
 

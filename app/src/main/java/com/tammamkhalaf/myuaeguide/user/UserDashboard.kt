@@ -32,7 +32,6 @@ import com.nostra13.universalimageloader.core.ImageLoader
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
 import com.tammamkhalaf.myuaeguide.chat.ChatActivity
-import com.tammamkhalaf.myuaeguide.chat.ChatroomActivity
 import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
 import com.tammamkhalaf.myuaeguide.common.loginSignup.login.java.PhoneAuthActivity
 import com.tammamkhalaf.myuaeguide.databases.firebase.storage.Utility.UniversalImageLoader
@@ -132,8 +131,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                         }
                     })
 
-                }
-                        .doOnNext{ c-> Log.d(TAG, "here > upstream: $c")}
+                }.doOnNext{ c-> Log.d(TAG, "here > upstream: $c")}
                         .map{
                             //if you need to apply any thing to
                             // object receive it before send it to final step
@@ -302,10 +300,10 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             R.id.nav_home -> {
                 startActivity(Intent(applicationContext, UserDashboard::class.java))
             }
-            R.id.nav_settings->{
+            R.id.nav_settings -> {
                 startActivity(Intent(applicationContext, SettingsActivity::class.java))
             }
-            R.id.nav_chatroom->{
+            R.id.nav_chatroom -> {
                 startActivity(Intent(applicationContext, ChatActivity::class.java))
             }
             else -> {
@@ -398,6 +396,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     //region mostViewed recycler view
     private fun mostViewedRecycler() {
         mostViewedRecycler!!.setHasFixedSize(true)
+
         mostViewedRecycler!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         // app_id dmLgAQo631UJfwF5R2hH //app_code 391hkRjz5Z3Ee1h3wz6Kng
@@ -416,11 +415,11 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
                 "24.466667,54.366669", list)
 
         viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this, Observer {
-            for (item in it.results.items) {
+            for (item in it.results.items.asReversed()) {
                 var str: StringBuilder
-                if (item.title.length > 21) {
+                if (item.title.length > 25) {
                     str = java.lang.StringBuilder(item.title)
-                    str.insert(21, "\n").toString()
+                    str.insert(25, "\n").toString()
                 } else {
                     str = java.lang.StringBuilder(item.title)
                 }

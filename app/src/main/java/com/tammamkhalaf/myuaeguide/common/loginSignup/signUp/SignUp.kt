@@ -46,14 +46,17 @@ class SignUp : AppCompatActivity() {
     }
 
     fun callNextSignupScreen(view: View?) {
-        if (!validateFullName() or !validateUsername() or !validateEmail() or !validatePassword()) {
+        /*or !validatePassword()old pattern using old login screen*/
+        if (!validateFullName() or !validateUsername() or !validateEmail()) {
             return
         }
         val intent = Intent(applicationContext, SignUp2ndClass::class.java)
         intent.putExtra("fullName", Objects.requireNonNull(fullName!!.editText)?.text.toString().trim { it <= ' ' })
         intent.putExtra("username", Objects.requireNonNull(username!!.editText)?.text.toString().trim { it <= ' ' })
         intent.putExtra("email", Objects.requireNonNull(email!!.editText)?.text.toString().trim { it <= ' ' })
-        intent.putExtra("password", Objects.requireNonNull(password!!.editText)?.text.toString().trim { it <= ' ' })
+        //intent.putExtra("password", Objects.requireNonNull(password!!.editText)?.text.toString().trim { it <= ' ' })
+        // old pattern using old screen login
+        intent.putExtra("password","")
 
         //Add Shared Animation
         val pairs: Array<Pair<View, String>?> = arrayOfNulls(5)
@@ -145,6 +148,7 @@ class SignUp : AppCompatActivity() {
 //            password.setErrorEnabled(false);
 //            return true;
 //        }
+
         return if (Objects.requireNonNull(password!!.editText)?.text.toString().trim { it <= ' ' }.length < 8 && !isValidPassword(password!!.editText!!.text.toString().trim { it <= ' ' })) {
             password!!.error = getString(string.PasswordStrenght)
             false

@@ -55,7 +55,7 @@ public class NewChatroomDialog extends DialogFragment {
         mCreateChatroom = view.findViewById(R.id.create_chatroom);
         mSecurityLevel = view.findViewById(R.id.security_level);
         mSeekProgress = 0;
-        mSecurityLevel.setText(String.valueOf(mSeekProgress));
+        mSecurityLevel.setText("0");//String.valueOf(mSeekProgress)
         getUserSecurityLevel();
 
         mCreateChatroom.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +64,6 @@ public class NewChatroomDialog extends DialogFragment {
 
                 if(!mChatroomName.getText().toString().equals("")){
                     Log.d(TAG, "onClick: creating new chat room");
-
 
                     if(mUserSecurityLevel >= mSeekBar.getProgress()){
 
@@ -76,7 +75,7 @@ public class NewChatroomDialog extends DialogFragment {
 
                         //create the chatroom
                         Chatroom chatroom = new Chatroom();
-                        chatroom.setSecurity_level(String.valueOf(mSeekBar.getProgress()));
+                        chatroom.setSecurity_level("0");//no need for the time -->String.valueOf(mSeekBar.getProgress())
                         chatroom.setChatroom_name(mChatroomName.getText().toString());
                         chatroom.setCreator_id(FirebaseAuth.getInstance().getCurrentUser().getUid());
                         chatroom.setChatroom_id(chatroomId);
@@ -150,8 +149,7 @@ public class NewChatroomDialog extends DialogFragment {
                     Log.d(TAG, "onDataChange: users security level: "
                             + singleSnapshot.getValue(User.class).getSecurity_level());
 
-                    mUserSecurityLevel = Integer.parseInt(String.valueOf(
-                            singleSnapshot.getValue(User.class).getSecurity_level()));
+                    mUserSecurityLevel = Integer.parseInt(String.valueOf(singleSnapshot.getValue(User.class).getSecurity_level()));
                 }
             }
 
