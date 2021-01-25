@@ -1,10 +1,15 @@
 package com.tammamkhalaf.myuaeguide.user
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.GradientDrawable
+import android.location.Geocoder
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -27,6 +32,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.gms.common.api.internal.BackgroundDetector.initialize
+import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
 import com.nostra13.universalimageloader.core.ImageLoader
 import com.tammamkhalaf.myuaeguide.R
@@ -52,7 +58,6 @@ import org.reactivestreams.Subscriber
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-
 @AndroidEntryPoint
 class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     var featuredRecycler: RecyclerView? = null
@@ -60,7 +65,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     var mostViewedRecycler: RecyclerView? = null
 
     var categoriesRecycler: RecyclerView? = null
-    var categoriesAdapter: CategoriesAdapter? =null
+    var categoriesAdapter: CategoriesAdapter? = null
 
     var menuIcon: ImageView? = null
     var content: LinearLayout? = null
@@ -68,12 +73,15 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     var drawerLayout: DrawerLayout? = null
     var navigationView: NavigationView? = null
 
+    lateinit var latitude:String
+    lateinit var longitude:String
+
     private lateinit var viewModel: UserDashboardViewModel
 
     private var listOfMostViewedAdapter = ArrayList<MostViewedHelperClass>()
     private var listOfFeaturedAdapter = ArrayList<FeaturedHelperClass>()
 
-    lateinit var container:ShimmerFrameLayout
+    lateinit var container: ShimmerFrameLayout
 
     /**
      * permissions request code
@@ -83,7 +91,17 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     /**
      * Permissions that need to be explicitly requested from end user.
      */
-    private val REQUIRED_SDK_PERMISSIONS = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    private val REQUIRED_SDK_PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_COARSE_LOCATION)
+
+
+    //Declaring the needed Variables
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    lateinit var locationRequest: LocationRequest
+    val PERMISSION_ID = 1010
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,6 +112,34 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         viewModel = ViewModelProvider(this).get(UserDashboardViewModel::class.java)
 
         checkPermissions()
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+
+        fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+            // Got last known location. In some rare situations this can be null.
+            latitude = it.latitude.toString()
+            longitude = it.longitude.toString()
+            Log.d(TAG, "onCreate: latitude = "+it.latitude)
+            Log.d(TAG, "onCreate: longitude = "+it.longitude)
+
+            if(this::latitude.isInitialized || this::longitude.isInitialized) {
+                featuredRecycler()
+                mostViewedRecycler()
+            }
+        }
 
         //Hooks
         featuredRecycler = findViewById(R.id.featured_recycler)
@@ -113,42 +159,44 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
             textView.setAdapter(adapter)
         }
 
-                Observable.create { emitter: ObservableEmitter<Any?>? ->
-                    textView.addTextChangedListener(object : TextWatcher {
-                        override fun afterTextChanged(s: Editable?) {
-                            Log.d(TAG, "afterTextChanged: ${s.toString()}")
+        Observable.create { emitter: ObservableEmitter<Any?>? ->
+            textView.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    Log.d(TAG, "afterTextChanged: ${s.toString()}")
 
-                            if (s?.length != 0)
-                                emitter?.onNext(s.toString())
-                        }
+                    if (s?.length != 0)
+                        emitter?.onNext(s.toString())
+                }
 
-                        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                            Log.d(TAG, "beforeTextChanged: ${s.toString()}")
-                        }
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                    Log.d(TAG, "beforeTextChanged: ${s.toString()}")
+                }
 
-                        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                            Log.d(TAG, "beforeTextChanged: ${s.toString()}")
-                        }
-                    })
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    Log.d(TAG, "beforeTextChanged: ${s.toString()}")
+                }
+            })
 
-                }.doOnNext{ c-> Log.d(TAG, "here > upstream: $c")}
-                        .map{
-                            //if you need to apply any thing to
-                            // object receive it before send it to final step
-                            it.toString().trim()
-                        }.debounce(5, TimeUnit.SECONDS)
-                        .distinctUntilChanged()
-                        .filter { (it.toString() != "abc")
-                            /*filtering some word based on text or size
-                             or other thing you need to filter it here */}
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe{ d->
-                            Log.d(TAG, "downstream :  --> CALLING here developer API $d")
-                            var list= ArrayList<String>()
-                            list.add(d.toString())
-                            sendDataToApiDemo(list)
-                        }
+        }.doOnNext { c -> Log.d(TAG, "here > upstream: $c") }
+                .map {
+                    //if you need to apply any thing to
+                    // object receive it before send it to final step
+                    it.toString().trim()
+                }.debounce(5, TimeUnit.SECONDS)
+                .distinctUntilChanged()
+                .filter {
+                    (it.toString() != "abc")
+                    /*filtering some word based on text or size
+                     or other thing you need to filter it here */
+                }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { d ->
+                    Log.d(TAG, "downstream :  --> CALLING here developer API $d")
+                    var list = ArrayList<String>()
+                    list.add(d.toString())
+                    sendDataToApiDemo(list)
+                }
 
 
         textView.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
@@ -164,12 +212,11 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         //Functions will be executed automatically when this activity will be created
         navigationDrawer()
-        featuredRecycler()
-        mostViewedRecycler()
+
         categoriesRecycler()
 
         textView.afterTextChanged {
-        /*doSomethingWithText(it)*/
+            /*doSomethingWithText(it)*/
             Log.d(TAG, "onCreate: afterTextChanged I am calling api")
         }
 
@@ -180,7 +227,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     /**
      * init universal image loader
      */
-    private fun initImageLoader(){
+    private fun initImageLoader() {
         var imageLoader = UniversalImageLoader(this)
         ImageLoader.getInstance().init(imageLoader.config)
     }
@@ -189,42 +236,42 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         container.startShimmer()
 
-                viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
-                        "24.466667,54.366669", data)
+        viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
+                "$latitude,$longitude", data)
 
-                viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this,
-                        Observer {
-                            for (item in it.results.items) {
-                                var str: StringBuilder
-                                if (item.title.length > 21) {
-                                    str = java.lang.StringBuilder(item.title)
-                                    str.insert(21, "\n").toString()
-                                } else {
-                                    str = java.lang.StringBuilder(item.title)
-                                }
-                                listOfMostViewedAdapter.add(MostViewedHelperClass(
-                                        item.icon,
-                                        str.toString(),
-                                        item?.alternativeNames?.get(0)?.name ?: "",
-                                        item.category.title ?: "Category?",
-                                        item.openingHours?.label ?: "Opening Hours",
-                                        item.openingHours?.text?.replace("<br/>", "\n")
-                                                ?: "Not Available?",
-                                        rating = item.averageRating ?: 4.0
-                                ))
-                            }
+        viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this,
+                Observer {
+                    for (item in it.results.items) {
+                        var str: StringBuilder
+                        if (item.title.length > 21) {
+                            str = java.lang.StringBuilder(item.title)
+                            str.insert(21, "\n").toString()
+                        } else {
+                            str = java.lang.StringBuilder(item.title)
+                        }
+                        listOfMostViewedAdapter.add(MostViewedHelperClass(
+                                item.icon,
+                                str.toString(),
+                                item?.alternativeNames?.get(0)?.name ?: "",
+                                item.category.title ?: "Category?",
+                                item.openingHours?.label ?: "Opening Hours",
+                                item.openingHours?.text?.replace("<br/>", "\n")
+                                        ?: "Not Available?",
+                                rating = item.averageRating ?: 4.0
+                        ))
+                    }
 
-                            if (mostViewedRecycler?.adapter != null) // it works second time and later
-                                mostViewedRecycler?.adapter?.notifyDataSetChanged()
-                            else {
-                                mostViewedRecycler?.adapter = MostViewedAdapter(listOfMostViewedAdapter,
-                                        this)
-                            }
-                            container.stopShimmer()
-                            container.visibility = GONE
-                            mostViewedRecycler?.visibility = View.VISIBLE
-                        })
-}
+                    if (mostViewedRecycler?.adapter != null) // it works second time and later
+                        mostViewedRecycler?.adapter?.notifyDataSetChanged()
+                    else {
+                        mostViewedRecycler?.adapter = MostViewedAdapter(listOfMostViewedAdapter,
+                                this)
+                    }
+                    container.stopShimmer()
+                    container.visibility = GONE
+                    mostViewedRecycler?.visibility = View.VISIBLE
+                })
+    }
 
     abstract class NYTSubscriber<T> : Subscriber<T> {
         fun onCompleted() {}
@@ -326,7 +373,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
         featuredRecycler?.setHasFixedSize(true)
         featuredRecycler?.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
-       //todo we can add array of url images and downloaded with glide or picasso
+        //todo we can add array of url images and downloaded with glide or picasso
 
         val container = findViewById<View>(R.id.shimmerFrameLayout) as ShimmerFrameLayout
         container.startShimmer()
@@ -337,15 +384,20 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         list.add("natural-geographical")
         list.add("leisure-outdoor")
 
-        viewModel.discoverHerePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
-                "24.466667,54.366669", list)
+        Log.d(TAG, ("featuredRecycler: "+this::latitude.isInitialized + this::longitude.isInitialized))
+        Log.d(TAG, ("featuredRecycler: $latitude<-->$longitude"))
+
+        if(this::latitude.isInitialized || this::longitude.isInitialized) {
+            viewModel.discoverHerePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
+                    "$latitude,$longitude", list)
+        }
 
         viewModel.discoverHerePlacesHereDeveloperLiveData.observe(this, Observer {
             for (item in it.results.items) {
                 var str: StringBuilder
-                if (item.title.length > 21) {
+                if (item.title.length > 25) {
                     str = java.lang.StringBuilder(item.title)
-                    str.insert(21, "\n").toString()
+                    str.insert(25, "\n").toString()
                 } else {
                     str = java.lang.StringBuilder(item.title)
                 }
@@ -395,6 +447,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     //region mostViewed recycler view
     private fun mostViewedRecycler() {
+
         mostViewedRecycler!!.setHasFixedSize(true)
 
         mostViewedRecycler!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -411,9 +464,15 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         list.add("restaurant")
         list.add("snacks-fast-food")
 
-        viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
-                "24.466667,54.366669", list)
+        Log.d(TAG, ("mostViewedRecycler: "+this::latitude.isInitialized + this::longitude.isInitialized))
+        Log.d(TAG, ("mostViewedRecycler: $latitude<-->$longitude"))
 
+        if(this::latitude.isInitialized || this::longitude.isInitialized) {
+            print(this::latitude.isInitialized || this::longitude.isInitialized)
+
+            viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
+                    "$latitude,$longitude", list)
+        }
         viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this, Observer {
             for (item in it.results.items.asReversed()) {
                 var str: StringBuilder
@@ -444,7 +503,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
 
     }
 
-    private fun getMostImageUrl(xid: String):String{
+    private fun getMostImageUrl(xid: String): String {
         return "https://upload.wikimedia.org/wikipedia/commons/5/5b/Atlantis_The_Palm_hotel_from_the_sea%2C_Palm_Jumeirah%2C_Dubai.jpg"
     }
 
@@ -467,14 +526,12 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
         }
         if (!missingPermissions.isEmpty()) {
             // request all missing permissions
-            val permissions = missingPermissions
-                    .toTypedArray()
+            val permissions = missingPermissions.toTypedArray()
             ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE_ASK_PERMISSIONS)
         } else {
             val grantResults = IntArray(REQUIRED_SDK_PERMISSIONS.size)
             Arrays.fill(grantResults, PackageManager.PERMISSION_GRANTED)
-            onRequestPermissionsResult(REQUEST_CODE_ASK_PERMISSIONS, REQUIRED_SDK_PERMISSIONS,
-                    grantResults)
+            onRequestPermissionsResult(REQUEST_CODE_ASK_PERMISSIONS, REQUIRED_SDK_PERMISSIONS, grantResults)
         }
     }
 

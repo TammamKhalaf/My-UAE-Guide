@@ -453,5 +453,7 @@
     <string name="alert_dialog_cancel">Cancel</string>
 
     <string name="chatroom">Chatting</string>
+    <string name="GPSAlertDialogTitle">GPS Alert!</string>
+    <string name="GPSAlertDialogMessage">Please Enable GPS</string>
 
 </resources>
