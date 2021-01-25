@@ -61,18 +61,7 @@ public class ChatActivity extends AppCompatActivity {
         mListView = findViewById(R.id.listView);
         mFob = findViewById(R.id.fob);
 
-        init();
-
-        //initImageLoader();
     }
-
-    /**
-     * init universal image loader
-     */
-//    private void initImageLoader(){
-//        UniversalImageLoader imageLoader = new UniversalImageLoader(ChatActivity.this);
-//        ImageLoader.getInstance().init(imageLoader.getConfig());
-//    }
 
     public void init(){
 
@@ -211,20 +200,7 @@ public class ChatActivity extends AppCompatActivity {
             finish();
         }else{
             Log.d(TAG, "checkAuthenticationState: user is authenticated.");
+            init();
         }
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-

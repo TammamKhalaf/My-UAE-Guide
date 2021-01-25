@@ -118,9 +118,8 @@ public class SettingsActivity extends AppCompatActivity implements
         mPhone = findViewById(R.id.input_phone);
         mProfileImage = findViewById(R.id.profile_image);
 
-        verifyStoragePermissions();
+
         setupFirebaseAuth();
-        init();
         hideSoftKeyboard();
 
     }
@@ -369,6 +368,8 @@ public class SettingsActivity extends AppCompatActivity implements
         /*
             ---------- QUERY Method 1 ----------
          */
+
+
         Query query1 = reference.child("Users")
                 .orderByKey()
                 .equalTo(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
@@ -480,7 +481,7 @@ public class SettingsActivity extends AppCompatActivity implements
             Intent intent = new Intent(SettingsActivity.this, PhoneAuthActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            finish();
+            //finish();
         } else {
             Log.d(TAG, "checkAuthenticationState: user is authenticated.");
         }
@@ -498,8 +499,8 @@ public class SettingsActivity extends AppCompatActivity implements
                 // User is signed in
                 Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                 //toastMessage("Successfully signed in with: " + user.getEmail());
-
-
+                verifyStoragePermissions();
+                init();
             } else {
                 // User is signed out
                 Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -527,22 +528,4 @@ public class SettingsActivity extends AppCompatActivity implements
             FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
         }
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

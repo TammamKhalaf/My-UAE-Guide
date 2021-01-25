@@ -85,7 +85,7 @@ public class ChatMessageListAdapter extends ArrayAdapter<ChatMessage> {
             RequestOptions requestOptions = new RequestOptions();
             requestOptions.placeholder(R.drawable.person);
             requestOptions.circleCropTransform();
-            requestOptions.transforms( new RoundedCorners(300));
+            requestOptions.transforms( new RoundedCorners(500));
 
             //ImageLoader.getInstance().displayImage(getItem(position).getProfile_image(),holder.mProfileImage);
             Glide.with(holder.mProfileImage.getContext())
@@ -93,6 +93,7 @@ public class ChatMessageListAdapter extends ArrayAdapter<ChatMessage> {
                     .circleCrop()
                     .placeholder(R.drawable.person)
                     .apply(requestOptions)
+                    .override(300, 300)
                     .into(holder.mProfileImage);
 
             Log.d(TAG, "getView:image  " + getItem(position).getProfile_image());
