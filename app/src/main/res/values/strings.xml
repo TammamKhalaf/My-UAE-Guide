@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">My Uae Guide</string>
-    <string name="logo_name">My Uae Guide</string>
+    <string name="logo_name">My\nUae Guide</string>
     <string name="slogan_name">We will help you to find your way!</string>
     <string name="powered_by_line">Powered By Tammam Khalaf</string>
 
@@ -455,5 +455,9 @@
     <string name="chatroom">Chatting</string>
     <string name="GPSAlertDialogTitle">GPS Alert!</string>
     <string name="GPSAlertDialogMessage">Please Enable GPS</string>
+    <string name="title">\"Please Login To Continue\"</string>
+    <string name="supporting_text">Chatting with other Users!</string>
+    <string name="decline">No</string>
+    <string name="accept">Ok</string>
 
 </resources>

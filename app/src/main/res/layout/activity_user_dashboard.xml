@@ -69,7 +69,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:fontFamily="@font/adamina"
-                        android:text="@string/logo_name"
+                        android:text="@string/app_name"
                         android:textColor="@color/colorAccent"
                         android:textSize="28sp" />
 

@@ -1,7 +1,6 @@
 package com.tammamkhalaf.myuaeguide.user
 
 import android.Manifest
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.GradientDrawable
@@ -16,7 +15,6 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.NonNull
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -28,7 +26,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
-import com.google.android.datatransport.runtime.backends.BackendResponse.ok
 import com.google.android.gms.common.api.internal.BackgroundDetector.initialize
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
@@ -99,9 +96,8 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
     //Declaring the needed Variables
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
-    val PERMISSION_ID = 1010
 
-    val MY_PERMISSIONS_REQUEST_LOCATION = 99
+    private val MY_PERMISSIONS_REQUEST_LOCATION = 99
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -335,7 +331,9 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
     override fun onBackPressed() {
         if (drawerLayout!!.isDrawerVisible(GravityCompat.START)) {
             drawerLayout!!.closeDrawer(GravityCompat.START)
-        } else super.onBackPressed()
+        } else {
+            super.onBackPressed()
+        }
     }
 
     //endregion
@@ -570,6 +568,8 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
     }
 
     //endregion
+
+
 
 
     companion object {

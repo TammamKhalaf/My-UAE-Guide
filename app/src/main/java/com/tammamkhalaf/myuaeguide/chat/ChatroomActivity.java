@@ -66,8 +66,6 @@ public class ChatroomActivity extends AppCompatActivity {
     private List<ChatMessage> mMessagesList;
     private ChatMessageListAdapter mAdapter;
 
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
 
     String username,profile_image;
 
@@ -76,16 +74,18 @@ public class ChatroomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_chatroom);
+
         mChatroomName = findViewById(R.id.text_chatroom_name);
         mListView = findViewById(R.id.listView);
         mMessage = findViewById(R.id.input_message);
         mCheckmark = findViewById(R.id.checkmark);
-        //getSupportActionBar().hide();
+
         Log.d(TAG, "onCreate: started.");
         mMessagesList = new ArrayList<>();
         username = ANONYMOUS;
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        setupFirebaseAuth();
 
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         /*
             ---------- QUERY Method 1 ----------
          */
@@ -108,7 +108,7 @@ public class ChatroomActivity extends AppCompatActivity {
 
             }
         });
-        setupFirebaseAuth();
+
         getChatroom();
         init();
         hideSoftKeyboard();
@@ -295,9 +295,8 @@ public class ChatroomActivity extends AppCompatActivity {
             Log.d(TAG, "checkAuthenticationState: user is null, navigating back to login screen.");
 
             Intent intent = new Intent(ChatroomActivity.this, PhoneAuthActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            finish();
         }else{
             Log.d(TAG, "checkAuthenticationState: user is authenticated.");
         }
@@ -316,10 +315,8 @@ public class ChatroomActivity extends AppCompatActivity {
             } else {
                 // User is signed out
                 Log.d(TAG, "onAuthStateChanged:signed_out");
-                Toast.makeText(ChatroomActivity.this, "Signed out", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ChatroomActivity.this, PhoneAuthActivity.class);
                 startActivity(intent);
-                finish();
             }
             // ...
         };

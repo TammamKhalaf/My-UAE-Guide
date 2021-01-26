@@ -9,11 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:id="@+id/toolbar"
-            android:background="@color/white"
+            android:background="@color/colorPrimary"
             android:elevation="10dp">
 
             <TextView
@@ -24,7 +24,7 @@
                 android:textSize="17sp"
                 android:id="@+id/text_chatroom_name"/>
 
-        </androidx.appcompat.widget.Toolbar>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

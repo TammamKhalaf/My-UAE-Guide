@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firebase.ui.auth.data.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.tammamkhalaf.myuaeguide.R;
 import com.tammamkhalaf.myuaeguide.databinding.ActivityPhoneAuthBinding;
+import com.tammamkhalaf.myuaeguide.user.UserDashboard;
 
 import java.util.concurrent.TimeUnit;
 
@@ -380,7 +382,9 @@ public class PhoneAuthActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        Intent intent = new Intent(this, UserDashboard.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
     @Override

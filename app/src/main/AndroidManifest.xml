@@ -29,8 +29,7 @@
         <activity android:name=".user.FavoriteActivity" />
         <activity
             android:name=".helperClasses.homeAdapter.featured.ShowFeaturedPlace"
-            android:label="@string/title_activity_show_featured_place"
-            android:theme="@style/Theme.MyUaeGuide.NoActionBar" />
+            android:theme="@style/Theme.MaterialComponents.NoActionBar" />
         <activity android:name=".locationOwner.RetailerDashboard" />
         <activity android:name=".common.loginSignup.forgetPassword.SetNewPassword" />
         <activity android:name=".common.loginSignup.forgetPassword.ForgetPasswordSuccessMessage" />
@@ -44,7 +43,9 @@
         <activity android:name=".common.loginSignup.RetailerStartUpScreen" />
         <activity android:name=".user.AllCategories" />
         <activity android:name=".common.OnBoarding" />
-        <activity android:name=".user.UserDashboard" />
+        <activity
+            android:name=".user.UserDashboard"
+            android:theme="@style/Theme.MyUaeGuide.NoActionBar" />
         <activity android:name=".common.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -101,6 +102,7 @@
         <activity
             android:name=".common.loginSignup.login.java.PhoneAuthActivity"
             android:label="@string/label_phone_auth"
+            android:theme="@style/Theme.MyUaeGuide.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".common.loginSignup.login.java.AnonymousAuthActivity"
@@ -136,8 +138,12 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".chat.ChatActivity" />
-        <activity android:name=".chat.ChatroomActivity" />
+        <activity
+            android:name=".chat.ChatActivity"
+            android:theme="@style/Theme.MyUaeGuide.NoActionBar" />
+        <activity
+            android:name=".chat.ChatroomActivity"
+            android:theme="@style/Theme.MyUaeGuide.NoActionBar" />
 
     </application>
 

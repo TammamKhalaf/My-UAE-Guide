@@ -12,6 +12,20 @@
         <item name="colorNavigationItem">@color/menu_item_color_state</item>
         <item name="colorNavigationItemSelected">@color/colorWhite</item>
         <item name="drawableNavigationItemBackground">@drawable/menu_background_color_state</item>
+
+
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.App.MaterialAlertDialog</item>
+    </style>
+
+    <style name="ThemeOverlay.App.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorSecondary">@color/card1</item>
+        <item name="colorSurface">@color/card2</item>
+        <item name="colorOnSurface">@color/card3</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.App</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button</item>
     </style>
 
     <style name="Widget.Custom.NavigationView" parent="Widget.Design.NavigationView">
@@ -28,4 +42,7 @@
     <style name="Theme.MyUaeGuide.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MyUaeGuide.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
 </resources>
