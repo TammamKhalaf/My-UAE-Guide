@@ -1,15 +1,11 @@
 package com.tammamkhalaf.myuaeguide.user
 
 import android.Manifest
-import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.GradientDrawable
-import android.location.Geocoder
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -20,6 +16,7 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.annotation.NonNull
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -31,6 +28,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
+import com.google.android.datatransport.runtime.backends.BackendResponse.ok
 import com.google.android.gms.common.api.internal.BackgroundDetector.initialize
 import com.google.android.gms.location.*
 import com.google.android.material.navigation.NavigationView
@@ -57,6 +55,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import org.reactivestreams.Subscriber
 import java.util.*
 import java.util.concurrent.TimeUnit
+
 
 @AndroidEntryPoint
 open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -102,6 +101,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
     lateinit var locationRequest: LocationRequest
     val PERMISSION_ID = 1010
 
+    val MY_PERMISSIONS_REQUEST_LOCATION = 99
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,36 +110,6 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         viewModel = ViewModelProvider(this).get(UserDashboardViewModel::class.java)
-
-        checkPermissions()
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-
-        fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-            // Got last known location. In some rare situations this can be null.
-            latitude = it.latitude.toString()
-            longitude = it.longitude.toString()
-            Log.d(TAG, "onCreate: latitude = "+it.latitude)
-            Log.d(TAG, "onCreate: longitude = "+it.longitude)
-
-            if(this::latitude.isInitialized || this::longitude.isInitialized) {
-                featuredRecycler()
-                mostViewedRecycler()
-            }
-        }
 
         //Hooks
         featuredRecycler = findViewById(R.id.featured_recycler)
@@ -158,6 +128,8 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
         ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries).also { adapter ->
             textView.setAdapter(adapter)
         }
+
+        checkPermissions()
 
         Observable.create { emitter: ObservableEmitter<Any?>? ->
             textView.addTextChangedListener(object : TextWatcher {
@@ -384,7 +356,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
         list.add("natural-geographical")
         list.add("leisure-outdoor")
 
-        Log.d(TAG, ("featuredRecycler: "+this::latitude.isInitialized + this::longitude.isInitialized))
+        Log.d(TAG, ("featuredRecycler: " + this::latitude.isInitialized + this::longitude.isInitialized))
         Log.d(TAG, ("featuredRecycler: $latitude<-->$longitude"))
 
         if(this::latitude.isInitialized || this::longitude.isInitialized) {
@@ -425,10 +397,10 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
     //region categories
     private fun categoriesRecycler() {
         //All Gradients
-        val gradient2 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-R.color.card1, -R.color.card2))
-        val gradient1 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-R.color.card2, -R.color.card3))
-        val gradient3 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-R.color.card3, -R.color.card4))
-        val gradient4 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-R.color.card4, -R.color.card1))
+        val gradient2 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(R.color.card1, -R.color.card1))
+        val gradient1 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(R.color.card2, -R.color.card2))
+        val gradient3 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(R.color.card3, -R.color.card3))
+        val gradient4 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(R.color.card4, -R.color.card4))
         val categoriesHelperClasses = ArrayList<CategoriesHelperClass>()
 
         categoriesHelperClasses.add(CategoriesHelperClass(gradient1, R.drawable.school_cat, getString(string.education)))
@@ -464,7 +436,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
         list.add("restaurant")
         list.add("snacks-fast-food")
 
-        Log.d(TAG, ("mostViewedRecycler: "+this::latitude.isInitialized + this::longitude.isInitialized))
+        Log.d(TAG, ("mostViewedRecycler: " + this::latitude.isInitialized + this::longitude.isInitialized))
         Log.d(TAG, ("mostViewedRecycler: $latitude<-->$longitude"))
 
         if(this::latitude.isInitialized || this::longitude.isInitialized) {
@@ -515,7 +487,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
     /**
      * Checks the dynamically-controlled permissions and requests missing permissions from end user.
      */
-    private fun checkPermissions() {
+    private fun checkPermissions(){
         val missingPermissions: MutableList<String> = ArrayList()
         // check all required dynamic permissions
         for (permission in REQUIRED_SDK_PERMISSIONS) {
@@ -524,7 +496,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                 missingPermissions.add(permission)
             }
         }
-        if (!missingPermissions.isEmpty()) {
+        if (missingPermissions.isNotEmpty()) {
             // request all missing permissions
             val permissions = missingPermissions.toTypedArray()
             ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE_ASK_PERMISSIONS)
@@ -535,8 +507,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>,
-                                            @NonNull grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, @NonNull permissions: Array<String>, @NonNull grantResults: IntArray) {
         when (requestCode) {
             REQUEST_CODE_ASK_PERMISSIONS -> {
                 var index = permissions.size - 1
@@ -551,9 +522,51 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                     --index
                 }
                 // all permissions were granted
+
+                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+                fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+                    // Got last known location. In some rare situations this can be null.
+                    latitude = it.latitude.toString()
+                    longitude = it.longitude.toString()
+                    Log.d(TAG, "onRequestPermissionsResult: latitude = " + it.latitude)
+                    Log.d(TAG, "onRequestPermissionsResult: longitude = " + it.longitude)
+
+                    if(this::latitude.isInitialized || this::longitude.isInitialized) {
+                        featuredRecycler()
+                        mostViewedRecycler()
+                    }
+                }
+
                 initialize(application)
             }
+
+            MY_PERMISSIONS_REQUEST_LOCATION -> {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                                    Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                        //Request location updates:
+
+                    }
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return
+            }
+
         }
+        Log.d(TAG, "onRequestPermissionsResult: " + " all permissions were granted")
+
+
+
     }
 
     //endregion
