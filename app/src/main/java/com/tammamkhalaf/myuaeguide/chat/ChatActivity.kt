@@ -150,27 +150,12 @@ class ChatActivity : AppCompatActivity() {
         val user = FirebaseAuth.getInstance().currentUser
         if (user == null) {
             Log.d(TAG, "checkAuthenticationState: user is null, navigating back to login screen.")
-//            val alertDialog = MaterialAlertDialogBuilder(this) //set icon
-//                    .setIcon(android.R.drawable.ic_dialog_info) //set title
-//                    .setTitle() //set message
-//                    .setMessage("To Continue") //set positive button
-//                    .setPositiveButton("Yes") { dialogInterface: DialogInterface?, i: Int ->
-//                        //set what would happen when positive button is clicked
-//                        val intent = Intent(this@ChatActivity, PhoneAuthActivity::class.java)
-//                        startActivity(intent)
-//                        finish()
-//                    } //set negative button
-//                    .setNegativeButton("No") { dialogInterface: DialogInterface?, i: Int ->
-//                        //set what should happen when negative button is clicked
-//                        Toast.makeText(applicationContext, "Nothing Happened", Toast.LENGTH_LONG).show()
-//                    }.show()
-//            alertDialog.show()
-
             MaterialAlertDialogBuilder(this)
                     .setTitle(resources.getString(R.string.title))
                     .setMessage(resources.getString(R.string.supporting_text))
                     .setNegativeButton(resources.getString(R.string.decline)) { dialog, which ->
                         // Respond to negative button press
+                        finish()
                     }
                     .setPositiveButton(resources.getString(R.string.accept)) { dialog, which ->
                         // Respond to positive button press

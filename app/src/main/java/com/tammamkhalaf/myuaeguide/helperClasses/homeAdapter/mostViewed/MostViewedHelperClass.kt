@@ -7,4 +7,5 @@ class MostViewedHelperClass(
         var Category: String,
         var OpeningHourLabel: String?,
         var OpeningHourText: String?,
-        var rating: Double)
+        var rating: Double,
+        var id: String)

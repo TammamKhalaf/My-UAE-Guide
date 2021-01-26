@@ -83,13 +83,13 @@ class ShowFeaturedPlace : AppCompatActivity() {
 
             Glide.with(this).load(it.icon).into(imageFromApi)
 
-            binding!!.FeaturedItemTitle.text = it.name
+            binding!!.FeaturedItemTitle.text = it.name?:"Name"
 
-            binding!!.FeaturedItemDetails.text = it.categories[0].title
+            binding!!.FeaturedItemDetails.text = it.categories[0]?.title?:"Details?"
 
-            binding!!.FeaturedItemContacts.text = it.contacts.phone[0].value//label
+            binding!!.FeaturedItemContacts.text = it.contacts?.phone?.get(0)?.value?:"Contacts!"
 
-            binding!!.FeaturedItemLocation.text = it.location.address.city
+            binding!!.FeaturedItemLocation.text = it.location?.address?.city?:"City!"
 
             url = it.view
 

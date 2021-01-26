@@ -29,8 +29,7 @@ class FeaturedAdapter(var featuredLocations: ArrayList<FeaturedHelperClass>, var
 
         holder.title.text = featuredHelperClass.title
         holder.description.text = featuredHelperClass.description
-        holder.image.setOnClickListener {
-            val intent = Intent(context, ShowFeaturedPlace::class.java)
+        holder.image.setOnClickListener { val intent = Intent(context, ShowFeaturedPlace::class.java)
             //todo add information about place inside extras and send it to new activity
             intent.putExtra("featuredItemTitle", featuredHelperClass.title)
 

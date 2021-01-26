@@ -225,7 +225,8 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                                 item.openingHours?.label ?: "Opening Hours",
                                 item.openingHours?.text?.replace("<br/>", "\n")
                                         ?: "Not Available?",
-                                rating = item.averageRating ?: 4.0
+                                rating = item.averageRating ?: 4.0,
+                                id = item.id
                         ))
                     }
 
@@ -458,6 +459,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                         ?: "Opening Hours",
                         item.openingHours?.text?.replace("<br/>", "\n") ?: "Not Available?",
                         rating = item.averageRating ?: 4.0
+                        ,item.id
                 ))
                 Log.d(TAG, "context = ${it.search.context.href}")
             }
