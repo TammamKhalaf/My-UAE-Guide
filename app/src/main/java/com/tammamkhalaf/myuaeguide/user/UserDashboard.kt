@@ -59,7 +59,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     var featuredRecycler: RecyclerView? = null
 
     var mostViewedRecycler: RecyclerView? = null
@@ -425,10 +425,10 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     //region categories
     private fun categoriesRecycler() {
         //All Gradients
-        val gradient2 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-0x2b341b, -0x2b341b))
-        val gradient1 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-0x852331, -0x852331))
-        val gradient3 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-0x83a61, -0x83a61))
-        val gradient4 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-0x47280b, -0x47280b))
+        val gradient2 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-R.color.card1, -R.color.card2))
+        val gradient1 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-R.color.card2, -R.color.card3))
+        val gradient3 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-R.color.card3, -R.color.card4))
+        val gradient4 = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(-R.color.card4, -R.color.card1))
         val categoriesHelperClasses = ArrayList<CategoriesHelperClass>()
 
         categoriesHelperClasses.add(CategoriesHelperClass(gradient1, R.drawable.school_cat, getString(string.education)))
@@ -515,7 +515,7 @@ class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelect
     /**
      * Checks the dynamically-controlled permissions and requests missing permissions from end user.
      */
-    protected fun checkPermissions() {
+    private fun checkPermissions() {
         val missingPermissions: MutableList<String> = ArrayList()
         // check all required dynamic permissions
         for (permission in REQUIRED_SDK_PERMISSIONS) {

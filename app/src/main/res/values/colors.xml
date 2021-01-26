@@ -13,10 +13,10 @@
     <color name="banner_background_light">#56F1E9CE</color>
 
 
-    <color name="card1">#d4cbe5</color>
-    <color name="card2">#7adccf</color>
-    <color name="card3">#77c59f</color>
-    <color name="card4">#b8d7f5</color>
+    <color name="card1">#c2b280</color>
+    <color name="card2">#b48648</color>
+    <color name="card3">#f0dc82</color>
+    <color name="card4">#f8de7e</color>
 
     <color name="grey_100">#F5F5F5</color>
     <color name="grey_300">#E0E0E0</color>
