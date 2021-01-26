@@ -383,25 +383,25 @@
 
     <string name="register" translatable="false">Register</string>
 
-    <string name="password">Password</string>
+    <string name="password" translatable="false">Password</string>
 
-    <string name="confirm">CONFIRM</string>
+    <string name="confirm" translatable="false">CONFIRM</string>
 
-    <string name="reset_password">Reset Password</string>
+    <string name="reset_password" translatable="false">Reset Password</string>
 
-    <string name="account_settings">Account Settings</string>
+    <string name="account_settings" translatable="false">Account Settings</string>
 
-    <string name="current_password">Current Password</string>
+    <string name="current_password" translatable="false">Current Password</string>
 
-    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="confirm_new_password" translatable="false">Confirm New Password</string>
 
     <string name="first_and_last_name">First and last name</string>
 
     <string name="save">Save</string>
 
-    <string name="primary_phone_contact">Primary phone contact #</string>
+    <string name="primary_phone_contact" translatable="false">Primary phone contact #</string>
 
-    <string name="chat">Chat</string>
+    <string name="chat" translatable="false">Chat</string>
 
     <!-- Intent Extras -->
 
@@ -411,14 +411,14 @@
     <!-- Dialog Names -->
 
 
-    <string name="dialog_new_chatroom">NewChatroomDialog</string>
+    <string name="dialog_new_chatroom" translatable="false">NewChatroomDialog</string>
 
-    <string name="dialog_delete_chatroom">DeleteChatroomDialog</string>
+    <string name="dialog_delete_chatroom" translatable="false">DeleteChatroomDialog</string>
 
     <!-- Firebase Database Nodes -->
 
 
-    <string name="dbnode_chatrooms">chatrooms</string>
+    <string name="dbnode_chatrooms" translatable="false">chatrooms</string>
 
     <!-- Firebase Database Fields -->
 
@@ -441,9 +441,9 @@
 
     <string name="field_chatroom_messages" translatable="false">chatroom_messages</string>
 
-    <string name="field_message">message</string>
+    <string name="field_message" translatable="false">message</string>
 
-    <string name="field_timestamp">timestamp</string>
+    <string name="field_timestamp" translatable="false">timestamp</string>
 
     <!-- Strings -->
 
@@ -453,8 +453,8 @@
     <string name="alert_dialog_cancel">Cancel</string>
 
     <string name="chatroom">Chatting</string>
-    <string name="GPSAlertDialogTitle">GPS Alert!</string>
-    <string name="GPSAlertDialogMessage">Please Enable GPS</string>
+    <string name="GPSAlertDialogTitle" translatable="false">GPS Alert!</string>
+    <string name="GPSAlertDialogMessage" translatable="false">Please Enable GPS</string>
     <string name="title">\"Please Login To Continue\"</string>
     <string name="supporting_text">Chatting with other Users!</string>
     <string name="decline">No</string>

@@ -182,4 +182,13 @@
     <string name="error_sign_in_failed">فشل تسجيل الدخول ، انظر السجلات للحصول على التفاصيل.</string>
     <string name="multi_factor_signed_out">لم تقم بتسجيل الدخول. لاستخدام هذا القالب ، انتقل أولاً إلى مثال البريد الإلكتروني / كلمة المرور لتسجيل الدخول ثم عد إلى هنا للتسجيل في المصادقة متعددة العوامل.</string>
     <string name="chatroom">الدردشة</string>
+    <string name="decline">ليس الأن</string>
+    <string name="accept">حسناً</string>
+    <string name="supporting_text">الدردشة مع المستخدمين الآخرين!</string>
+    <string name="title">الرجاء تسجيل الدخول للمتابعة</string>
+    <string name="save">حفظ</string>
+    <string name="alert_dialog_cancel">إلغاء</string>
+    <string name="alert_dialog_delete">حذف</string>
+    <string name="GPSAlertDialogMessage">الرجاء تفعيل الجي بي اس</string>
+    <string name="GPSAlertDialogTitle">تنبيه GPS</string>
 </resources>
