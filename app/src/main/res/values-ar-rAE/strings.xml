@@ -62,7 +62,7 @@
     <string name="make_selection_detail">حدد تفاصيل جهة الاتصال التي يجب أن نستخدمها لإعادة تعيين كلمة المرور الخاصة بك!</string>
     <string name="make_selection">قم بالاختيار</string>
     <string name="forget_password_detail">أدخل رقم هاتف حسابك \\n الذي تريد \\n إعادة تعيين كلمة المرور الخاصة بك</string>
-    <string name="otp_code_text">كو\\nد</string>
+    <string name="otp_code_text">كود</string>
     <string name="password_updated_success_message">تم تحديث كلمة المرور الخاصة بك</string>
     <string name="new_credentials">كلمة المرور الجديدة</string>
     <string name="new_credentials_detail">تم التحقق من هويتك! \\n قم بتعيين كلمة المرور الجديدة</string>
@@ -97,9 +97,7 @@
     <string name="shopping">تسوق</string>
     <string name="transport">مواصلات</string>
     <string name="username">اسم المستخدم</string>
-    <string name="nav_favorite" translatable="false">المفضلة</string>
     <string name="messages_header">الرسائل</string>
-    <string name="dbnode_users" translatable="false">المستخدمون</string>
     <string name="verify_email">تحقق</string>
     <string name="sign_out">خروج</string>
     <string name="send_link">أرسل الرابط</string>
@@ -116,7 +114,6 @@
     <string name="attachment_title">تنزيل المرفقات الواردة</string>
     <string name="attachment_summary_on">قم بتنزيل المرفقات تلقائيًا لرسائل البريد الإلكتروني الواردة</string>
     <string name="attachment_summary_off">قم بتنزيل المرفقات فقط عند الطلب يدويًا</string>
-    <string name="Settings" translatable="false">الإعدادات</string>
     <string name="label_google_sign_in">Firebase + Google تسجيل الدخول</string>
     <string name="desc_google_sign_in">استخدم بيانات اعتماد تسجيل الدخول إلى Google للمصادقة مع Firebase.</string>
     <string name="label_facebook_login">Firebase + Facebook تسجيل الدخول</string>
@@ -185,10 +182,11 @@
     <string name="decline">ليس الأن</string>
     <string name="accept">حسناً</string>
     <string name="supporting_text">الدردشة مع المستخدمين الآخرين!</string>
-    <string name="title">الرجاء تسجيل الدخول للمتابعة</string>
+    <string name="title">الرجاء تسجيل الدخول لمتابعة</string>
     <string name="save">حفظ</string>
     <string name="alert_dialog_cancel">إلغاء</string>
     <string name="alert_dialog_delete">حذف</string>
-    <string name="GPSAlertDialogMessage">الرجاء تفعيل الجي بي اس</string>
-    <string name="GPSAlertDialogTitle">تنبيه GPS</string>
+    <string name="action_settings">الإعدادات</string>
+    <string name="Settings">الإعدادات</string>
+    <string name="nav_favorite">الأماكن المفضلة</string>
 </resources>

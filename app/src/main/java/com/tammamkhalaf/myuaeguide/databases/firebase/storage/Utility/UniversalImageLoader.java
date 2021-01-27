@@ -14,7 +14,7 @@ import com.tammamkhalaf.myuaeguide.R;
 public class UniversalImageLoader {
     private static final String TAG = "UniversalImageLoader";
     private static final int defaultImage = R.drawable.person;
-    private Context mContext;
+    private final Context mContext;
 
     public UniversalImageLoader(Context context) {
         this.mContext = context;

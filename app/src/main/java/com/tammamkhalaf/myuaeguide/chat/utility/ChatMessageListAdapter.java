@@ -43,8 +43,8 @@ public class ChatMessageListAdapter extends ArrayAdapter<ChatMessage> {
 
     private static final String TAG = "ChatMessageListAdapter";
 
-    private int mLayoutResource;
-    private Context mContext;
+    private final int mLayoutResource;
+    private final Context mContext;
 
     public ChatMessageListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<ChatMessage> objects) {
         super(context, resource, objects);
@@ -84,7 +84,7 @@ public class ChatMessageListAdapter extends ArrayAdapter<ChatMessage> {
 
             RequestOptions requestOptions = new RequestOptions();
             requestOptions.placeholder(R.drawable.person);
-            requestOptions.circleCropTransform();
+            RequestOptions.circleCropTransform();
             requestOptions.transforms( new RoundedCorners(500));
 
             //ImageLoader.getInstance().displayImage(getItem(position).getProfile_image(),holder.mProfileImage);

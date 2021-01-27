@@ -43,9 +43,9 @@ public class ChatroomListAdapter extends ArrayAdapter<Chatroom> {
 
     private static final String TAG = "ChatroomListAdapter";
 
-    private int mLayoutResource;
-    private Context mContext;
-    private LayoutInflater mInflater;
+    private final int mLayoutResource;
+    private final Context mContext;
+    private final LayoutInflater mInflater;
 
     public ChatroomListAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Chatroom> objects) {
         super(context, resource, objects);
@@ -83,7 +83,7 @@ public class ChatroomListAdapter extends ArrayAdapter<Chatroom> {
             holder.name.setText(getItem(position).getChatroom_name());
 
             //set the number of chat messages
-            String chatMessagesString = String.valueOf(getItem(position).getChatroom_messages().size())
+            String chatMessagesString = getItem(position).getChatroom_messages().size()
                     + " messages";
             holder.numberMessages.setText(chatMessagesString);
 

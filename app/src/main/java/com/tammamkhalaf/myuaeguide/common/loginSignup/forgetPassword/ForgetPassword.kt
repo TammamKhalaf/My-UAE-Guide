@@ -48,8 +48,8 @@ class ForgetPassword : AppCompatActivity() {
         screenIcon.animation = animation
         title.animation = animation
         description.animation = animation
-        phoneNumberTextField.setAnimation(animation)
-        countryCodePicker.setAnimation(animation)
+        phoneNumberTextField.animation = animation
+        countryCodePicker.animation = animation
         nextBtn.animation = animation
     }
 
@@ -58,19 +58,19 @@ class ForgetPassword : AppCompatActivity() {
         if (isConnected(this) && validateField()) {
             progressBar!!.visibility = View.VISIBLE
             //Get complete phone number
-            var _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumberTextField!!.editText)?.text.toString().trim { it <= ' ' }
+            var _getUserEnteredPhoneNumber = Objects.requireNonNull(phoneNumberTextField.editText)?.text.toString().trim { it <= ' ' }
             //Remove first zero if entered!
             if (_getUserEnteredPhoneNumber[0] == '0') {
                 _getUserEnteredPhoneNumber = _getUserEnteredPhoneNumber.substring(1)
             }
             //Complete phone number
-            val _phoneNo = "+" + countryCodePicker!!.fullNumber + _getUserEnteredPhoneNumber
+            val _phoneNo = "+" + countryCodePicker.fullNumber + _getUserEnteredPhoneNumber
             val checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(_phoneNo)
             checkUser.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
-                        phoneNumberTextField!!.error = null
-                        phoneNumberTextField!!.isErrorEnabled = false
+                        phoneNumberTextField.error = null
+                        phoneNumberTextField.isErrorEnabled = false
                         val intent = Intent(applicationContext, VerifyOTP::class.java)
                         intent.putExtra("phoneNo", _phoneNo)
                         intent.putExtra("whatToDo", "updateData")
@@ -79,8 +79,8 @@ class ForgetPassword : AppCompatActivity() {
                         progressBar!!.visibility = View.GONE
                     } else {
                         progressBar!!.visibility = View.GONE
-                        phoneNumberTextField!!.error = getString(string.NoSuchUser)
-                        phoneNumberTextField!!.requestFocus()
+                        phoneNumberTextField.error = getString(string.NoSuchUser)
+                        phoneNumberTextField.requestFocus()
                     }
                 }
 
@@ -99,10 +99,10 @@ class ForgetPassword : AppCompatActivity() {
     }
 
     private fun validateField(): Boolean {
-        val _phoneNumber = Objects.requireNonNull(phoneNumberTextField!!.editText)?.text.toString().trim { it <= ' ' }
+        val _phoneNumber = Objects.requireNonNull(phoneNumberTextField.editText)?.text.toString().trim { it <= ' ' }
         return if (_phoneNumber.isEmpty()) {
-            phoneNumberTextField!!.error = getString(string.Empty_Field)
-            phoneNumberTextField!!.requestFocus()
+            phoneNumberTextField.error = getString(string.Empty_Field)
+            phoneNumberTextField.requestFocus()
             false
         } else {
             true //todo check zero for phone number add at the beginnings

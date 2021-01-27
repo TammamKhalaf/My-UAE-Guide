@@ -9,4 +9,11 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <string-array name="titles">
+        <item name="first_slide_title">Search Your Location</item>
+        <item name="second_slide_title">Make A Call</item>
+        <item name="third_slide_title">Add Missing Place</item>
+        <item name="fourth_slide_title">Sit Back And Enjoy</item>
+    </string-array>
 </resources>

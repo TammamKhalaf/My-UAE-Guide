@@ -96,8 +96,8 @@ public class ChooserActivity extends AppCompatActivity implements AdapterView.On
 
     public static class MyArrayAdapter extends ArrayAdapter<Class> {
 
-        private Context mContext;
-        private Class[] mClasses;
+        private final Context mContext;
+        private final Class[] mClasses;
         private int[] mDescriptionIds;
 
         public MyArrayAdapter(Context context, int resource, Class[] objects) {

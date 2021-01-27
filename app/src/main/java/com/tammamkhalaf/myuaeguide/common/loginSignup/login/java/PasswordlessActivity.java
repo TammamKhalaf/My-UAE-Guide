@@ -105,9 +105,7 @@ public class PasswordlessActivity extends BaseActivity implements View.OnClickLi
     private boolean intentHasEmailLink(@Nullable Intent intent) {
         if (intent != null && intent.getData() != null) {
             String intentData = intent.getData().toString();
-            if (mAuth.isSignInWithEmailLink(intentData)) {
-                return true;
-            }
+            return mAuth.isSignInWithEmailLink(intentData);
         }
 
         return false;

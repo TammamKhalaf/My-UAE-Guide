@@ -13,7 +13,7 @@ class User {
     var security_level: String? = null
 
 
-    constructor() {}
+    constructor()
     constructor(fullName: String?, username: String?, email: String?, password: String?, gender: String?,
                 date: String?, phoneNo: String?, profile_image: String?, user_id: String?, security_level: String?) {
         this.fullName = fullName

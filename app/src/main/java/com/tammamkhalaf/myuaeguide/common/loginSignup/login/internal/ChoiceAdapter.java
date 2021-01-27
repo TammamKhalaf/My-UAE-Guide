@@ -17,7 +17,7 @@ import java.util.List;
 public class ChoiceAdapter extends RecyclerView.Adapter<ChoiceAdapter.ViewHolder> {
 
     private final Activity activity;
-    private List<Choice> choices;
+    private final List<Choice> choices;
 
     public ChoiceAdapter(Activity activity, List<Choice> choices) {
         this.activity = activity;

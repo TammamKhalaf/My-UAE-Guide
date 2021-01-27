@@ -189,7 +189,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
         }
 
 
-        initImageLoader();
+        initImageLoader()
     }
 
     /**

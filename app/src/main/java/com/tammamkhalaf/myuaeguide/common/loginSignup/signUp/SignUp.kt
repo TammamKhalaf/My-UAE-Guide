@@ -149,7 +149,8 @@ class SignUp : AppCompatActivity() {
 //            return true;
 //        }
 
-        return if (Objects.requireNonNull(password!!.editText)?.text.toString().trim { it <= ' ' }.length < 8 && !isValidPassword(password!!.editText!!.text.toString().trim { it <= ' ' })) {
+        return if (Objects.requireNonNull(password!!.editText)?.text.toString().trim { it <= ' ' }
+                        .length < 8 && !isValidPassword(password!!.editText!!.text.toString().trim { it <= ' ' })) {
             password!!.error = getString(string.PasswordStrenght)
             false
         } else {

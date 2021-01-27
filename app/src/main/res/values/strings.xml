@@ -7,6 +7,7 @@
     <!-- Strings for On Boarding Screen -->
 
     <!--Titles-->
+
     <string name="first_slide_title">Search Your Location</string>
     <string name="second_slide_title">Make A Call</string>
     <string name="third_slide_title">Add Missing Place</string>
@@ -141,7 +142,7 @@
         <item>hospital-health-care-facility</item>
     </string-array>
 
-    <string name="action_settings" translatable="false">Settings</string>
+    <string name="action_settings">Settings</string>
     <string name="SessionExpired" translatable="false">Your Session has Expired!</string>
     <string name="FailedToRetrieveItems" translatable="false">Failed To Retrieve Items!</string>
     <string name="AConnectionErrorOccurred" translatable="false">A Connection Error Occurred</string>
@@ -164,7 +165,7 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="dbnode_users">Users</string>
+    <string name="dbnode_users" translatable="false">Users</string>
     <string name="dialog_change_photo" translatable="false">ChangePhotoDialog</string>
     <string name="change_password">Change Password</string>
     <string name="Settings">Settings</string>

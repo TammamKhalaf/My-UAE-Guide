@@ -50,7 +50,7 @@ class SignUp2ndClass : AppCompatActivity() {
         val email = intentPrevious.getStringExtra("email")
         val password = intentPrevious.getStringExtra("password")
         selectedGender = findViewById(radioGroup!!.checkedRadioButtonId)
-        val selectedGend = selectedGender.getText().toString()
+        val selectedGend = selectedGender.text.toString()
         val day = datePicker!!.dayOfMonth
         val month = datePicker!!.month
         val year = datePicker!!.year

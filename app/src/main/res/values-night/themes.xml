@@ -27,5 +27,7 @@
 
     <style name="Theme.MyUaeGuide.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.MyUaeGuide.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.MyUaeGuide.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+
+    </style>
 </resources>

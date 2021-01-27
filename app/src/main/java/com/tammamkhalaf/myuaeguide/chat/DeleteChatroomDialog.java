@@ -45,7 +45,7 @@ public class DeleteChatroomDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_delete_chatroom, container, false);
 
 
-        TextView delete = (TextView) view.findViewById(R.id.confirm_delete);
+        TextView delete = view.findViewById(R.id.confirm_delete);
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

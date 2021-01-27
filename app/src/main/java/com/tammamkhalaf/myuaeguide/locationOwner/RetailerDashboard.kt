@@ -36,11 +36,6 @@ class RetailerDashboard : AppCompatActivity() {
         })
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        //todo go to main activity
-    }
-
     companion object {
         private const val TAG = "RetailerDashboard"
     }
