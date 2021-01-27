@@ -453,6 +453,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                 } else {
                     str = java.lang.StringBuilder(item.title)
                 }
+                listOfMostViewedAdapter.clear()
                 listOfMostViewedAdapter.add(MostViewedHelperClass(item.icon, str.toString(), item?.alternativeNames?.get(0)?.name
                         ?: "",
                         item.category.title ?: "Category?", item.openingHours?.label

@@ -29,7 +29,9 @@ class UserDashboardViewModel @ViewModelInject constructor(private val repository
         repository.discoverExplorePlacesHereDeveloper(app_id,app_code,position,cat_list)//circle_or_bounding_box
                 ?.subscribeOn(Schedulers.io())
                 ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe({ result: DiscoverExploreResponse -> discoverExplorePlacesHereDeveloperLiveData.setValue(result) })
+                ?.subscribe({ result: DiscoverExploreResponse ->
+                    run { discoverExplorePlacesHereDeveloperLiveData.postValue(result) }
+                    })
                 { error: Throwable? -> Log.e(TAG, "discoverExplorePlacesHereDeveloper: ", error) }
     }
 
