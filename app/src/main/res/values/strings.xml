@@ -60,7 +60,7 @@
     <string name="enter_full_name">Enter Full Name</string>
     <string name="enter_username">ENTER USERNAME</string>
     <string name="enter_email">ENTER EMAIL</string>
-<!--    <string name="create_account">CREATE ACCOUNT</string>-->
+    <!--    <string name="create_account">CREATE ACCOUNT</string>-->
 
 
     <string name="retailer_heading">Grow\nYour Business</string>
@@ -385,5 +385,6 @@
     <string name="supporting_text">Chatting with other Users!</string>
     <string name="decline">No</string>
     <string name="accept">Ok</string>
+    <string name="licenses">licenses</string>
 
 </resources>

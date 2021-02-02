@@ -83,6 +83,10 @@
         <menu>
             <group android:checkableBehavior="none">
                 <item
+                    android:icon="@drawable/ic_licenses"
+                    android:id="@+id/nav_licenses"
+                    android:title="@string/licenses" />
+                <item
                     android:icon="@drawable/menu_share_icon"
                     android:id="@+id/nav_share"
                     android:title="@string/share" />

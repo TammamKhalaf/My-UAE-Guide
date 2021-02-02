@@ -65,12 +65,8 @@
             android:value="{391hkRjz5Z3Ee1h3wz6Kng}" />
         <meta-data
             android:name="com.here.android.maps.license.key"
-            android:value="{EulhoffF1D7VD+JQsmNcV4jPh7mu5eCByvIdwoei1V7p+jcveReERydbZ3jmsSsHgI8Y8+c7ydEHLYLdhh40/sLoW2ni/DDH+aG9GxyZAOkmKBtFgpGnCG/I2jntJGnlTyOUjBZHSfJZ6fuXc4r1evvyeAtppb91ElI4LKmFLPWmNMs3Aq1E6LsTCRVRo/         bZyGGjVgdt6Qxd14WQ9913+52k055iO3IyCLGZn2sylG0akQXrDnzpDj9MgSPBfP7F7VjQo1yNsk343FCsRtgT+esmncwTX2woqJ5yxJNZECQCtrM9aorMpHv7Qy/         owioDeCYho35FCfBdrUIMhyXvIgnVGxlc45dxKokbQ3x7OlkbUxekAWt8wtLNHnDPH259BMFuSaCLgMaRc/xVT+gH2BKk2CykFCK8z2sOvUxNMQzS6a9QefcMplzxHtpzNnc         7y0v17PHeLqZmBd4W93u8kfssxatRCBpYLKSziLXkJbR6gnFPdTiS5zuNyVIhsJp1K4B1ElleuvARdJtUhifVLpSGOSiDYDx6+RCdVAj99cThRSPjCWnhsYlis2cBIkAXo         KoYManf3TKT+wbZ87DPJjhOFt6q6R4TjGk+dEJ8KjAiOSXc7p8yXEXxDzt5Peni6UpZ2oowIoWzT0BBDcW3IM61CfbP7CeMNryNoE9GmHw=}" />
-
-
-        <!--new activities-->
+            android:value="{EulhoffF1D7VD+JQsmNcV4jPh7mu5eCByvIdwoei1V7p+jcveReERydbZ3jmsSsHgI8Y8+c7ydEHLYLdhh40/sLoW2ni/DDH+aG9GxyZAOkmKBtFgpGnCG/I2jntJGnlTyOUjBZHSfJZ6fuXc4r1evvyeAtppb91ElI4LKmFLPWmNMs3Aq1E6LsTCRVRo/         bZyGGjVgdt6Qxd14WQ9913+52k055iO3IyCLGZn2sylG0akQXrDnzpDj9MgSPBfP7F7VjQo1yNsk343FCsRtgT+esmncwTX2woqJ5yxJNZECQCtrM9aorMpHv7Qy/         owioDeCYho35FCfBdrUIMhyXvIgnVGxlc45dxKokbQ3x7OlkbUxekAWt8wtLNHnDPH259BMFuSaCLgMaRc/xVT+gH2BKk2CykFCK8z2sOvUxNMQzS6a9QefcMplzxHtpzNnc         7y0v17PHeLqZmBd4W93u8kfssxatRCBpYLKSziLXkJbR6gnFPdTiS5zuNyVIhsJp1K4B1ElleuvARdJtUhifVLpSGOSiDYDx6+RCdVAj99cThRSPjCWnhsYlis2cBIkAXo         KoYManf3TKT+wbZ87DPJjhOFt6q6R4TjGk+dEJ8KjAiOSXc7p8yXEXxDzt5Peni6UpZ2oowIoWzT0BBDcW3IM61CfbP7CeMNryNoE9GmHw=}" /> <!-- new activities -->
         <activity android:name=".common.loginSignup.login.EntryChoiceActivity" />
-
         <activity android:name=".common.loginSignup.login.java.ChooserActivity" />
         <activity
             android:name=".common.loginSignup.login.java.CustomAuthActivity"
@@ -91,6 +87,7 @@
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <data
                     android:host="your-project-id.firebaseapp.com"
                     android:scheme="https" />
@@ -131,7 +128,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".chat.utility.MyFirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
@@ -144,7 +140,6 @@
         <activity
             android:name=".chat.ChatroomActivity"
             android:theme="@style/Theme.MyUaeGuide.NoActionBar" />
-
     </application>
 
 </manifest>

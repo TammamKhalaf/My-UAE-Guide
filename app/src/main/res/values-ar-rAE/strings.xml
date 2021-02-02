@@ -227,5 +227,6 @@
     <string name="atm_bank_exchange">الصراف الآلي - البنك - الصرف</string>
     <string name="toilet_rest_area">منطقة استراحة</string>
     <string name="hospital_health_care_facility">مستشفى-صحة-رعاية-منشئة</string>
+    <string name="licenses">التراخيص</string>
 
 </resources>

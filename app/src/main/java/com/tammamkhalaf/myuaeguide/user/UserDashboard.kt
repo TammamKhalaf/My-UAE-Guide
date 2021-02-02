@@ -53,6 +53,7 @@ import org.reactivestreams.Subscriber
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
 @AndroidEntryPoint
 open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -381,6 +382,9 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
             R.id.nav_chatroom -> {
                 startActivity(Intent(applicationContext, ChatActivity::class.java))
             }
+            R.id.nav_licenses -> {
+                startActivity(Intent(this, OssLicensesMenuActivity::class.java))
+            }
             else -> {
                 Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
             }
@@ -518,8 +522,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                         item.category.title ?: "Category?", item.openingHours?.label
                         ?: "Opening Hours",
                         item.openingHours?.text?.replace("<br/>", "\n") ?: "Not Available?",
-                        rating = item.averageRating ?: 4.0
-                        ,item.id
+                        rating = item.averageRating ?: 4.0, item.id
                 ))
                 Log.d(TAG, "context = ${it.search.context.href}")
             }

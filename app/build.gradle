@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.android.gms.oss-licenses-plugin'
 }
 
 android {
@@ -14,8 +15,8 @@ android {
         applicationId "com.tammamkhalaf.myuaeguide"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 3
-        versionName "3"
+        versionCode 4
+        versionName "4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -215,4 +216,5 @@ dependencies {
 
     implementation "com.google.android.gms:play-services-location:17.1.0"
 
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 }
