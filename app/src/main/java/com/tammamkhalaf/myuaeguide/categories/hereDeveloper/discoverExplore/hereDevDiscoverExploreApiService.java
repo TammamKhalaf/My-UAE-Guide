@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Query;
 
 public interface hereDevDiscoverExploreApiService {
@@ -36,6 +37,7 @@ public interface hereDevDiscoverExploreApiService {
      * https://places.ls.hereapi.com/places/v1/
      * discover/search?apiKey={YOUR_API_KEY}&at=52.531,13.3843&q=Brandenburg+Gate
      * */
+    //@Headers("Accept-Language:ar-SA")
     @GET("places/v1/discover/explore/")
     Observable<DiscoverExploreResponse> getRecommendedPlaces(
             @Query("app_id")String app_id,//dmLgAQo631UJfwF5R2hH

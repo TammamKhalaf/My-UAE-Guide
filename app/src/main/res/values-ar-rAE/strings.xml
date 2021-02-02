@@ -189,4 +189,43 @@
     <string name="action_settings">الإعدادات</string>
     <string name="Settings">الإعدادات</string>
     <string name="nav_favorite">الأماكن المفضلة</string>
+
+
+    <string-array name="searchDiscoverExploreSuggest">
+        <item>@string/eat_drink</item>
+        <item>@string/restaurant_</item>
+        <item>@string/coffee_tea</item>
+        <item>@string/snacks_fast_food</item>
+        <item>@string/going_out</item>
+        <item>@string/sights_museums</item>
+        <item>@string/transport_</item>
+        <item>@string/airport</item>
+        <item>@string/accommodation</item>
+        <item>@string/shopping_</item>
+        <item>@string/leisure_outdoor</item>
+        <item>@string/administrative_areas_buildings</item>
+        <item>@string/natural_geographical</item>
+        <item>@string/petrol_station</item>
+        <item>@string/atm_bank_exchange</item>
+        <item>@string/toilet_rest_area</item>
+        <item>@string/hospital_health_care_facility</item>
+    </string-array>
+    <string name="restaurant_">مطعم</string>
+    <string name="eat_drink">أكل وشرب</string>
+    <string name="coffee_tea">شاي قهوة</string>
+    <string name="snacks_fast_food">الوجبات الخفيفة-الوجبات السريعة</string>
+    <string name="transport_">النقل</string>
+    <string name="airport">مطار</string>
+    <string name="shopping_">التسوق</string>
+    <string name="petrol_station">محطة بترول</string>
+    <string name="going_out">المتنزه</string>
+    <string name="sights_museums">المعالم والمتاحف</string>
+    <string name="accommodation">الإقامة</string>
+    <string name="leisure_outdoor">أوقات الفراغ في الهواء الطلق</string>
+    <string name="administrative_areas_buildings">المناطق الإدارية-المباني</string>
+    <string name="natural_geographical">جغرافية طبيعية</string>
+    <string name="atm_bank_exchange">الصراف الآلي - البنك - الصرف</string>
+    <string name="toilet_rest_area">منطقة استراحة</string>
+    <string name="hospital_health_care_facility">مستشفى-صحة-رعاية-منشئة</string>
+
 </resources>

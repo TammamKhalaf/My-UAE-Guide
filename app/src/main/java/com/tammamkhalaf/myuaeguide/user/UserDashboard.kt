@@ -119,9 +119,9 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
         // Get a reference to the AutoCompleteTextView in the layout
         val textView = findViewById<AutoCompleteTextView>(R.id.autocomplete_suggest)
         // Get the string array
-        val countries: Array<out String> = resources.getStringArray(R.array.searchDiscoverExploreSuggest)
+        val searchByCategory: Array<out String> = resources.getStringArray(R.array.searchDiscoverExploreSuggest)
         // Create the adapter and set it to the AutoCompleteTextView
-        ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries).also { adapter ->
+        ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, searchByCategory).also { adapter ->
             textView.setAdapter(adapter)
         }
 
@@ -132,8 +132,65 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                 override fun afterTextChanged(s: Editable?) {
                     Log.d(TAG, "afterTextChanged: ${s.toString()}")
 
-                    if (s?.length != 0)
-                        emitter?.onNext(s.toString())
+                    if (s?.length != 0) {
+                        when {
+                            s.toString() == "مطعم" -> {
+                                emitter?.onNext("restaurant")
+                            }
+                            s.toString() == "أكل وشرب" -> {
+                                emitter?.onNext("eat-drink")
+                            }
+                            s.toString() == "شاي قهوة" -> {
+                                emitter?.onNext("coffee-tea")
+                            }
+                            s.toString() == "الوجبات الخفيفة-الوجبات السريعة" -> {
+                                emitter?.onNext("snacks-fast-food")
+                            }
+                            s.toString() == "المتنزه" -> {
+                                emitter?.onNext("going-out")
+                            }
+                            s.toString() == "المعالم والمتاحف" -> {
+                                emitter?.onNext("sights-museums")
+                            }
+                            s.toString() == "النقل" -> {
+                                emitter?.onNext("transport")
+                            }
+                            s.toString() == "مطار" -> {
+                                emitter?.onNext("airport")
+                            }
+                            s.toString() == "الإقامة" -> {
+                                emitter?.onNext("accommodation")
+                            }
+                            s.toString() == "التسوق" -> {
+                                emitter?.onNext("shopping")
+                            }
+                            s.toString() == "أوقات الفراغ في الهواء الطلق" -> {
+                                emitter?.onNext("leisure-outdoor")
+                            }
+                            s.toString() == "المناطق الإدارية-المباني" -> {
+                                emitter?.onNext("administrative-areas-buildings")
+                            }
+                            s.toString() == "جغرافية طبيعية" -> {
+                                emitter?.onNext("natural-geographical")
+                            }
+                            s.toString() == "محطة بترول" -> {
+                                emitter?.onNext("petrol_station")
+                            }
+                            s.toString() == "الصراف الآلي - البنك - الصرف" -> {
+                                emitter?.onNext("atm-bank-exchange")
+                            }
+                            s.toString() == "منطقة استراحة" -> {
+                                emitter?.onNext("toilet-rest-area")
+                            }
+                            s.toString() == "مستشفى-صحة-رعاية-منشئة" -> {
+                                emitter?.onNext("hospital-health-care-facility")
+                            }
+                            else -> {
+                                emitter?.onNext(s.toString())
+                            }
+                        }
+                    }
+
                 }
 
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -153,9 +210,10 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                 }.debounce(5, TimeUnit.SECONDS)
                 .distinctUntilChanged()
                 .filter {
-                    (it.toString() != "abc")
+                    (it.toString() != "")
                     /*filtering some word based on text or size
                      or other thing you need to filter it here */
+
                 }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -217,6 +275,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                         } else {
                             str = java.lang.StringBuilder(item.title)
                         }
+                        listOfMostViewedAdapter.asReversed()
                         listOfMostViewedAdapter.add(MostViewedHelperClass(
                                 item.icon,
                                 str.toString(),
@@ -527,12 +586,14 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                 fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
                 fusedLocationProviderClient.lastLocation.addOnSuccessListener {
                     // Got last known location. In some rare situations this can be null.
-                    latitude = it.latitude.toString()
-                    longitude = it.longitude.toString()
+                    //25.2048° N, 55.2708° E
+                    latitude = it?.latitude.toString()
+                    longitude = it?.longitude.toString()
+
                     Log.d(TAG, "onRequestPermissionsResult: latitude = " + it.latitude)
                     Log.d(TAG, "onRequestPermissionsResult: longitude = " + it.longitude)
 
-                    if(this::latitude.isInitialized || this::longitude.isInitialized) {
+                    if (this::latitude.isInitialized || this::longitude.isInitialized) {
                         featuredRecycler()
                         mostViewedRecycler()
                     }
