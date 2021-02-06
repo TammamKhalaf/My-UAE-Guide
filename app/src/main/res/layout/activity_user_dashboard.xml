@@ -91,26 +91,26 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:focusableInTouchMode="true"
                             android:hint="@string/search_text"
                             android:textColorHint="@color/black"
                             app:boxStrokeColor="@color/banner_background_light"
-                            app:boxStrokeWidthFocused="2dp"
+                            app:boxStrokeWidthFocused="1dp"
                             app:endIconMode="clear_text"
                             app:endIconTint="@color/black"
                             app:hintTextColor="@color/black"
-                            android:focusableInTouchMode="true"
                             app:startIconDrawable="@drawable/general_search_icon"
                             app:startIconTint="@color/black">
 
                             <AutoCompleteTextView
                                 android:id="@+id/autocomplete_suggest"
-                                android:fontFamily="@font/muli_extralight"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:inputType="textFilter"
                                 android:focusableInTouchMode="true"
-                                android:textColor="@color/black"
+                                android:fontFamily="@font/muli_extralight"
                                 android:imeOptions="actionSearch"
+                                android:inputType="textFilter"
+                                android:textColor="@color/black"
                                 android:textColorHighlight="@color/black"
                                 android:textCursorDrawable="@null" />
 

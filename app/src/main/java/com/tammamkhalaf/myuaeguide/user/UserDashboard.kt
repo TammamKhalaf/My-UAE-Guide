@@ -54,6 +54,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
+import com.tammamkhalaf.myuaeguide.BuildConfig
 
 @AndroidEntryPoint
 open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -177,7 +178,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                             s.toString() == "محطة بترول" -> {
                                 emitter?.onNext("petrol_station")
                             }
-                            s.toString() == "الصراف الآلي - البنك - الصرف" -> {
+                            s.toString() == "الصراف الآلي - البنك - الصرافة" -> {
                                 emitter?.onNext("atm-bank-exchange")
                             }
                             s.toString() == "منطقة استراحة" -> {
@@ -266,6 +267,9 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
         viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
                 "$latitude,$longitude", data)
 
+        listOfMostViewedAdapter.clear()
+        mostViewedRecycler?.adapter?.notifyDataSetChanged()
+
         viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this,
                 Observer {
                     for (item in it.results.items) {
@@ -276,7 +280,6 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                         } else {
                             str = java.lang.StringBuilder(item.title)
                         }
-                        listOfMostViewedAdapter.asReversed()
                         listOfMostViewedAdapter.add(MostViewedHelperClass(
                                 item.icon,
                                 str.toString(),
@@ -384,6 +387,14 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
             }
             R.id.nav_licenses -> {
                 startActivity(Intent(this, OssLicensesMenuActivity::class.java))
+            }
+            R.id.nav_share -> {
+                val sendIntent = Intent()
+                sendIntent.action = Intent.ACTION_SEND
+                sendIntent.putExtra(Intent.EXTRA_TEXT,
+                        "Hey check out my app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID)
+                sendIntent.type = "text/plain"
+                startActivity(sendIntent)
             }
             else -> {
                 Toast.makeText(this, "Under Development", Toast.LENGTH_SHORT).show()
@@ -494,6 +505,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         var list = ArrayList<String>()
 
+
         list.add("coffee-tea")
         list.add("restaurant")
         list.add("snacks-fast-food")
@@ -516,7 +528,9 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                 } else {
                     str = java.lang.StringBuilder(item.title)
                 }
-                listOfMostViewedAdapter.clear()
+
+
+
                 listOfMostViewedAdapter.add(MostViewedHelperClass(item.icon, str.toString(), item?.alternativeNames?.get(0)?.name
                         ?: "",
                         item.category.title ?: "Category?", item.openingHours?.label
