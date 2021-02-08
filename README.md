@@ -25,7 +25,7 @@ of different places appear automatically in the app</br>
 6- As you have the app in your pocket then you don't have to worry about anything.</br>
 -----------------------------------------------------------------------------------------------------------------------------------
 
-if you need to use the app ----->
+if you need to use the app : 
 
 1- you want to create project at firebase with your app name then enable phone auth from firebase authentication , create firebase real-time database </br>
 and link the resourece file with your code and change the project package name
@@ -34,7 +34,7 @@ and link the resourece file with your code and change the project package name
 
 -----------------------------------------------------------------------------------------------------------------------------------
 
-App packages structure ----->
+App packages structure :
 
 1- Admin - empty <br/>
 2- Categories --> here developer --> for here explore entry point and here develoepr lockup entry point <br/>
