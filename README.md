@@ -26,4 +26,4 @@ slider adapter for onboarding screen for images and text views
 11- view models for activities
 
 
-![alt text](https://drive.google.com/file/d/1q4_a7d1U8Qx42P6ReV19Hayjq9daJmWh/view?usp=sharing)
+https://drive.google.com/file/d/1q4_a7d1U8Qx42P6ReV19Hayjq9daJmWh/view?usp=sharing
