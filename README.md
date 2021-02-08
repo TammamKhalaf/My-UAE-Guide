@@ -7,29 +7,29 @@ This application is ongoing and is under continuous development ,
 Project description
 
 You can search any place nearby or with-in the specified city.
-1- We will display specific or all related shops to match your search.
-such as :-
-restaurant, coffee-tea , snacks-fast-food
-going-out , sights-museums, transport, airport
-accommodation, shopping, leisure-outdoor
-administrative-areas-buildings, natural-geographical, petrol-station
-atm-bank-exchange, hospital-health-care-facility
-and then they can see the result as list
-of different places appear automatically in the app
+1- We will display specific or all related shops to match your search.</br>
+such as :-</br>
+restaurant, coffee-tea , snacks-fast-food</br>
+going-out , sights-museums, transport, airport</br>
+accommodation, shopping, leisure-outdoor</br>
+administrative-areas-buildings, natural-geographical, petrol-station</br>
+atm-bank-exchange, hospital-health-care-facility</br>
+and then they can see the result as list</br>
+of different places appear automatically in the app</br>
 
-2- We provide almost all the numbers of all departments and shops registered with us.
-3- You can perform bookings as well.
+2- We provide almost all the numbers of all departments and shops registered with us.</br>
+3- You can perform bookings as well.</br>
 4- If you have a shop or some things and want to be a part of our growing industry then add your place by following simple steps.
-5- We will handle everything for you.
-6- As you have the app in your pocket then you don't have to worry about anything.
+5- We will handle everything for you.</br>
+6- As you have the app in your pocket then you don't have to worry about anything.</br>
 -----------------------------------------------------------------------------------------------------------------------------------
 
 if you need to use the app ----->
 
-1- you want to create account at firebase enable phone auth from firebase authentication , create firebase real-time database
+1- you want to create account at firebase enable phone auth from firebase authentication , create firebase real-time database </br>
 and link the resourece file with your code and change the project package name
 
-2- you want to create account at https://developer.here.com/ and change app code app id with yours
+2- you want to create account at https://developer.here.com/ and change app code app id with yours</br>
 
 -----------------------------------------------------------------------------------------------------------------------------------
 
