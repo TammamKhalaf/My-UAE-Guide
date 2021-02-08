@@ -38,7 +38,7 @@ create firebase real-time database and link the resourece file with your code an
 
 App packages structure :
 
-1- Admin - empty <br/>
+1- Admin <br/>
 2- Categories --> here developer --> for here explore entry point and here develoepr lockup entry point <br/>
 3- Chat --> chat classes <br/>
 4- Commom --> login signup , onboarding & splashscreen <br/>
