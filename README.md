@@ -20,7 +20,7 @@ app packages structure -->>>
 6- di for dependecy injection --> here we hava retrofit model and database model for whole app <br/>
 7- Helper classes contain adapters of home screen 1- adapter for featured locations 2- for most viewed 3- for categories <br/>
    slider adapter for onboarding screen for images and text views <br/>
-8- Location owner this cotain activity with fragment and bottom navigation for logged in end user or merchant but empty for now you can customize it<br/>
+8- Location owner this contains activity with fragments and bottom navigation for logged in end user or merchant but empty for now you can customize it<br/>
 9- Repository<br/>
 10- User contail favorite activity, all categories activity , userdashboard which is the main screen<br/>
 11- View models for activities<br/>
