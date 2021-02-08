@@ -12,7 +12,7 @@ and link the resourece file with your code and change the project package name
 
 app packages structure -->>>
 
-1- Admin - empty (<-- two spaces)
+1- Admin - empty <br/>
 2- Categories --> here developer --> for here explore entry point and here develoepr lockup entry point
 3- Chat --> chat classes
 4- Commom --> login signup , onboarding & splashscreen
