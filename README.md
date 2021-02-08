@@ -24,3 +24,6 @@ slider adapter for onboarding screen for images and text views
 9- Repository
 10- user contail favorite activity, all categories activity , userdashboard which is the main screen
 11- view models for activities
+
+
+![alt text](https://drive.google.com/file/d/1q4_a7d1U8Qx42P6ReV19Hayjq9daJmWh/view?usp=sharing)
