@@ -48,7 +48,7 @@ App packages structure :
    slider adapter for onboarding screen for images and text views <br/>
 8- Location owner this contains activity with fragments and bottom navigation for logged in end user or merchant but empty for now you can customize it<br/>
 9- Repository<br/>
-10- User contail favorite activity, all categories activity , userdashboard which is the main screen<br/>
+10- User contains favorite activity, all categories activity , userdashboard which is the main screen<br/>
 11- View models for activities<br/>
 
 
