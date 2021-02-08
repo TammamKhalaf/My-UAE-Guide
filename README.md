@@ -7,6 +7,7 @@ This application is ongoing and is under continuous development ,
 Project description
 
 You can search any place nearby or with-in the specified city.</br>
+
 1- We will display specific or all related shops to match your search.</br>
 such as :-</br>
 restaurant, coffee-tea , snacks-fast-food</br>
