@@ -35,7 +35,7 @@ import com.tammamkhalaf.myuaeguide.R.string
 import com.tammamkhalaf.myuaeguide.chat.ChatActivity
 import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
 import com.tammamkhalaf.myuaeguide.common.loginSignup.login.java.PhoneAuthActivity
-import com.tammamkhalaf.myuaeguide.databases.firebase.storage.Utility.UniversalImageLoader
+import com.tammamkhalaf.myuaeguide.chat.utility.UniversalImageLoader
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesAdapter
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesHelperClass
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedAdapter

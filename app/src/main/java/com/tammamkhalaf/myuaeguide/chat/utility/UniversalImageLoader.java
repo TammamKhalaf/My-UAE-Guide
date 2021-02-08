@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.databases.firebase.storage.Utility;
+package com.tammamkhalaf.myuaeguide.chat.utility;
 
 import android.content.Context;
 import android.util.Log;

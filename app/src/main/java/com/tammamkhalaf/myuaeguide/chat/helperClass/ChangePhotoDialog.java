@@ -1,4 +1,4 @@
-package com.tammamkhalaf.myuaeguide.databases.firebase.storage.helperClass;
+package com.tammamkhalaf.myuaeguide.chat.helperClass;
 
 
 import android.app.Activity;

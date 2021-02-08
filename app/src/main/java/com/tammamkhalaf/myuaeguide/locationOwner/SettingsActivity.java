@@ -12,10 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,8 +26,6 @@ import androidx.core.content.ContextCompat;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,11 +42,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tammamkhalaf.myuaeguide.R;
 import com.tammamkhalaf.myuaeguide.common.loginSignup.login.java.PhoneAuthActivity;
 import com.tammamkhalaf.myuaeguide.databases.firebase.models.User;
-import com.tammamkhalaf.myuaeguide.databases.firebase.storage.Utility.FilePaths;
-import com.tammamkhalaf.myuaeguide.databases.firebase.storage.helperClass.ChangePhotoDialog;
+import com.tammamkhalaf.myuaeguide.chat.utility.FilePaths;
+import com.tammamkhalaf.myuaeguide.chat.helperClass.ChangePhotoDialog;
 
-
-import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
