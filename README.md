@@ -20,7 +20,7 @@ of different places appear automatically in the app</br>
 
 2- We provide almost all the numbers of all departments and shops registered with us.</br>
 3- You can perform bookings as well.</br>
-4- If you have a shop or some things and want to be a part of our growing industry then add your place by following simple steps.
+4- If you have a shop or some things and want to be a part of our growing industry then add your place by following simple steps.</br>
 5- We will handle everything for you.</br>
 6- As you have the app in your pocket then you don't have to worry about anything.</br>
 
