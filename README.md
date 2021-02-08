@@ -23,15 +23,17 @@ of different places appear automatically in the app</br>
 4- If you have a shop or some things and want to be a part of our growing industry then add your place by following simple steps.
 5- We will handle everything for you.</br>
 6- As you have the app in your pocket then you don't have to worry about anything.</br>
------------------------------------------------------------------------------------------------------------------------------------
 
+-----------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 if you need to use the app : 
 
-1- you want to create project at firebase with your app name then enable phone auth from firebase authentication , create firebase real-time database </br>
-and link the resourece file with your code and change the project package name
+1- you want to create project at firebase with your app name then enable phone auth from firebase authentication , </br>
+create firebase real-time database and link the resourece file with your code and change the project package name
 
 2- you want to create account at https://developer.here.com/ and change app code app id with yours</br>
 
+-----------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------
 
 App packages structure :
