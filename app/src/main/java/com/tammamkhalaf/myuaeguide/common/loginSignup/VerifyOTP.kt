@@ -16,6 +16,7 @@ import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCall
 import com.google.firebase.database.FirebaseDatabase
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.common.loginSignup.forgetPassword.SetNewPassword
+import com.tammamkhalaf.myuaeguide.common.loginSignup.login.java.PhoneAuthActivity
 import com.tammamkhalaf.myuaeguide.databases.firebase.models.User
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -69,7 +70,9 @@ class VerifyOTP : AppCompatActivity() {
                     if (task.isSuccessful) {
                         if (whatTodo != null && whatTodo == "updateData") {
                             updateOldUsersData()
-                        } else storeNewUsersData()
+                        } else {
+                            storeNewUsersData()
+                        }
                     } else {
                         // Sign in failed, display a message and update the UI
                         Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -97,6 +100,8 @@ class VerifyOTP : AppCompatActivity() {
                 "1")
         myRef.child(phoneNo!!).setValue(user).addOnCompleteListener {
             //todo add toast message
+            Toast.makeText(this@VerifyOTP, "Registration Completed", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this@VerifyOTP,PhoneAuthActivity::class.java))
         }.addOnFailureListener {
             //todo add toast message
         }.addOnCanceledListener {
