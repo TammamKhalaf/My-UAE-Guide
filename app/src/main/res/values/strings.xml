@@ -389,5 +389,7 @@
     <string name="ok">ok</string>
     <string name="text_location_permission">please enable location gps</string>
     <string name="title_location_permission">location permission</string>
+    <string name="locationService">Location Service Required</string>
+    <string name="locatonServiceMessage">Please Enable Location Service To Use The Application</string>
 
 </resources>

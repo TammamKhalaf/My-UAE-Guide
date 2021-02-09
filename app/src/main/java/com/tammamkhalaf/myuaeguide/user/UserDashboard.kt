@@ -639,8 +639,8 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
 
                 }else{
                     val builder = AlertDialog.Builder(this)
-                    builder.setTitle("Location Service")
-                    builder.setMessage("Please Enable Location from mobile settings")
+                    builder.setTitle(R.string.locationService)
+                    builder.setMessage(R.string.locatonServiceMessage)
                     //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
                     builder.setPositiveButton(android.R.string.yes) { dialog, which ->
                         this.startActivity( Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));

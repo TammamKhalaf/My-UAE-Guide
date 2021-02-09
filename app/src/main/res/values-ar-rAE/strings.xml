@@ -228,5 +228,8 @@
     <string name="toilet_rest_area">منطقة استراحة</string>
     <string name="hospital_health_care_facility">مستشفى-صحة-رعاية-منشئة</string>
     <string name="licenses">التراخيص</string>
+    <string name="ok">حسناً</string>
+    <string name="locationService">خدمة الموقع</string>
+    <string name="locatonServiceMessage">الرجاء تفعيل خدمة الموقع للهاتف لاستخدام التطبيق</string>
 
 </resources>
