@@ -386,5 +386,8 @@
     <string name="decline">No</string>
     <string name="accept">Ok</string>
     <string name="licenses">licenses</string>
+    <string name="ok">ok</string>
+    <string name="text_location_permission">please enable location gps</string>
+    <string name="title_location_permission">location permission</string>
 
 </resources>

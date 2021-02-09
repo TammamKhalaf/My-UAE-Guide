@@ -1,6 +1,9 @@
 package com.tammamkhalaf.myuaeguide.user
 
 import android.Manifest
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.GradientDrawable
@@ -28,14 +31,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.gms.common.api.internal.BackgroundDetector.initialize
 import com.google.android.gms.location.*
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.navigation.NavigationView
 import com.nostra13.universalimageloader.core.ImageLoader
+import com.tammamkhalaf.myuaeguide.BuildConfig
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
 import com.tammamkhalaf.myuaeguide.chat.ChatActivity
+import com.tammamkhalaf.myuaeguide.chat.utility.UniversalImageLoader
 import com.tammamkhalaf.myuaeguide.common.loginSignup.RetailerStartUpScreen
 import com.tammamkhalaf.myuaeguide.common.loginSignup.login.java.PhoneAuthActivity
-import com.tammamkhalaf.myuaeguide.chat.utility.UniversalImageLoader
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesAdapter
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.categories.CategoriesHelperClass
 import com.tammamkhalaf.myuaeguide.helperClasses.homeAdapter.featured.FeaturedAdapter
@@ -52,9 +57,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import org.reactivestreams.Subscriber
 import java.util.*
 import java.util.concurrent.TimeUnit
+import android.location.LocationManager
 
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
-import com.tammamkhalaf.myuaeguide.BuildConfig
+import android.os.Build
+import android.provider.Settings
+
 
 @AndroidEntryPoint
 open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -104,10 +111,25 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_user_dashboard)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
         viewModel = ViewModelProvider(this).get(UserDashboardViewModel::class.java)
+
+        checkPermissions()
+
+        if (ContextCompat.checkSelfPermission(this@UserDashboard,
+                        Manifest.permission.ACCESS_FINE_LOCATION) !== PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this@UserDashboard,
+                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+                ActivityCompat.requestPermissions(this@UserDashboard,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
+            } else {
+                ActivityCompat.requestPermissions(this@UserDashboard,
+                        arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
+            }
+        }
 
         //Hooks
         featuredRecycler = findViewById(R.id.featured_recycler)
@@ -126,8 +148,6 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
         ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, searchByCategory).also { adapter ->
             textView.setAdapter(adapter)
         }
-
-        checkPermissions()
 
         Observable.create { emitter: ObservableEmitter<Any?>? ->
             textView.addTextChangedListener(object : TextWatcher {
@@ -529,8 +549,6 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                     str = java.lang.StringBuilder(item.title)
                 }
 
-
-
                 listOfMostViewedAdapter.add(MostViewedHelperClass(item.icon, str.toString(), item?.alternativeNames?.get(0)?.name
                         ?: "",
                         item.category.title ?: "Category?", item.openingHours?.label
@@ -599,24 +617,40 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                     --index
                 }
                 // all permissions were granted
+                initialize(application)
 
-                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-                fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-                    // Got last known location. In some rare situations this can be null.
-                    //25.2048° N, 55.2708° E
-                    latitude = it?.latitude.toString()
-                    longitude = it?.longitude.toString()
+                if(isLocationEnabled(this)){
 
-                    Log.d(TAG, "onRequestPermissionsResult: latitude = " + it.latitude)
-                    Log.d(TAG, "onRequestPermissionsResult: longitude = " + it.longitude)
+                    fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+                    fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+                        // Got last known location. In some rare situations this can be null.
+                        //25.2048° N, 55.2708° E
+                        latitude = it?.latitude.toString()
+                        longitude = it?.longitude.toString()
 
-                    if (this::latitude.isInitialized || this::longitude.isInitialized) {
-                        featuredRecycler()
-                        mostViewedRecycler()
+                        Log.d(TAG, "onRequestPermissionsResult: latitude = " + it.latitude)
+                        Log.d(TAG, "onRequestPermissionsResult: longitude = " + it.longitude)
+
+                        if (this::latitude.isInitialized || this::longitude.isInitialized) {
+                            featuredRecycler()
+                            mostViewedRecycler()
+                        }
                     }
+
+                }else{
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("Location Service")
+                    builder.setMessage("Please Enable Location from mobile settings")
+                    //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
+                    builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                        this.startActivity( Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                    builder.setNegativeButton(android.R.string.no) { dialog, which ->
+
+                    }
+                    builder.show()
                 }
 
-                initialize(application)
             }
 
             MY_PERMISSIONS_REQUEST_LOCATION -> {
@@ -627,8 +661,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                     // permission was granted, yay! Do the
                     // location-related task you need to do.
                     if (ContextCompat.checkSelfPermission(this,
-                                    Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
+                                    Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
                         //Request location updates:
 
@@ -643,14 +676,77 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         }
         Log.d(TAG, "onRequestPermissionsResult: " + " all permissions were granted")
+    }
 
-
-
+    open fun isLocationEnabled(context: Context): Boolean{
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            // This is a new method provided in API 28
+            val lm = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            lm.isLocationEnabled
+        } else {
+            // This was deprecated in API 28
+            val mode: Int = Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.LOCATION_MODE,
+                    Settings.Secure.LOCATION_MODE_OFF)
+            mode != Settings.Secure.LOCATION_MODE_OFF
+        }
     }
 
     //endregion
 
 
+    open fun checkLocationPermission(): Boolean {
+        return if (ContextCompat.checkSelfPermission(this@UserDashboard, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this@UserDashboard,
+                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Location Permission")
+                builder.setMessage("Please Enable Location")
+                //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
+                builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+                    ActivityCompat.requestPermissions(this@UserDashboard, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                            MY_PERMISSIONS_REQUEST_LOCATION)
+                }
+
+                builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                    Toast.makeText(applicationContext,
+                            android.R.string.no, Toast.LENGTH_SHORT).show()
+                }
+
+                builder.show()
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this@UserDashboard, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        MY_PERMISSIONS_REQUEST_LOCATION)
+            }
+            false
+        } else {
+            true
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+        }
+    }
 
 
     companion object {
