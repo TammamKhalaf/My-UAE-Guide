@@ -638,12 +638,13 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                     }
 
                 } else {
+
                     val builder = AlertDialog.Builder(this)
                     builder.setTitle(R.string.locationService)
                     builder.setMessage(R.string.locatonServiceMessage)
                     //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
                     builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-                        this.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        this.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
                     }
                     builder.setNegativeButton(android.R.string.no) { dialog, which ->
 
@@ -695,16 +696,30 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
 
     override fun onPause() {
         super.onPause()
+        Log.d(TAG, "onPause: ")
     }
 
     override fun onResume() {
         super.onResume()
+        Log.d(TAG, "onResume: ")
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop: ")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart: ")
 
         if (isLocationEnabled(this)) {
+
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request the missing permissions, and then overriding
@@ -714,12 +729,14 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                 // for ActivityCompat#requestPermissions for more details.
                 return
             }
-
             fusedLocationProviderClient.lastLocation.addOnSuccessListener {
                 // Got last known location. In some rare situations this can be null.
                 //25.2048° N, 55.2708° E
                 latitude = it?.latitude.toString()
                 longitude = it?.longitude.toString()
+
+                Log.d(TAG, "onRequestPermissionsResult: latitude = " + it.latitude)
+                Log.d(TAG, "onRequestPermissionsResult: longitude = " + it.longitude)
 
                 if (this::latitude.isInitialized || this::longitude.isInitialized) {
                     featuredRecycler()
@@ -727,27 +744,8 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                 }
             }
 
-        } else {
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle(R.string.locationService)
-            builder.setMessage(R.string.locatonServiceMessage)
-            //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
-            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-                this.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            }
-            builder.setNegativeButton(android.R.string.no) { dialog, which ->
-
-            }
-            builder.show()
         }
-
     }
-
-
-    override fun onStop() {
-        super.onStop()
-    }
-
 
     companion object {
         private const val TAG = "UserDashboard"
