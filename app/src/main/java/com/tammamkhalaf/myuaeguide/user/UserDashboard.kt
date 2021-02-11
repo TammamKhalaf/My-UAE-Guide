@@ -453,11 +453,13 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
         Log.d(TAG, ("featuredRecycler: $latitude<-->$longitude"))
 
         if (this::latitude.isInitialized || this::longitude.isInitialized) {
-            viewModel.discoverHerePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
+            //viewModel.discoverHerePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng", DEPRECATED
+            viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
                     "$latitude,$longitude", list)
         }
 
-        viewModel.discoverHerePlacesHereDeveloperLiveData.observe(this, Observer {
+        //viewModel.discoverHerePlacesHereDeveloperLiveData.observe(this, Observer {
+        viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this, Observer {
             for (item in it.results.items) {
                 var str: StringBuilder
                 if (item.title.length > 25) {

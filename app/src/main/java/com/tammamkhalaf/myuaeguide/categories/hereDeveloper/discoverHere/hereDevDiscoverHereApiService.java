@@ -16,7 +16,7 @@ public interface  hereDevDiscoverHereApiService {
      * &app_code={YOUR_APP_CODE}&
      * at=52.50449,13.39091&pretty
      */
-    @GET("places/v1/discover/around/")//todo change concepts from discover here to discover around
+    @GET("places/v1/discover/around/")//todo change concepts from discover here to discover around AND
     Observable<DiscoverHereResponse> getHerePlaces(
             @Query("app_id") String app_id,//dmLgAQo631UJfwF5R2hH
             @Query("app_code") String app_code,//391hkRjz5Z3Ee1h3wz6Kng
