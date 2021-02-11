@@ -3,11 +3,13 @@ package com.tammamkhalaf.myuaeguide.user
 import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.GradientDrawable
+import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -26,6 +28,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
+import androidx.multidex.BuildConfig
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -34,7 +37,6 @@ import com.google.android.gms.location.*
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.google.android.material.navigation.NavigationView
 import com.nostra13.universalimageloader.core.ImageLoader
-import com.tammamkhalaf.myuaeguide.BuildConfig
 import com.tammamkhalaf.myuaeguide.R
 import com.tammamkhalaf.myuaeguide.R.string
 import com.tammamkhalaf.myuaeguide.chat.ChatActivity
@@ -57,10 +59,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import org.reactivestreams.Subscriber
 import java.util.*
 import java.util.concurrent.TimeUnit
-import android.location.LocationManager
-
-import android.os.Build
-import android.provider.Settings
 
 
 @AndroidEntryPoint
@@ -284,14 +282,13 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
 
         container.startShimmer()
 
-        viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
+          viewModel.discoverExplorePlacesHereDeveloper("dmLgAQo631UJfwF5R2hH", "391hkRjz5Z3Ee1h3wz6Kng",
                 "$latitude,$longitude", data)
 
         listOfMostViewedAdapter.clear()
         mostViewedRecycler?.adapter?.notifyDataSetChanged()
 
-        viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this,
-                Observer {
+          viewModel.discoverExplorePlacesHereDeveloperLiveData.observe(this, Observer {
                     for (item in it.results.items) {
                         var str: StringBuilder
                         if (item.title.length > 21) {
@@ -300,6 +297,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                         } else {
                             str = java.lang.StringBuilder(item.title)
                         }
+
                         listOfMostViewedAdapter.add(MostViewedHelperClass(
                                 item.icon,
                                 str.toString(),
@@ -316,8 +314,7 @@ open class UserDashboard : AppCompatActivity(), NavigationView.OnNavigationItemS
                     if (mostViewedRecycler?.adapter != null) // it works second time and later
                         mostViewedRecycler?.adapter?.notifyDataSetChanged()
                     else {
-                        mostViewedRecycler?.adapter = MostViewedAdapter(listOfMostViewedAdapter,
-                                this)
+                        mostViewedRecycler?.adapter = MostViewedAdapter(listOfMostViewedAdapter, this)
                     }
                     container.stopShimmer()
                     container.visibility = GONE
