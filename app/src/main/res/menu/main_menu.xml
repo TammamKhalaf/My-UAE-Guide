@@ -72,7 +72,7 @@
                     android:id="@+id/nav_education"
                     android:title="@string/education" />
                 <item
-                    android:icon="@drawable/shop"
+                    android:icon="@drawable/shops"
                     android:id="@+id/nav_shop"
                     android:title="@string/shops" />
             </group>
