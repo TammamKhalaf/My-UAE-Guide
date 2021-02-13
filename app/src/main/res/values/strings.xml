@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">My Uae Guide</string>
-    <string name="logo_name">My\nUae Guide</string>
+    <string name="app_name">My UAE Guide</string>
+    <string name="logo_name">My\n UAE Guide</string>
     <string name="slogan_name">We will help you to find your way!</string>
     <string name="powered_by_line">Powered By Tammam Khalaf</string>
 
@@ -387,8 +387,8 @@
     <string name="accept">Ok</string>
     <string name="licenses">licenses</string>
     <string name="ok">ok</string>
-    <string name="text_location_permission">please enable location gps</string>
-    <string name="title_location_permission">location permission</string>
+    <string name="text_location_permission" translatable="false">please enable location gps</string>
+    <string name="title_location_permission" translatable="false">location permission</string>
     <string name="locationService">Location Service Required</string>
     <string name="locatonServiceMessage">Please Enable Location Service To Use The Application</string>
 
